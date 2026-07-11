@@ -1,86 +1,192 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MailSignal — Sichtbarer Briefkasten-Status ohne App</title>
-  <meta name="description" content="MailSignal zeigt sichtbar an, ob seit der letzten Kontrolle Post eingeworfen wurde. Ohne App, WLAN, Bluetooth oder Cloud." />
-  <meta property="og:title" content="MailSignal — Nie wieder umsonst zum Briefkasten" />
-  <meta property="og:description" content="Einfacher, solarbetriebener Statusindikator für Briefkästen. Offline. Werkzeuglos. Sichtbar." />
-  <meta property="og:image" content="assets/images/mailboxes-cluster.png" />
-  <link rel="icon" href="assets/images/favicon.svg" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MailSignal — Sichtbarer Briefkasten-Status ohne App</title>
+<meta name="description" content="MailSignal zeigt sichtbar an, ob seit der letzten Kontrolle Post eingeworfen wurde. Ohne App, WLAN, Bluetooth oder Cloud." />
+<meta property="og:title" content="MailSignal — Nie wieder umsonst zum Briefkasten" />
+<meta property="og:description" content="Solarbetriebener Statusindikator für Briefkästen. Offline. Werkzeuglos. Sichtbar." />
+<meta property="og:image" content="assets/images/mailboxes-cluster.png" />
+<link rel="icon" href="assets/images/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
+
 <header class="nav">
-  <a href="#top" class="brand" aria-label="MailSignal Startseite"><span class="logo"></span><b>MailSignal</b></a>
-  <button class="menu" aria-label="Menü öffnen">☰</button>
+  <a href="#top" class="brand" aria-label="MailSignal Startseite">
+    <span class="signalDot" aria-hidden="true"></span><b>MailSignal</b>
+  </a>
+  <button class="menuBtn" aria-label="Menü öffnen" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <nav>
-    <a href="#problem">Problem</a><a href="#solution">Lösung</a><a href="#works">Funktion</a><a href="#market">Markt</a><a href="#contact" class="btn small">Kontakt</a>
+    <a href="#problem">Problem</a>
+    <a href="#solution">Lösung</a>
+    <a href="#works">Funktion</a>
+    <a href="#opportunity">Marktchance</a>
+    <a href="#market">Zielgruppen</a>
+    <a href="#contact" class="btn small">Kontakt aufnehmen</a>
   </nav>
 </header>
 
 <main id="top">
-<section class="hero">
-  <div class="heroText">
-    <p class="eyebrow">Entwickelt in Deutschland · Für Europa gebaut</p>
-    <h1>Nie wieder umsonst zum <span>Briefkasten.</span></h1>
-    <p class="lead">MailSignal zeigt direkt am Briefkasten, ob seit der letzten Kontrolle Post eingeworfen wurde — sichtbar, offline und ohne App.</p>
-    <div class="actions"><a class="btn" href="#contact">Pilotprojekt anfragen</a><a class="btn ghost" href="#works">So funktioniert es</a></div>
-    <div class="badges"><span>Keine App</span><span>Kein WLAN</span><span>Solarbetrieben</span><span>Werkzeuglos</span></div>
-  </div>
-  <div class="heroImage cardGlow">
-    <img src="assets/images/mailboxes-cluster.png" alt="Mehrere Briefkästen mit MailSignal Indikatoren" />
-  </div>
-</section>
 
-<section id="problem" class="split">
-  <div><p class="eyebrow">Problem</p><h2>Der tägliche Weg zum leeren Briefkasten.</h2><p>Viele Menschen prüfen ihren Briefkasten täglich, ohne zu wissen, ob überhaupt Post angekommen ist. Das kostet Zeit, Wege und Aufmerksamkeit.</p></div>
-  <div class="grid3"><article><b>Zeitverlust</b><p>Unnötige Wege und unterbrochene Abläufe.</p></article><article><b>Keine Information</b><p>Der Briefkasten gibt von außen keinen Status zurück.</p></article><article><b>Wichtige Post</b><p>Relevante Briefe sollen trotzdem nicht verpasst werden.</p></article></div>
-</section>
+  <section class="hero">
+    <div class="heroText">
+      <p class="eyebrow"><span class="signalDot" aria-hidden="true"></span>Entwickelt in Deutschland · Für Europa gebaut</p>
+      <h1>Ein Signal am Briefkasten. <span>Sonst nichts.</span></h1>
+      <p class="lead">MailSignal zeigt direkt am Briefkasten, ob seit der letzten Kontrolle Post eingeworfen wurde — sichtbar, offline und ohne App. Keine Cloud, kein Konto, kein Funkmodul, das ausfallen kann.</p>
+      <div class="actions">
+        <a class="btn" href="#contact">Pilotprojekt anfragen</a>
+        <a class="btn ghost" href="#opportunity">Marktchance ansehen</a>
+      </div>
+      <ul class="factRow">
+        <li><span class="signalDot small" aria-hidden="true"></span>Keine App</li>
+        <li><span class="signalDot small" aria-hidden="true"></span>Kein WLAN</li>
+        <li><span class="signalDot small" aria-hidden="true"></span>Solarbetrieben</li>
+        <li><span class="signalDot small" aria-hidden="true"></span>Werkzeuglos montiert</li>
+      </ul>
+    </div>
+    <div class="heroImage">
+      <img src="assets/images/mailboxes-cluster.png" alt="Mehrere Briefkästen mit MailSignal Indikatoren" />
+      <div class="signalBadge">
+        <span class="signalDot" aria-hidden="true"></span>
+        <div><b>Signal aktiv</b><span>Post seit letzter Kontrolle</span></div>
+      </div>
+    </div>
+  </section>
 
-<section id="solution" class="darkPanel">
-  <p class="eyebrow">Lösung</p><h2>Ein kleines Gerät. Ein klar sichtbares Signal.</h2>
-  <div class="solutionGrid">
-    <img src="assets/images/prototype-render.png" alt="MailSignal am Briefkasten" />
-    <div class="checks"><p>MailSignal wird außen am Briefkasten befestigt. Wird die Klappe bewegt, erkennt der Mechanismus die Zustellung und aktiviert eine sichtbare LED-Anzeige.</p><ul><li>Magnetische Befestigung ohne Bohren</li><li>Solarbetrieb bei Tageslicht</li><li>Kein Konto, keine Cloud, keine Verbindung</li><li>Manueller Reset nach der Kontrolle</li></ul></div>
-  </div>
-</section>
+  <section id="problem" class="split">
+    <div class="splitIntro">
+      <p class="eyebrow">Problem</p>
+      <h2>Der Briefkasten gibt keine Auskunft.</h2>
+      <p>Millionen Menschen legen täglich den Weg zum Briefkasten zurück, ohne zu wissen, ob sich die Kontrolle überhaupt lohnt. Das kostet Zeit, unterbricht Abläufe — und lässt sich mit einem einzigen sichtbaren Signal lösen.</p>
+    </div>
+    <div class="grid3">
+      <article><span class="num">01</span><b>Unnötige Wege</b><p>Tägliche Kontrolle ohne Informationswert, oft mehrfach am Tag.</p></article>
+      <article><span class="num">02</span><b>Keine Statusanzeige</b><p>Der Briefkasten selbst liefert von außen keinerlei Rückmeldung.</p></article>
+      <article><span class="num">03</span><b>Zeitkritische Post</b><p>Wichtige Sendungen sollen trotzdem nicht unbemerkt liegen bleiben.</p></article>
+    </div>
+  </section>
 
-<section id="works">
-  <p class="eyebrow">Funktion</p><h2>So funktioniert MailSignal.</h2>
-  <div class="steps">
-    <div><span>1</span><b>Klappe öffnet</b><p>Einwurfklappe wird bei Zustellung bewegt.</p></div>
-    <div><span>2</span><b>Sensor erkennt</b><p>Der einfache Mechanismus registriert die Bewegung.</p></div>
-    <div><span>3</span><b>LED blinkt</b><p>Das Signal wird aktiviert und ist sichtbar.</p></div>
-    <div><span>4</span><b>Status bleibt</b><p>Bis zur nächsten Kontrolle bleibt der Status erkennbar.</p></div>
-    <div><span>5</span><b>Reset</b><p>Nach der Entnahme wird MailSignal manuell zurückgesetzt.</p></div>
-  </div>
-</section>
+  <section id="solution" class="darkPanel">
+    <p class="eyebrow light"><span class="signalDot" aria-hidden="true"></span>Lösung</p>
+    <h2>Ein Bauteil. Ein Signal, das man von Weitem sieht.</h2>
+    <div class="solutionGrid">
+      <div class="solutionImage">
+        <img src="assets/images/prototype-render.png" alt="MailSignal am Briefkasten" />
+      </div>
+      <div class="checks">
+        <p>MailSignal wird außen am Briefkasten befestigt. Bewegt sich die Einwurfklappe, erkennt der Mechanismus die Zustellung und aktiviert eine sichtbare LED-Anzeige — ohne Elektronik im Innenraum des Briefkastens.</p>
+        <ul>
+          <li><span class="signalDot small" aria-hidden="true"></span>Magnetische Befestigung, ohne Bohren</li>
+          <li><span class="signalDot small" aria-hidden="true"></span>Solarbetrieb bei Tageslicht, kein Batteriewechsel</li>
+          <li><span class="signalDot small" aria-hidden="true"></span>Keine Verbindung nötig — kein Konto, keine Cloud</li>
+          <li><span class="signalDot small" aria-hidden="true"></span>Manueller Reset bei der nächsten Kontrolle</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-<section class="comparison">
-  <div><h2>Komplexität statt Einfachheit?</h2><p>Viele Smart-Lösungen setzen auf Apps, Netzwerke, Konten und Benachrichtigungen. MailSignal konzentriert sich auf das, was wirklich zählt: sichtbar erkennen, ob Post da ist.</p></div>
-  <table><tr><th>Typische Smart-Geräte</th><th>MailSignal</th></tr><tr><td>App erforderlich</td><td>Keine App</td></tr><tr><td>Wi-Fi / Bluetooth</td><td>100% offline</td></tr><tr><td>Cloud / Konto</td><td>Kein Konto</td></tr><tr><td>Komplexe Einrichtung</td><td>In Sekunden montiert</td></tr></table>
-</section>
+  <section id="works">
+    <p class="eyebrow">Funktion</p>
+    <h2>Fünf Schritte, ein Signal.</h2>
+    <div class="steps">
+      <div><span class="stepNum">1</span><b>Klappe öffnet</b><p>Die Einwurfklappe bewegt sich bei Zustellung.</p></div>
+      <div><span class="stepNum">2</span><b>Mechanismus registriert</b><p>Ein einfacher, verschleißarmer Sensor erkennt die Bewegung.</p></div>
+      <div><span class="stepNum">3</span><b>LED aktiviert</b><p>Das Signal wird ausgelöst und ist von Weitem sichtbar.</p></div>
+      <div><span class="stepNum">4</span><b>Status bleibt sichtbar</b><p>Bis zur nächsten Kontrolle bleibt der Zustand erkennbar.</p></div>
+      <div><span class="stepNum">5</span><b>Reset</b><p>Nach der Entnahme wird MailSignal manuell zurückgesetzt.</p></div>
+    </div>
+  </section>
 
-<section id="market" class="cards">
-  <p class="eyebrow">Zielkunden</p><h2>Vom Privatkunden bis zur Hausverwaltung.</h2>
-  <div class="grid4"><article><h3>Privatkunden</h3><p>Direktvertrieb online und im Handel.</p></article><article><h3>Hausverwaltungen</h3><p>Ausstattung von Wohnanlagen mit vielen Briefkästen.</p></article><article><h3>Bauträger</h3><p>Integration in Neubauprojekte und Serienausstattung.</p></article><article><h3>Gewerbe</h3><p>Statusindikator für weitere technische Einsatzorte.</p></article></div>
-</section>
+  <section class="comparison">
+    <div class="comparisonIntro">
+      <p class="eyebrow">Warum nicht smart?</p>
+      <h2>Komplexität ist kein Feature.</h2>
+      <p>Viele vernetzte Lösungen setzen auf Apps, Funkmodule, Konten und Benachrichtigungen — mit entsprechenden Ausfallpunkten. MailSignal reduziert auf das, was zählt: sichtbar erkennen, ob Post da ist.</p>
+    </div>
+    <table>
+      <tr><th>Typische Smart-Geräte</th><th>MailSignal</th></tr>
+      <tr><td>App erforderlich</td><td>Keine App</td></tr>
+      <tr><td>WLAN / Bluetooth nötig</td><td>100 % offline</td></tr>
+      <tr><td>Cloud-Konto und Login</td><td>Kein Konto</td></tr>
+      <tr><td>Stromanschluss oder Batteriewechsel</td><td>Solarbetrieben</td></tr>
+      <tr><td>Komplexe Einrichtung</td><td>In Sekunden montiert</td></tr>
+    </table>
+  </section>
 
-<section class="gallery"><p class="eyebrow">Status heute</p><h2>Prototyp, Design und Pitch-Deck-Material.</h2><div class="galleryGrid">
-<img src="assets/images/original-prototype.jpeg" alt="Originalfoto des installierten Prototyps" />
-<img src="assets/images/5911269128960413061.jpg" alt="MailSignal Pitch Deck Titel" />
-<img src="assets/images/5911269128960413058.jpg" alt="Go-to-Market Slide" />
-<img src="assets/images/5911269128960413062.jpg" alt="Team Slide" />
-</div></section>
+  <section id="opportunity" class="darkPanel opportunity">
+    <p class="eyebrow light"><span class="signalDot" aria-hidden="true"></span>Marktchance</p>
+    <h2>Ein Massenprodukt mit klarem Vertriebsweg.</h2>
+    <div class="oppGrid">
+      <div class="oppCard">
+        <b>Breiter Absatzmarkt</b>
+        <p>Jeder private Briefkasten ist ein potenzieller Anwendungsfall — vom Einfamilienhaus bis zur Wohnanlage. Kein Erklärungsbedarf, keine Lernkurve.</p>
+      </div>
+      <div class="oppCard">
+        <b>Wiederkehrende B2B-Kanäle</b>
+        <p>Hausverwaltungen und Bauträger statten ganze Wohnanlagen und Neubauprojekte in Serie aus — planbare Stückzahlen statt Einzelverkauf.</p>
+      </div>
+      <div class="oppCard">
+        <b>Geringe Betriebskosten</b>
+        <p>Kein Server, keine App-Wartung, keine Cloud-Infrastruktur. Die Kostenstruktur bleibt schlank, auch bei wachsender Stückzahl.</p>
+      </div>
+      <div class="oppCard">
+        <b>Verteidigbare Einfachheit</b>
+        <p>Der Verzicht auf Konnektivität ist keine Einschränkung, sondern das Verkaufsargument — und schwer kopierbar für Wettbewerber, die auf App-Ökosysteme setzen.</p>
+      </div>
+    </div>
+    <p class="oppNote">Detaillierte Marktgröße, Stückkosten und Finanzierungsbedarf stellen wir im persönlichen Gespräch vor.</p>
+  </section>
 
-<section id="contact" class="contact">
-  <div><p class="eyebrow">Kontakt</p><h2>Bereit für Pilotprojekte.</h2><p>MailSignal sucht erste Pilotkunden, Feedbackpartner und Kooperationsmöglichkeiten für Hausverwaltungen, Wohnungsbau und technische Anwendungen.</p></div>
-  <form action="mailto:ladansediqi@gmail.com" method="post" enctype="text/plain"><input name="name" placeholder="Name" required><input name="email" type="email" placeholder="E-Mail" required><textarea name="message" placeholder="Nachricht" rows="5"></textarea><button class="btn" type="submit">Nachricht senden</button></form>
-</section>
+  <section id="market" class="cards">
+    <p class="eyebrow">Zielgruppen</p>
+    <h2>Vom Privathaushalt bis zur Hausverwaltung.</h2>
+    <div class="grid4">
+      <article><span class="num">A</span><h3>Privatkunden</h3><p>Direktvertrieb online und im Fachhandel.</p></article>
+      <article><span class="num">B</span><h3>Hausverwaltungen</h3><p>Ausstattung von Wohnanlagen mit vielen Briefkästen.</p></article>
+      <article><span class="num">C</span><h3>Bauträger</h3><p>Integration in Neubauprojekte und Serienausstattung.</p></article>
+      <article><span class="num">D</span><h3>Gewerbe</h3><p>Statusindikator für weitere technische Einsatzorte.</p></article>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <p class="eyebrow">Status heute</p>
+    <h2>Funktionsprototyp, Design und Präsentationsmaterial.</h2>
+    <div class="galleryGrid">
+      <img src="assets/images/original-prototype.jpeg" alt="Originalfoto des installierten Prototyps" />
+      <img src="assets/images/5911269128960413061.jpg" alt="MailSignal Pitch Deck Titel" />
+      <img src="assets/images/5911269128960413058.jpg" alt="Go-to-Market Slide" />
+      <img src="assets/images/5911269128960413062.jpg" alt="Team Slide" />
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="contactIntro">
+      <p class="eyebrow"><span class="signalDot" aria-hidden="true"></span>Kontakt</p>
+      <h2>Bereit für die ersten Pilotprojekte.</h2>
+      <p>MailSignal sucht Pilotkunden, Feedbackpartner und Investoren für den Ausbau der Serienfertigung — mit Fokus auf Hausverwaltungen, Wohnungsbau und technische Anwendungen.</p>
+    </div>
+    <form action="mailto:ladansediqi@gmail.com" method="post" enctype="text/plain">
+      <input name="name" placeholder="Name" required>
+      <input name="email" type="email" placeholder="E-Mail" required>
+      <textarea name="message" placeholder="Nachricht" rows="5"></textarea>
+      <button class="btn" type="submit">Nachricht senden</button>
+    </form>
+  </section>
+
 </main>
-<footer><b>MailSignal</b><span>© 2026 · Sichtbarer Statusindikator · Offline by design</span></footer>
+
+<footer>
+  <div class="footBrand"><span class="signalDot small" aria-hidden="true"></span><b>MailSignal</b></div>
+  <span>© 2026 · Sichtbarer Statusindikator · Offline by design</span>
+</footer>
+
 <script src="assets/js/main.js"></script>
 </body>
 </html>

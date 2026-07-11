@@ -1,13 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'raw.githubusercontent.com',
-        pathname: '/Amirmobash/mailsignal/**',
-      },
-    ],
-  },
+  reactStrictMode: true,
+  poweredByHeader: false,
 };
+
 export default nextConfig;

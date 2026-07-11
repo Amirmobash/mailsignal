@@ -13,16 +13,15 @@ import {
 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 
-const GH = 'https://raw.githubusercontent.com/Amirmobash/mailsignal/main/assets/images';
 const gallery = [
-  '5911269128960413055.jpg',
-  '5911269128960413056.jpg',
-  '5911269128960413057.jpg',
-  '5911269128960413058.jpg',
-  '5911269128960413059.jpg',
-  '5911269128960413060.jpg',
-  '5911269128960413061.jpg',
-  '5911269128960413062.jpg',
+  '/images/hero.png',
+  '/images/product.png',
+  '/images/problem.png',
+  '/images/market.png',
+  '/images/competition.png',
+  '/images/prototype.png',
+  '/images/team.png',
+  '/images/contact.png',
 ];
 
 const benefits = [
@@ -85,7 +84,7 @@ export default function Home() {
           <div className="absolute -inset-10 rounded-full bg-signal/10 blur-3xl" />
           <div className="glass relative overflow-hidden rounded-[2rem] shadow-glow">
             <Image
-              src={`${GH}/5911269128960413055.jpg`}
+              src="/images/hero.png"
               alt="MailSignal am Briefkasten"
               width={1600}
               height={1000}
@@ -139,7 +138,7 @@ export default function Home() {
       <section className="section-shell py-28">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="overflow-hidden rounded-[2rem] border border-white/10">
-            <Image src={`${GH}/5911269128960413061.jpg`} alt="MailSignal Produktpräsentation" width={1600} height={1000} className="w-full object-cover" />
+            <Image src="/images/competition.png" alt="MailSignal Produktpräsentation" width={1600} height={1000} className="w-full object-cover" />
           </div>
           <div>
             <p className="eyebrow">Warum MailSignal?</p>
@@ -168,7 +167,7 @@ export default function Home() {
         <div className="grid auto-rows-[220px] gap-4 md:grid-cols-2 lg:grid-cols-4">
           {gallery.map((file, i) => (
             <div key={file} className={`group relative overflow-hidden rounded-3xl border border-white/10 ${i === 0 || i === 5 ? 'lg:col-span-2 lg:row-span-2' : ''}`}>
-              <Image src={`${GH}/${file}`} alt={`MailSignal Präsentation ${i + 1}`} fill sizes="(max-width:768px) 100vw, 50vw" className="object-cover transition duration-500 group-hover:scale-[1.03]" />
+              <Image src={file} alt={`MailSignal Präsentation ${i + 1}`} fill sizes="(max-width:768px) 100vw, 50vw" className="object-cover transition duration-500 group-hover:scale-[1.03]" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
             </div>
           ))}

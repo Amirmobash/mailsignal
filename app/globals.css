@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html { scroll-behavior: smooth; }
+body { background: #07090c; color: white; }
+* { border-color: #20242d; }
+::selection { background: #f4b400; color: #07090c; }
+
+@layer components {
+  .section-shell { @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12; }
+  .glass { @apply border border-white/10 bg-white/[0.045] backdrop-blur-xl; }
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.22em] text-signal; }
+  .headline { @apply text-4xl font-semibold tracking-[-0.04em] sm:text-5xl lg:text-7xl; }
+  .copy { @apply text-base leading-7 text-white/65 sm:text-lg; }
+}

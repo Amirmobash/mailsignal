@@ -1,43 +1,40 @@
-# MailSignal Landing Page
+# MailSignal — Next.js landing page
 
-Complete responsive landing page built with **Next.js 15**, **React 19**, **TypeScript** and **Tailwind CSS**.
+Production-ready MailSignal landing page built with Next.js, TypeScript and Tailwind CSS. All images are stored locally in `public/images`.
 
-## Upload to GitHub
-
-Copy all files and folders from this package into the root of your repository. You may remove the old static files (`index.html`, `assets/css`, and `assets/js`) after confirming the Next.js version works.
-
-## Run locally
+## Local development
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
 Open `http://localhost:3000`.
 
-## Production build
+## Production check
 
 ```bash
+npm run typecheck
 npm run build
 npm start
 ```
 
-## Images
+## Deploy on Render
 
-All images used by the page are included locally in:
+1. Push the contents of this folder to the root of your GitHub repository.
+2. In Render, choose **New → Blueprint**.
+3. Connect the GitHub repository `Amirmobash/mailsignal`.
+4. Render reads `render.yaml` and creates the free Node web service automatically.
+5. After the first deploy, add `mailsignal.de` under **Settings → Custom Domains** and copy the DNS records shown by Render to your domain provider.
 
-```text
-public/images/
-```
+The included Blueprint uses:
 
-No external GitHub image links are required.
+- Build command: `npm ci && npm run build`
+- Start command: `npm start`
+- Health check: `/`
+- Node.js: `20.19.4`
+- Free plan
 
-## Main files
+## Important repository layout
 
-```text
-app/page.tsx          Main landing page
-app/layout.tsx        Metadata and root layout
-app/globals.css       Tailwind and global styles
-components/Logo.tsx   MailSignal logo component
-public/images/        Local website images
-```
+`package.json`, `render.yaml`, `app/`, `components/`, and `public/` must be directly in the repository root—not inside another nested folder.

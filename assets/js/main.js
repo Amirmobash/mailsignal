@@ -1,18 +1,35 @@
-// MailSignal — mobile menu toggle
-document.addEventListener('DOMContentLoaded', function () {
-  var btn = document.querySelector('.menuBtn');
-  var nav = document.querySelector('.nav nav');
-  if (!btn || !nav) return;
+document.addEventListener('DOMContentLoaded', () => {
+  const button = document.querySelector('.menuBtn');
+  const nav = document.querySelector('.nav nav');
+  const header = document.querySelector('[data-nav]');
 
-  btn.addEventListener('click', function () {
-    var isOpen = nav.classList.toggle('open');
-    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-  });
-
-  nav.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () {
-      nav.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
+  if (button && nav) {
+    button.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      button.setAttribute('aria-expanded', String(open));
     });
-  });
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      button.setAttribute('aria-expanded', 'false');
+    }));
+  }
+
+  const onScroll = () => header?.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    items.forEach(item => observer.observe(item));
+  } else {
+    items.forEach(item => item.classList.add('visible'));
+  }
 });

@@ -1,0 +1,79 @@
+#include <EEPROM.h>
+
+const byte sensorPin = 2;
+const byte rueckstellPin = 3;
+const byte signalLedPin = 9;
+const byte speicherAdresse = 0;
+
+bool postVorhanden = false;
+bool letzterSensorZustand = HIGH;
+bool letzterTastenZustand = HIGH;
+
+unsigned long sensorZeitpunkt = 0;
+unsigned long tastenZeitpunkt = 0;
+
+const unsigned long entprellZeit = 50;
+
+void statusSpeichern(bool status) {
+  byte wert = status ? 1 : 0;
+
+  if (EEPROM.read(speicherAdresse) != wert) {
+    EEPROM.update(speicherAdresse, wert);
+  }
+}
+
+void signalAktualisieren() {
+  digitalWrite(signalLedPin, postVorhanden ? HIGH : LOW);
+}
+
+void postErkennen() {
+  postVorhanden = true;
+  statusSpeichern(postVorhanden);
+  signalAktualisieren();
+}
+
+void statusZuruecksetzen() {
+  postVorhanden = false;
+  statusSpeichern(postVorhanden);
+  signalAktualisieren();
+}
+
+void setup() {
+  pinMode(sensorPin, INPUT_PULLUP);
+  pinMode(rueckstellPin, INPUT_PULLUP);
+  pinMode(signalLedPin, OUTPUT);
+
+  postVorhanden = EEPROM.read(speicherAdresse) == 1;
+  letzterSensorZustand = digitalRead(sensorPin);
+  letzterTastenZustand = digitalRead(rueckstellPin);
+
+  signalAktualisieren();
+}
+
+void loop() {
+  bool sensorZustand = digitalRead(sensorPin);
+  bool tastenZustand = digitalRead(rueckstellPin);
+
+  if (sensorZustand != letzterSensorZustand) {
+    sensorZeitpunkt = millis();
+  }
+
+  if (tastenZustand != letzterTastenZustand) {
+    tastenZeitpunkt = millis();
+  }
+
+  if (millis() - sensorZeitpunkt >= entprellZeit) {
+    if (sensorZustand == LOW && !postVorhanden) {
+      postErkennen();
+    }
+  }
+
+  if (millis() - tastenZeitpunkt >= entprellZeit) {
+    if (tastenZustand == LOW && postVorhanden) {
+      statusZuruecksetzen();
+    }
+  }
+
+  letzterSensorZustand = sensorZustand;
+  letzterTastenZustand = tastenZustand;
+}

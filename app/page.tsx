@@ -1,16 +1,14 @@
 import Image from 'next/image';
 import {
-  Eye,
-  Hammer,
   Mail,
   RadioTower,
   ShieldCheck,
   Sun,
-  WifiOff,
 } from 'lucide-react';
 
 import { CinematicHero } from '@/components/CinematicHero';
 import { Logo } from '@/components/Logo';
+import { ProductShowcase } from '@/components/ProductShowcase';
 import { ScrollStory } from '@/components/ScrollStory';
 
 const gallery = [
@@ -22,29 +20,6 @@ const gallery = [
   '/images/prototype.png',
   '/images/team.png',
   '/images/contact.png',
-];
-
-const benefits = [
-  {
-    icon: Eye,
-    title: 'Sofort sichtbar',
-    text: 'Ein klarer LED-Status direkt am Briefkasten.',
-  },
-  {
-    icon: WifiOff,
-    title: '100 % offline',
-    text: 'Keine App, kein WLAN und keine Cloud.',
-  },
-  {
-    icon: Sun,
-    title: 'Solarbetrieben',
-    text: 'Tageslicht genügt – kein regelmäßiges Nachladen.',
-  },
-  {
-    icon: Hammer,
-    title: 'Werkzeuglos',
-    text: 'In wenigen Sekunden am vorhandenen Briefkasten montiert.',
-  },
 ];
 
 const steps = [
@@ -100,48 +75,7 @@ export default function Home() {
 
       <ScrollStory />
 
-      <section
-        id="product"
-        className="section-shell scroll-mt-24 py-28 sm:py-36"
-      >
-        <p className="eyebrow">Das Produkt</p>
-
-        <div className="mt-5 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-          <h2 className="display-lg max-w-4xl text-balance">
-            Ein sichtbares Signal.
-            <span className="block text-white/40">
-              Mehr braucht es nicht.
-            </span>
-          </h2>
-
-          <p className="copy-lg max-w-2xl lg:justify-self-end">
-            MailSignal reduziert eine alltägliche Unsicherheit auf eine klare
-            Information. Keine Benachrichtigungsflut, keine Registrierung und
-            keine Abhängigkeit von digitalen Netzwerken.
-          </p>
-        </div>
-
-        <div className="mt-16 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {benefits.map(({ icon: Icon, title, text }) => (
-            <article
-              key={title}
-              className="glass-panel group rounded-[1.75rem] p-7 transition duration-500 hover:-translate-y-1 hover:border-[#ffc62a]/30"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
-                <Icon className="h-6 w-6 text-[#ffc62a]" />
-              </div>
-
-              <h3 className="mt-10 text-xl font-semibold tracking-[-0.02em]">
-                {title}
-              </h3>
-
-              <p className="mt-3 text-sm leading-6 text-white/50">
-                {text}
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <ProductShowcase />
 
       <section className="border-y border-white/10 bg-white/[0.018] py-28 sm:py-36">
         <div className="section-shell">

@@ -75,7 +75,7 @@ export function ProductShowcase() {
   return (
     <section
       ref={sectionRef}
-      id="product-showcase"
+      id="product"
       className="relative overflow-hidden border-y border-white/10 bg-[#f1f0eb] py-28 text-black sm:py-36 lg:py-44"
     >
       <div className="section-shell">

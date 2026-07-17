@@ -11,6 +11,7 @@ import {
 
 import { CinematicHero } from '@/components/CinematicHero';
 import { Logo } from '@/components/Logo';
+import { ScrollStory } from '@/components/ScrollStory';
 
 const gallery = [
   '/images/hero.png',
@@ -97,8 +98,7 @@ export default function Home() {
     <main id="top" className="overflow-hidden bg-black">
       <CinematicHero />
 
-      {/* Scroll Story will be inserted here in phase 2 */}
-      <div id="story" className="scroll-mt-24" />
+      <ScrollStory />
 
       <section
         id="product"

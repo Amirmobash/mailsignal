@@ -11,7 +11,7 @@ const steps = [
     eyebrow: 'Post kommt an',
     title: 'Der Brief wird eingeworfen.',
     text: 'Beim Einwurf bewegt die Briefklappe den integrierten Mechanismus von MailSignal.',
-    image: '/images/how-it-works-01.png',
+    image: '/images/how-it-works-step1.png',
     alt: 'Ein Brief wird in den Briefkasten eingeworfen',
   },
   {

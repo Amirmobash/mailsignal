@@ -20,7 +20,7 @@ const steps = [
     eyebrow: 'Sofort sichtbar',
     title: 'Die LED signalisiert neue Post.',
     text: 'MailSignal aktiviert das sichtbare Licht direkt am Briefkasten – ohne App, WLAN oder Cloud.',
-    image: '/images/how-it-works-02.png',
+    image: "/images/step-2-led-on.png",
     alt: 'Das MailSignal LED-Licht zeigt neue Post an',
   },
   {

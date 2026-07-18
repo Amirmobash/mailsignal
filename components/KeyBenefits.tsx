@@ -134,26 +134,26 @@ export function KeyBenefits() {
                   amount: 0.45,
                 }}
                 variants={cardVariants}
-                className="group relative min-h-[330px] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.025] p-7 transition duration-500 hover:-translate-y-0.5 hover:border-[#ffc62a]/30 hover:bg-white/[0.04] sm:p-9"
+                className="group relative min-h-[240px] overflow-hidden rounded-[1.75rem] border border-white/12 bg-white/[0.055] p-7 transition duration-500 hover:-translate-y-1 hover:border-[#ffc62a]/35 hover:bg-white/[0.075] sm:p-8"
               >
-                <div className="pointer-events-none absolute -right-14 -top-14 h-44 w-44 rounded-full bg-[#ffc62a]/0 blur-3xl transition duration-700 group-hover:bg-[#ffc62a]/[0.08]" />
+                <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/[0.025] blur-3xl transition duration-700 group-hover:bg-[#ffc62a]/[0.12]" />
 
                 <div className="flex items-start justify-between">
                   <span className="text-xs font-semibold tracking-[0.22em] text-white/24">
                     {number}
                   </span>
 
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-black/25 transition duration-500 group-hover:border-[#ffc62a]/30 group-hover:bg-[#ffc62a]/[0.06]">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/[0.055] transition duration-500 group-hover:border-[#ffc62a]/40 group-hover:bg-[#ffc62a]/[0.1]">
                     <Icon className="h-5 w-5 text-[#ffc62a] transition duration-500 group-hover:scale-110" />
                   </div>
                 </div>
 
-                <div className="absolute inset-x-7 bottom-7 sm:inset-x-9 sm:bottom-9">
-                  <h3 className="max-w-md text-3xl font-semibold tracking-[-0.045em] sm:text-4xl">
+                <div className="mt-14">
+                  <h3 className="max-w-md text-3xl font-semibold tracking-[-0.045em] sm:text-[2.15rem]">
                     {title}
                   </h3>
 
-                  <p className="mt-4 max-w-md text-base leading-7 text-white/42">
+                  <p className="mt-3 max-w-md text-sm leading-6 text-white/52 sm:text-base sm:leading-7">
                     {text}
                   </p>
                 </div>

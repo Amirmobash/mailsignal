@@ -32,56 +32,56 @@ export function ProductShowcase() {
 
   const imageOpacity = useTransform(
     scrollYProgress,
-    [0, 0.16, 0.88, 1],
-    [0.55, 1, 1, 0.78],
+    [0, 0.12, 0.88, 1],
+    [0.72, 1, 1, 0.86],
   );
 
   const eyebrowOpacity = useTransform(
-  scrollYProgress,
-  [0.06, 0.14, 0.24],
-  [0, 0.55, 1],
-);
+    scrollYProgress,
+    [0.02, 0.08, 0.16],
+    [0, 0.55, 1],
+  );
 
-const eyebrowY = useTransform(
-  scrollYProgress,
-  [0.06, 0.2],
-  reduceMotion ? [0, 0] : [18, 0],
-);
+  const eyebrowY = useTransform(
+    scrollYProgress,
+    [0.02, 0.14],
+    reduceMotion ? [0, 0] : [16, 0],
+  );
 
-const titleOpacity = useTransform(
-  scrollYProgress,
-  [0.1, 0.22, 0.38],
-  [0, 0.55, 1],
-);
+  const titleOpacity = useTransform(
+    scrollYProgress,
+    [0.05, 0.14, 0.26],
+    [0, 0.6, 1],
+  );
 
-const titleY = useTransform(
-  scrollYProgress,
-  [0.1, 0.34],
-  reduceMotion ? [0, 0] : [38, 0],
-);
+  const titleY = useTransform(
+    scrollYProgress,
+    [0.05, 0.22],
+    reduceMotion ? [0, 0] : [34, 0],
+  );
 
-const copyOpacity = useTransform(
-  scrollYProgress,
-  [0.22, 0.34, 0.5],
-  [0, 0.55, 1],
-);
+  const copyOpacity = useTransform(
+    scrollYProgress,
+    [0.12, 0.22, 0.34],
+    [0, 0.6, 1],
+  );
 
-const copyY = useTransform(
-  scrollYProgress,
-  [0.22, 0.44],
-  reduceMotion ? [0, 0] : [22, 0],
-);
+  const copyY = useTransform(
+    scrollYProgress,
+    [0.12, 0.3],
+    reduceMotion ? [0, 0] : [20, 0],
+  );
 
   const ambientGlow = useTransform(
     scrollYProgress,
-    [0, 0.4, 0.8, 1],
-    [0.04, 0.18, 0.14, 0.06],
+    [0, 0.35, 0.8, 1],
+    [0.04, 0.2, 0.14, 0.06],
   );
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[115vh] overflow-hidden bg-[#050504] text-white"
+      className="relative min-h-[110vh] overflow-hidden bg-[#050504] text-white"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#030303] via-[#040403] to-transparent" />
 
@@ -90,7 +90,7 @@ const copyY = useTransform(
         className="pointer-events-none absolute left-[31%] top-[52%] h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/12 blur-[180px]"
       />
 
-      <div className="section-shell relative z-10 flex min-h-[115vh] items-center py-20 sm:py-28 lg:py-32">
+      <div className="section-shell relative z-10 flex min-h-[110vh] items-center py-20 sm:py-28 lg:py-32">
         <div className="grid w-full gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-20">
           <motion.div
             style={{
@@ -117,25 +117,8 @@ const copyY = useTransform(
                 reduceMotion
                   ? undefined
                   : {
-                      opacity: [0.45, 0.95, 0.45],
-                      scale: [0.94, 1.08, 0.94],
-                    }
-              }
-              transition={{
-                duration: 3.2,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="pointer-events-none absolute left-[48.6%] top-[53.2%] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_8px_2px_rgba(255,198,42,0.95),0_0_22px_8px_rgba(255,198,42,0.35)]"
-            />
-
-            <motion.div
-              animate={
-                reduceMotion
-                  ? undefined
-                  : {
-                      opacity: [0.5, 1, 0.5],
-                      scale: [0.88, 1.22, 0.88],
+                      opacity: [0.55, 1, 0.55],
+                      scale: [0.92, 1.18, 0.92],
                     }
               }
               transition={{
@@ -143,7 +126,24 @@ const copyY = useTransform(
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="pointer-events-none absolute left-[48.6%] top-[53.2%] h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffd32a] shadow-[0_0_9px_3px_rgba(255,211,42,1),0_0_24px_10px_rgba(255,198,42,0.62),0_0_48px_20px_rgba(255,170,0,0.28)]"
+              className="pointer-events-none absolute left-[48.9%] top-[51.7%] h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffd32a] shadow-[0_0_10px_3px_rgba(255,211,42,1),0_0_28px_11px_rgba(255,198,42,0.72),0_0_54px_22px_rgba(255,170,0,0.32)]"
+            />
+
+            <motion.div
+              animate={
+                reduceMotion
+                  ? undefined
+                  : {
+                      opacity: [0.14, 0.48, 0.14],
+                      scale: [0.82, 1.3, 0.82],
+                    }
+              }
+              transition={{
+                duration: 2.2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              className="pointer-events-none absolute left-[48.9%] top-[51.7%] h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/34 blur-2xl"
             />
           </motion.div>
 

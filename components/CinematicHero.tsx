@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { ArrowDown, ArrowRight } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import {
   motion,
   useReducedMotion,
@@ -9,6 +9,7 @@ import {
   useTransform,
 } from 'framer-motion';
 import { useRef } from 'react';
+
 import { Logo } from '@/components/Logo';
 
 export function CinematicHero() {
@@ -17,215 +18,320 @@ export function CinematicHero() {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start start', 'end start'],
+    offset: ['start start', 'end end'],
   });
 
-  const imageScale = useTransform(
+  const productScale = useTransform(
     scrollYProgress,
-    [0, 1],
-    reduceMotion ? [1, 1] : [1.02, 1.16],
+    [0, 0.25, 0.55, 1],
+    reduceMotion ? [1, 1, 1, 1] : [0.82, 0.92, 1.04, 1.16],
   );
 
-  const imageY = useTransform(
+  const productY = useTransform(
     scrollYProgress,
-    [0, 1],
-    reduceMotion ? ['0%', '0%'] : ['0%', '12%'],
+    [0, 0.45, 1],
+    reduceMotion ? [0, 0, 0] : [40, 0, -30],
   );
 
-  const imageOpacity = useTransform(
+  const productOpacity = useTransform(
     scrollYProgress,
-    [0, 0.82, 1],
-    [1, 0.9, 0.35],
+    [0, 0.08, 0.9, 1],
+    [0.25, 1, 1, 0.4],
   );
 
-  const contentY = useTransform(
+  const backgroundGlowOpacity = useTransform(
     scrollYProgress,
-    [0, 1],
-    reduceMotion ? [0, 0] : [0, -90],
+    [0, 0.28, 0.55, 0.8, 1],
+    [0.04, 0.1, 0.28, 0.5, 0.2],
   );
 
-  const contentOpacity = useTransform(
+  const backgroundGlowScale = useTransform(
     scrollYProgress,
-    [0, 0.55, 0.9],
+    [0, 0.55, 1],
+    reduceMotion ? [1, 1, 1] : [0.55, 1.2, 1.55],
+  );
+
+  const ledOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.28, 0.42, 1],
+    [0.12, 0.12, 1, 1],
+  );
+
+  const ledScale = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.46, 0.62, 1],
+    reduceMotion ? [1, 1, 1, 1, 1] : [0.7, 0.7, 1.15, 1, 1],
+  );
+
+  const ledGlowOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.28, 0.46, 0.8, 1],
+    [0, 0, 0.9, 0.65, 0.4],
+  );
+
+  const introOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.14, 0.28],
     [1, 1, 0],
   );
 
-  const glowOpacity = useTransform(
+  const introY = useTransform(
     scrollYProgress,
-    [0, 0.5, 1],
-    [0.28, 0.7, 0.18],
+    [0, 0.28],
+    reduceMotion ? [0, 0] : [0, -45],
+  );
+
+  const detectionOpacity = useTransform(
+    scrollYProgress,
+    [0.2, 0.32, 0.46, 0.56],
+    [0, 1, 1, 0],
+  );
+
+  const detectionY = useTransform(
+    scrollYProgress,
+    [0.2, 0.36, 0.56],
+    reduceMotion ? [0, 0, 0] : [35, 0, -35],
+  );
+
+  const signalOpacity = useTransform(
+    scrollYProgress,
+    [0.45, 0.57, 0.73, 0.83],
+    [0, 1, 1, 0],
+  );
+
+  const signalY = useTransform(
+    scrollYProgress,
+    [0.45, 0.62, 0.83],
+    reduceMotion ? [0, 0, 0] : [35, 0, -35],
+  );
+
+  const finalOpacity = useTransform(
+    scrollYProgress,
+    [0.72, 0.84, 1],
+    [0, 1, 1],
+  );
+
+  const finalY = useTransform(
+    scrollYProgress,
+    [0.72, 0.88],
+    reduceMotion ? [0, 0] : [35, 0],
+  );
+
+  const progressHeight = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ['0%', '100%'],
   );
 
   return (
     <section
       ref={sectionRef}
       id="home"
-      className="relative min-h-[115vh] overflow-hidden bg-black"
+      className="relative h-[360vh] bg-[#050505]"
     >
-      <motion.div
-        className="absolute inset-0"
-        style={{
-          scale: imageScale,
-          y: imageY,
-          opacity: imageOpacity,
-        }}
-      >
-        <Image
-          src="/images/hero.png"
-          alt="MailSignal solar-powered mailbox indicator"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
+      <div className="sticky top-0 h-screen overflow-hidden">
+        <header className="absolute inset-x-0 top-0 z-50">
+          <div className="section-shell flex h-24 items-center justify-between">
+            <Logo />
 
-        <div className="absolute inset-0 bg-black/25" />
+            <nav
+              aria-label="Main navigation"
+              className="hidden items-center gap-8 text-sm text-white/55 lg:flex"
+            >
+              <a
+                href="#product"
+                className="transition duration-300 hover:text-white"
+              >
+                Produkt
+              </a>
 
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/55 to-black/10" />
+              <a
+                href="#technology"
+                className="transition duration-300 hover:text-white"
+              >
+                Technologie
+              </a>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/45" />
-      </motion.div>
+              <a
+                href="#business"
+                className="transition duration-300 hover:text-white"
+              >
+                Business
+              </a>
+            </nav>
 
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-[12%] top-[24%] h-[34rem] w-[34rem] rounded-full bg-[#ffc62a]/20 blur-[150px]"
-        style={{ opacity: glowOpacity }}
-      />
-
-      <header className="absolute inset-x-0 top-0 z-40">
-        <div className="section-shell flex h-24 items-center justify-between">
-          <Logo />
-
-          <nav
-            aria-label="Main navigation"
-            className="hidden items-center gap-8 text-sm text-white/65 lg:flex"
-          >
-            <a className="transition hover:text-white" href="#product">
-              Produkt
+            <a
+              href="#contact"
+              className="rounded-full border border-white/15 px-5 py-2.5 text-sm text-white/75 transition duration-300 hover:border-white/35 hover:text-white"
+            >
+              Kontakt
             </a>
+          </div>
+        </header>
 
-            <a className="transition hover:text-white" href="#technology">
-              Technologie
-            </a>
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04),transparent_48%)]" />
 
-            <a className="transition hover:text-white" href="#business">
-              Business
-            </a>
+          <motion.div
+            className="absolute left-1/2 top-1/2 h-[38rem] w-[38rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] blur-[170px]"
+            style={{
+              opacity: backgroundGlowOpacity,
+              scale: backgroundGlowScale,
+            }}
+          />
 
-            <a className="transition hover:text-white" href="#about">
-              Über uns
-            </a>
-          </nav>
+          <div className="absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-black/70 to-transparent" />
 
-          <a href="#contact" className="button-secondary hidden sm:inline-flex">
-            Pilotprojekt
-          </a>
+          <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black/80 to-transparent" />
         </div>
-      </header>
 
-      <motion.div
-        className="section-shell relative z-20 flex min-h-screen items-end pb-20 pt-36 sm:pb-24 lg:items-center lg:pb-0"
-        style={{
-          y: contentY,
-          opacity: contentOpacity,
-        }}
-      >
-        <div className="max-w-[920px]">
+        <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-7 inline-flex items-center gap-3 rounded-full border border-white/15 bg-black/30 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-white/70 backdrop-blur-xl"
-          >
-            <span className="signal-glow h-2 w-2 rounded-full bg-[#ffc62a]" />
-            Entwickelt in Deutschland
-          </motion.div>
-
-          <motion.h1
-            initial={reduceMotion ? false : { opacity: 0, y: 45 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.08,
-              duration: 1,
-              ease: [0.22, 1, 0.36, 1],
+            style={{
+              scale: productScale,
+              y: productY,
+              opacity: productOpacity,
             }}
-            className="display-xl text-balance max-w-[1050px]"
+            className="relative h-[54vh] w-[88vw] max-w-[920px] sm:h-[62vh] lg:h-[68vh]"
           >
-            Post erkennen.
-            <span className="block text-white/45">Ohne nachzusehen.</span>
-          </motion.h1>
+            <Image
+              src="/images/product.png"
+              alt="MailSignal am Briefkasten"
+              fill
+              priority
+              sizes="(max-width: 768px) 92vw, 920px"
+              className="object-contain"
+            />
 
-          <motion.p
-            initial={reduceMotion ? false : { opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.2,
-              duration: 0.9,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="copy-lg mt-8 max-w-[620px]"
-          >
-            MailSignal zeigt direkt am Briefkasten, ob neue Post angekommen
-            ist. Solarbetrieben, wartungsarm und vollständig offline.
-          </motion.p>
+            <motion.div
+              aria-hidden="true"
+              style={{
+                opacity: ledGlowOpacity,
+                scale: ledScale,
+              }}
+              className="absolute right-[18%] top-[54%] h-28 w-28 rounded-full bg-[#ffc62a] blur-[48px] sm:right-[21%] sm:top-[53%] sm:h-36 sm:w-36 lg:right-[22%]"
+            />
 
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.32,
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="mt-10 flex flex-wrap gap-3"
-          >
-            <a href="#contact" className="button-primary gap-2">
-              Pilotprojekt anfragen
-              <ArrowRight className="h-4 w-4" />
-            </a>
-
-            <a href="#story" className="button-secondary">
-              Produkt entdecken
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 1 }}
-            className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-xs uppercase tracking-[0.16em] text-white/45"
-          >
-            <span>Keine App</span>
-            <span>Kein WLAN</span>
-            <span>Keine Cloud</span>
-            <span>Solarbetrieben</span>
+            <motion.div
+              aria-hidden="true"
+              style={{
+                opacity: ledOpacity,
+                scale: ledScale,
+              }}
+              className="absolute right-[24%] top-[59%] h-3.5 w-3.5 rounded-full border border-white/30 bg-[#ffc62a] shadow-[0_0_16px_rgba(255,198,42,0.95),0_0_45px_rgba(255,198,42,0.75)] sm:right-[27%] sm:top-[58%] sm:h-4 sm:w-4 lg:right-[28%]"
+            />
           </motion.div>
         </div>
-      </motion.div>
 
-      <motion.a
-        href="#story"
-        aria-label="Scroll to product story"
-        initial={reduceMotion ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-8 right-6 z-30 hidden items-center gap-3 text-xs uppercase tracking-[0.2em] text-white/45 transition hover:text-white md:flex lg:right-12 xl:right-16"
-      >
-        Scroll
-        <motion.span
-          animate={reduceMotion ? undefined : { y: [0, 7, 0] }}
-          transition={{
-            duration: 1.7,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/25 backdrop-blur-xl"
+        <div className="pointer-events-none absolute inset-0 z-20">
+          <motion.div
+            style={{
+              opacity: introOpacity,
+              y: introY,
+            }}
+            className="absolute inset-x-0 top-[16%] px-6 text-center sm:top-[15%]"
+          >
+            <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/40">
+              MailSignal
+            </p>
+
+            <h1 className="mx-auto mt-5 max-w-5xl text-balance text-5xl font-semibold tracking-[-0.06em] text-white sm:text-7xl lg:text-[7rem] lg:leading-[0.9]">
+              Post erkennen.
+            </h1>
+
+            <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-white/45 sm:text-lg">
+              Ohne App. Ohne WLAN. Ohne Cloud.
+            </p>
+          </motion.div>
+
+          <motion.div
+            style={{
+              opacity: detectionOpacity,
+              y: detectionY,
+            }}
+            className="absolute inset-x-0 top-[16%] px-6 text-center"
+          >
+            <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/40">
+              01 — Erkennung
+            </p>
+
+            <h2 className="mx-auto mt-5 max-w-5xl text-balance text-5xl font-semibold tracking-[-0.055em] text-white sm:text-7xl lg:text-[6.5rem] lg:leading-[0.92]">
+              Der Einwurf
+              <span className="block text-white/35">setzt alles in Bewegung.</span>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            style={{
+              opacity: signalOpacity,
+              y: signalY,
+            }}
+            className="absolute inset-x-0 top-[16%] px-6 text-center"
+          >
+            <p className="text-xs font-medium uppercase tracking-[0.28em] text-[#ffc62a]">
+              02 — Das Signal
+            </p>
+
+            <h2 className="mx-auto mt-5 max-w-5xl text-balance text-5xl font-semibold tracking-[-0.055em] text-white sm:text-7xl lg:text-[6.5rem] lg:leading-[0.92]">
+              Post ist da.
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-white/45 sm:text-lg">
+              Ein sichtbares Lichtsignal direkt am Briefkasten.
+            </p>
+          </motion.div>
+
+          <motion.div
+            style={{
+              opacity: finalOpacity,
+              y: finalY,
+            }}
+            className="absolute inset-x-0 top-[15%] px-6 text-center"
+          >
+            <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/40">
+              03 — Sichtbar
+            </p>
+
+            <h2 className="mx-auto mt-5 max-w-6xl text-balance text-5xl font-semibold tracking-[-0.06em] text-white sm:text-7xl lg:text-[6.8rem] lg:leading-[0.9]">
+              Ein Blick genügt.
+            </h2>
+
+            <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-white/45 sm:text-lg">
+              Das Signal bleibt aktiv, bis der Briefkasten kontrolliert wird.
+            </p>
+          </motion.div>
+        </div>
+
+        <motion.div
+          style={{ opacity: introOpacity }}
+          className="absolute bottom-8 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-3 text-[10px] font-medium uppercase tracking-[0.25em] text-white/35"
         >
-          <ArrowDown className="h-4 w-4" />
-        </motion.span>
-      </motion.a>
+          Scroll
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-56 bg-gradient-to-t from-black to-transparent" />
+          <motion.div
+            animate={reduceMotion ? undefined : { y: [0, 6, 0] }}
+            transition={{
+              duration: 1.7,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-xl"
+          >
+            <ArrowDown className="h-4 w-4" />
+          </motion.div>
+        </motion.div>
+
+        <div className="absolute right-5 top-1/2 z-30 hidden h-40 w-px -translate-y-1/2 overflow-hidden bg-white/10 md:block">
+          <motion.div
+            style={{ height: progressHeight }}
+            className="absolute inset-x-0 top-0 bg-[#ffc62a]"
+          />
+        </div>
+
+        <div className="absolute bottom-6 left-6 z-30 hidden text-[10px] uppercase tracking-[0.22em] text-white/25 md:block">
+          Scroll to activate the signal
+        </div>
+      </div>
     </section>
   );
 }

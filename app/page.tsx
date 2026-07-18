@@ -5,6 +5,7 @@ import { TechnologyStory } from '@/components/TechnologyStory';
 import { VisualStory } from '@/components/VisualStory';
 import { BusinessShowcase } from '@/components/BusinessShowcase';
 import { ContactCTA } from '@/components/ContactCTA';
+import { KeyBenefits } from '@/components/KeyBenefits';
 
 
 export default function Home() {
@@ -13,6 +14,8 @@ export default function Home() {
       <CinematicHero />
 
       <ProductShowcase />
+
+      <KeyBenefits />
 
       <TechnologyStory />
 

@@ -38,38 +38,38 @@ export function ProductShowcase() {
 
   const eyebrowOpacity = useTransform(
   scrollYProgress,
-  [0.18, 0.34, 0.56],
-  [0, 0.35, 1],
+  [0.06, 0.14, 0.24],
+  [0, 0.55, 1],
 );
 
 const eyebrowY = useTransform(
   scrollYProgress,
-  [0.18, 0.5],
-  reduceMotion ? [0, 0] : [24, 0],
+  [0.06, 0.2],
+  reduceMotion ? [0, 0] : [18, 0],
 );
 
 const titleOpacity = useTransform(
   scrollYProgress,
-  [0.24, 0.48, 0.72],
-  [0, 0.28, 1],
+  [0.1, 0.22, 0.38],
+  [0, 0.55, 1],
 );
 
 const titleY = useTransform(
   scrollYProgress,
-  [0.24, 0.64],
-  reduceMotion ? [0, 0] : [56, 0],
+  [0.1, 0.34],
+  reduceMotion ? [0, 0] : [38, 0],
 );
 
 const copyOpacity = useTransform(
   scrollYProgress,
-  [0.42, 0.62, 0.82],
-  [0, 0.3, 1],
+  [0.22, 0.34, 0.5],
+  [0, 0.55, 1],
 );
 
 const copyY = useTransform(
   scrollYProgress,
-  [0.42, 0.76],
-  reduceMotion ? [0, 0] : [30, 0],
+  [0.22, 0.44],
+  reduceMotion ? [0, 0] : [22, 0],
 );
 
   const ambientGlow = useTransform(
@@ -126,7 +126,7 @@ const copyY = useTransform(
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="pointer-events-none absolute left-[47.8%] top-[54.8%] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_8px_2px_rgba(255,198,42,0.95),0_0_22px_8px_rgba(255,198,42,0.35)]"
+              className="pointer-events-none absolute left-[48.6%] top-[53.2%] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_8px_2px_rgba(255,198,42,0.95),0_0_22px_8px_rgba(255,198,42,0.35)]"
             />
 
             <motion.div
@@ -134,16 +134,16 @@ const copyY = useTransform(
                 reduceMotion
                   ? undefined
                   : {
-                      opacity: [0.08, 0.26, 0.08],
-                      scale: [0.8, 1.2, 0.8],
+                      opacity: [0.5, 1, 0.5],
+                      scale: [0.88, 1.22, 0.88],
                     }
               }
               transition={{
-                duration: 3.2,
+                duration: 2.2,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="pointer-events-none absolute left-[47.8%] top-[54.8%] h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/18 blur-2xl"
+              className="pointer-events-none absolute left-[48.6%] top-[53.2%] h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffd32a] shadow-[0_0_9px_3px_rgba(255,211,42,1),0_0_24px_10px_rgba(255,198,42,0.62),0_0_48px_20px_rgba(255,170,0,0.28)]"
             />
           </motion.div>
 

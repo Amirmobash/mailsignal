@@ -46,25 +46,25 @@ export function CinematicHero() {
 
   const ledOpacity = useTransform(
   scrollYProgress,
-  [0.22, 0.42, 0.62],
-  [0, 0.28, 1],
+  [0.12, 0.28, 0.48],
+  [0, 0.3, 1],
 );
 
 const glowOpacity = useTransform(
   scrollYProgress,
-  [0.26, 0.46, 0.68],
+  [0.16, 0.34, 0.54],
   [0, 0.18, 0.56],
 );
 
 const messageOpacity = useTransform(
   scrollYProgress,
-  [0.42, 0.58, 0.74],
+  [0.32, 0.48, 0.68],
   [0, 1, 1],
 );
 
 const messageY = useTransform(
   scrollYProgress,
-  [0.42, 0.58],
+  [0.32, 0.48],
   [18, 0],
 );
 
@@ -72,7 +72,7 @@ const messageY = useTransform(
     <section
       ref={sectionRef}
       id="product"
-      className="relative h-[190vh] bg-[#030303] text-white"
+      className="relative h-[135vh] bg-[#030303] text-white"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <header className="absolute inset-x-0 top-0 z-30">
@@ -154,12 +154,12 @@ const messageY = useTransform(
 
             <motion.div
               style={{ opacity: ledOpacity }}
-              className="pointer-events-none absolute left-[50%] top-[72.7%] h-[2.2%] w-[2.2%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_10px_3px_rgba(255,198,42,0.95),0_0_34px_12px_rgba(255,198,42,0.42)]"
+              className="pointer-events-none absolute left-[50%] top-[74.2%] h-[2.2%] w-[2.2%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_10px_3px_rgba(255,198,42,0.95),0_0_34px_12px_rgba(255,198,42,0.42)]"
             />
 
             <motion.div
               style={{ opacity: glowOpacity }}
-              className="pointer-events-none absolute left-[50%] top-[72.7%] h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/30 blur-3xl"
+              className="pointer-events-none absolute left-[50%] top-[74.2%] h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/30 blur-3xl"
             />
           </motion.div>
 
@@ -168,7 +168,7 @@ const messageY = useTransform(
               opacity: messageOpacity,
               y: messageY,
             }}
-            className="absolute bottom-[9%] text-center"
+            className="absolute bottom-[7%] text-center"
           >
             <p className="text-sm font-medium tracking-[0.04em] text-[#ffc62a] sm:text-base">
               Neue Post ist angekommen.

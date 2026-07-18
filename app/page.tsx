@@ -6,6 +6,7 @@ import { VisualStory } from '@/components/VisualStory';
 import { BusinessShowcase } from '@/components/BusinessShowcase';
 import { ContactCTA } from '@/components/ContactCTA';
 import { KeyBenefits } from '@/components/KeyBenefits';
+import { HowItWorks } from '@/components/HowItWorks';
 
 
 export default function Home() {
@@ -16,6 +17,8 @@ export default function Home() {
       <ProductShowcase />
 
       <KeyBenefits />
+
+      <HowItWorks />
 
       <TechnologyStory />
 

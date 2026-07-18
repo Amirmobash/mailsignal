@@ -18,6 +18,8 @@ export default function Home() {
 
       <TechnologyStory />
 
+      <VisualStory />
+
       <section
         id="business"
         className="scroll-mt-24 border-y border-white/10 bg-white/[0.018] py-28 sm:py-36"

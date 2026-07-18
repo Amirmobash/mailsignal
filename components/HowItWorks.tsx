@@ -1,10 +1,25 @@
 'use client';
 
 import Image from 'next/image';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+} from 'framer-motion';
 import { useState } from 'react';
 
-const steps = [
+type Step = {
+  number: string;
+  tab: string;
+  eyebrow: string;
+  title: string;
+  text: string;
+  image: string;
+  alt: string;
+  type: 'photo' | 'device';
+};
+
+const steps: Step[] = [
   {
     number: '01',
     tab: 'Einwurf',
@@ -13,6 +28,7 @@ const steps = [
     text: 'Beim Einwurf bewegt die Briefklappe den integrierten Mechanismus von MailSignal.',
     image: '/images/how-it-works-step1.png',
     alt: 'Ein Brief wird in den Briefkasten eingeworfen',
+    type: 'photo',
   },
   {
     number: '02',
@@ -20,17 +36,19 @@ const steps = [
     eyebrow: 'Sofort sichtbar',
     title: 'Die LED signalisiert neue Post.',
     text: 'MailSignal aktiviert das sichtbare Licht direkt am Briefkasten – ohne App, WLAN oder Cloud.',
-    image: "/images/step-2-led-on.png",
+    image: '/images/step-2-led-on.png',
     alt: 'Das MailSignal LED-Licht zeigt neue Post an',
+    type: 'photo',
   },
   {
     number: '03',
     tab: 'Reset',
-    eyebrow: 'Einfach zurücksetzen',
+    eyebrow: 'Manuell zurücksetzen',
     title: 'Mit einem Handgriff bereit.',
-    text: 'Nach der Leerung wird MailSignal über die Taste am Gerät manuell zurückgesetzt.',
-    image: '/images/how-it-works-03.png',
-    alt: 'MailSignal wird manuell über die Taste zurückgesetzt',
+    text: 'Nach der Leerung wird MailSignal über die kleine Taste an der Geräteseite zurückgesetzt.',
+    image: '/images/how-it-works-03-device.png',
+    alt: 'MailSignal Gerät mit seitlicher Reset-Taste',
+    type: 'device',
   },
 ];
 
@@ -39,12 +57,14 @@ export function HowItWorks() {
   const reduceMotion = useReducedMotion();
 
   const active = steps[activeStep];
+  const isDeviceStep = active.type === 'device';
 
   return (
     <section
       id="how-it-works"
       className="relative overflow-hidden bg-[#f1e5ca] py-24 text-[#19130f] sm:py-32 lg:py-40"
     >
+      {/* Background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-[22%] h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-[#ffc62a]/10 blur-[190px]" />
 
@@ -52,6 +72,7 @@ export function HowItWorks() {
       </div>
 
       <div className="section-shell relative z-10">
+        {/* Section heading */}
         <motion.div
           initial={
             reduceMotion
@@ -81,7 +102,10 @@ export function HowItWorks() {
 
           <h2 className="mt-6 text-balance text-5xl font-semibold tracking-[-0.06em] sm:text-7xl lg:text-[6.5rem] lg:leading-[0.92]">
             Drei Schritte.
-            <span className="block text-black/28">Ein klares Signal.</span>
+
+            <span className="block text-black/28">
+              Ein klares Signal.
+            </span>
           </h2>
 
           <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-black/48">
@@ -90,19 +114,26 @@ export function HowItWorks() {
           </p>
         </motion.div>
 
+        {/* Main interactive box */}
         <div className="mx-auto mt-16 w-full max-w-[1240px] sm:mt-20">
-          <div className="relative overflow-hidden rounded-[2.25rem] border border-black/10 bg-[#15130f] shadow-[0_35px_100px_rgba(55,35,5,0.18)]">
+          <div className="relative overflow-hidden rounded-[2.25rem] border border-black/10 bg-[#11110f] shadow-[0_35px_100px_rgba(55,35,5,0.18)]">
             <div className="relative min-h-[620px] sm:min-h-[690px] lg:min-h-[650px]">
+              {/* Visual content */}
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={active.number}
+                  key={`visual-${active.number}`}
                   initial={
                     reduceMotion
                       ? false
-                      : {
-                          opacity: 0,
-                          scale: 1.025,
-                        }
+                      : isDeviceStep
+                        ? {
+                            opacity: 0,
+                            scale: 0.88,
+                          }
+                        : {
+                            opacity: 0,
+                            scale: 1.025,
+                          }
                   }
                   animate={{
                     opacity: 1,
@@ -113,30 +144,154 @@ export function HowItWorks() {
                       ? undefined
                       : {
                           opacity: 0,
-                          scale: 0.99,
+                          scale: isDeviceStep ? 0.94 : 0.99,
                         }
                   }
                   transition={{
-                    duration: 0.7,
+                    duration: isDeviceStep ? 0.95 : 0.7,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   className="absolute inset-0"
                 >
-                  <Image
-                    src={active.image}
-                    alt={active.alt}
-                    fill
-                    sizes="(max-width: 1280px) 100vw, 1240px"
-                    className="object-cover"
-                    priority={activeStep === 0}
-                  />
+                  {isDeviceStep ? (
+                    <>
+                      {/* Device background */}
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_64%_48%,rgba(255,198,42,0.11),transparent_28%),linear-gradient(135deg,#171611_0%,#0c0c0b_52%,#050505_100%)]" />
 
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/78 via-black/34 to-black/8" />
+                      <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:28px_28px]" />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-transparent to-black/12" />
+                      {/* 3D device */}
+                      <div className="absolute inset-0 flex items-center justify-center [perspective:1400px]">
+                        <motion.div
+                          initial={
+                            reduceMotion
+                              ? false
+                              : {
+                                  rotateY: -22,
+                                  rotateX: 4,
+                                  y: 24,
+                                }
+                          }
+                          animate={{
+                            rotateY: 0,
+                            rotateX: 0,
+                            y: 0,
+                          }}
+                          exit={
+                            reduceMotion
+                              ? undefined
+                              : {
+                                  rotateY: 16,
+                                  rotateX: -3,
+                                  y: -12,
+                                }
+                          }
+                          whileHover={
+                            reduceMotion
+                              ? undefined
+                              : {
+                                  rotateY: -5,
+                                  rotateX: 2,
+                                  scale: 1.015,
+                                }
+                          }
+                          transition={{
+                            duration: 1,
+                            ease: [0.22, 1, 0.36, 1],
+                          }}
+                          className="relative mb-12 h-[68%] w-[72%] sm:h-[74%] sm:w-[68%] lg:h-[82%] lg:w-[64%] [transform-style:preserve-3d]"
+                        >
+                          <Image
+                            src={active.image}
+                            alt={active.alt}
+                            fill
+                            priority
+                            sizes="(max-width: 768px) 78vw, 760px"
+                            className="select-none object-contain"
+                          />
+
+                          <div className="pointer-events-none absolute bottom-[4%] left-[20%] right-[8%] h-12 rounded-full bg-black/45 blur-2xl" />
+                        </motion.div>
+                      </div>
+
+                      {/* Reset button indicator */}
+                      <motion.div
+                        initial={
+                          reduceMotion
+                            ? false
+                            : {
+                                opacity: 0,
+                                scale: 0.65,
+                                x: 10,
+                              }
+                        }
+                        animate={{
+                          opacity: 1,
+                          scale: 1,
+                          x: 0,
+                        }}
+                        exit={{
+                          opacity: 0,
+                          scale: 0.8,
+                        }}
+                        transition={{
+                          delay: reduceMotion ? 0 : 0.72,
+                          duration: 0.5,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                        className="pointer-events-none absolute right-[16%] top-[48%] z-20 sm:right-[20%] lg:right-[22%]"
+                      >
+                        <div className="relative">
+                          <motion.div
+                            animate={
+                              reduceMotion
+                                ? undefined
+                                : {
+                                    opacity: [0.55, 1, 0.55],
+                                    scale: [0.9, 1.15, 0.9],
+                                  }
+                            }
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: 'easeInOut',
+                            }}
+                            className="h-3 w-3 rounded-full bg-[#ffc62a] shadow-[0_0_10px_3px_rgba(255,198,42,0.9),0_0_30px_10px_rgba(255,198,42,0.35)]"
+                          />
+
+                          <div className="absolute right-3 top-1/2 h-px w-14 -translate-y-1/2 bg-gradient-to-l from-[#ffc62a] to-transparent sm:w-20" />
+
+                          <span className="absolute right-[4.75rem] top-1/2 hidden -translate-y-1/2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.2em] text-[#ffc62a] sm:block sm:right-[6rem]">
+                            Reset-Taste
+                          </span>
+                        </div>
+                      </motion.div>
+
+                      {/* Dark overlays for text readability */}
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/72 via-black/12 to-transparent" />
+
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10" />
+                    </>
+                  ) : (
+                    <>
+                      <Image
+                        src={active.image}
+                        alt={active.alt}
+                        fill
+                        priority={activeStep === 0}
+                        sizes="(max-width: 1280px) 100vw, 1240px"
+                        className="object-cover"
+                      />
+
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/78 via-black/34 to-black/8" />
+
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/72 via-transparent to-black/12" />
+                    </>
+                  )}
                 </motion.div>
               </AnimatePresence>
 
+              {/* Text content */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`copy-${active.number}`}
@@ -161,7 +316,7 @@ export function HowItWorks() {
                         }
                   }
                   transition={{
-                    delay: reduceMotion ? 0 : 0.12,
+                    delay: reduceMotion ? 0 : 0.14,
                     duration: 0.65,
                     ease: [0.22, 1, 0.36, 1],
                   }}
@@ -192,8 +347,9 @@ export function HowItWorks() {
               </AnimatePresence>
             </div>
 
-            <div className="absolute inset-x-5 bottom-5 z-20 sm:inset-x-8 sm:bottom-7">
-              <div className="relative grid grid-cols-3 overflow-hidden rounded-full border border-white/15 bg-black/45 p-1.5 backdrop-blur-xl">
+            {/* Tabs */}
+            <div className="absolute inset-x-5 bottom-5 z-30 sm:inset-x-8 sm:bottom-7">
+              <div className="relative grid grid-cols-3 overflow-hidden rounded-full border border-white/15 bg-black/50 p-1.5 backdrop-blur-xl">
                 <motion.div
                   className="absolute bottom-1.5 top-1.5 rounded-full border border-[#ffc62a]/30 bg-[#ffc62a]/14 shadow-[0_0_30px_rgba(255,198,42,0.1)]"
                   animate={{

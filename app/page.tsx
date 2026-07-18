@@ -9,7 +9,7 @@ import {
 import { CinematicHero } from '@/components/CinematicHero';
 import { Logo } from '@/components/Logo';
 import { ProductShowcase } from '@/components/ProductShowcase';
-import { ScrollStory } from '@/components/ScrollStory';
+
 
 const gallery = [
   '/images/hero.png',
@@ -73,7 +73,7 @@ export default function Home() {
     <main id="top" className="overflow-hidden bg-black">
       <CinematicHero />
 
-      <ScrollStory />
+     
 
       <ProductShowcase />
 

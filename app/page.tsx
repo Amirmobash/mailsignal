@@ -6,6 +6,7 @@ import { Logo } from '@/components/Logo';
 import { ProductShowcase } from '@/components/ProductShowcase';
 import { TechnologyStory } from '@/components/TechnologyStory';
 import { VisualStory } from '@/components/VisualStory';
+import { BusinessShowcase } from '@/components/BusinessShowcase';
 
 
 
@@ -20,37 +21,7 @@ export default function Home() {
 
       <VisualStory />
 
-      <section
-        id="business"
-        className="scroll-mt-24 border-y border-white/10 bg-white/[0.018] py-28 sm:py-36"
-      >
-        <div className="section-shell">
-          <div className="grid gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-end">
-            <div>
-              <p className="eyebrow">Business</p>
-
-              <h2 className="display-lg mt-5 max-w-5xl text-balance">
-                Eine einfache Lösung für bestehende Infrastruktur.
-              </h2>
-            </div>
-
-            <div>
-              <p className="copy-lg">
-                MailSignal kann an bestehenden Briefkästen nachgerüstet und
-                perspektivisch auf Paketboxen, Wartungsklappen und weitere
-                Gehäuse übertragen werden.
-              </p>
-
-              <div className="mt-8 flex flex-wrap gap-3 text-xs uppercase tracking-[0.16em] text-white/45">
-                <span>Privathaushalte</span>
-                <span>Hausverwaltungen</span>
-                <span>Hersteller</span>
-                <span>Pilotpartner</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+     <BusinessShowcase />
 
       <section
         id="contact"

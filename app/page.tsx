@@ -1,21 +1,13 @@
-import Image from 'next/image';
+
 import { Mail } from 'lucide-react';
 
 import { CinematicHero } from '@/components/CinematicHero';
 import { Logo } from '@/components/Logo';
 import { ProductShowcase } from '@/components/ProductShowcase';
 import { TechnologyStory } from '@/components/TechnologyStory';
+import { VisualStory } from '@/components/VisualStory';
 
-const gallery = [
-  '/images/hero.png',
-  '/images/product.png',
-  '/images/problem.png',
-  '/images/market.png',
-  '/images/competition.png',
-  '/images/prototype.png',
-  '/images/team.png',
-  '/images/contact.png',
-];
+
 
 export default function Home() {
   return (
@@ -25,48 +17,6 @@ export default function Home() {
       <ProductShowcase />
 
       <TechnologyStory />
-
-      <section className="py-28 sm:py-36">
-        <div className="section-shell">
-          <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="eyebrow">Einblicke</p>
-
-              <h2 className="headline-md mt-5 max-w-4xl text-balance">
-                Produkt, Anwendung und Entwicklung.
-              </h2>
-            </div>
-
-            <p className="max-w-md text-sm leading-6 text-white/45">
-              Ausgewählte Einblicke in den aktuellen Prototyp, das
-              Funktionsprinzip und die mögliche Anwendung von MailSignal.
-            </p>
-          </div>
-
-          <div className="grid auto-rows-[240px] gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {gallery.map((file, index) => (
-              <div
-                key={file}
-                className={`group relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03] ${
-                  index === 0 || index === 5
-                    ? 'lg:col-span-2 lg:row-span-2'
-                    : ''
-                }`}
-              >
-                <Image
-                  src={file}
-                  alt={`MailSignal Einblick ${index + 1}`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/10" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section
         id="business"

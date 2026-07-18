@@ -45,34 +45,34 @@ export function CinematicHero() {
   );
 
   const ledOpacity = useTransform(
-    scrollYProgress,
-    [0.34, 0.56, 0.76],
-    [0, 0.28, 1],
-  );
+  scrollYProgress,
+  [0.22, 0.42, 0.62],
+  [0, 0.28, 1],
+);
 
-  const glowOpacity = useTransform(
-    scrollYProgress,
-    [0.38, 0.6, 0.8],
-    [0, 0.18, 0.56],
-  );
+const glowOpacity = useTransform(
+  scrollYProgress,
+  [0.26, 0.46, 0.68],
+  [0, 0.18, 0.56],
+);
 
-  const messageOpacity = useTransform(
-    scrollYProgress,
-    [0.54, 0.7, 0.88],
-    [0, 1, 1],
-  );
+const messageOpacity = useTransform(
+  scrollYProgress,
+  [0.42, 0.58, 0.74],
+  [0, 1, 1],
+);
 
-  const messageY = useTransform(
-    scrollYProgress,
-    [0.54, 0.7],
-    [18, 0],
-  );
+const messageY = useTransform(
+  scrollYProgress,
+  [0.42, 0.58],
+  [18, 0],
+);
 
   return (
     <section
       ref={sectionRef}
       id="product"
-      className="relative h-[260vh] bg-[#030303] text-white"
+      className="relative h-[190vh] bg-[#030303] text-white"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <header className="absolute inset-x-0 top-0 z-30">

@@ -1,6 +1,4 @@
 
-import { Mail } from 'lucide-react';
-
 import { CinematicHero } from '@/components/CinematicHero';
 import { Logo } from '@/components/Logo';
 import { ProductShowcase } from '@/components/ProductShowcase';

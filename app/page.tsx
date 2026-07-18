@@ -1,15 +1,10 @@
 import Image from 'next/image';
-import {
-  Mail,
-  RadioTower,
-  ShieldCheck,
-  Sun,
-} from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 import { CinematicHero } from '@/components/CinematicHero';
 import { Logo } from '@/components/Logo';
 import { ProductShowcase } from '@/components/ProductShowcase';
-
+import { TechnologyStory } from '@/components/TechnologyStory';
 
 const gallery = [
   '/images/hero.png',
@@ -22,148 +17,14 @@ const gallery = [
   '/images/contact.png',
 ];
 
-const steps = [
-  {
-    number: '01',
-    title: 'Einwurfklappe bewegt sich',
-    text: 'Die Zustellung setzt den Mechanismus in Bewegung.',
-  },
-  {
-    number: '02',
-    title: 'Sensor erkennt die Bewegung',
-    text: 'Ein robuster Sensor registriert den Briefeinwurf.',
-  },
-  {
-    number: '03',
-    title: 'LED wird aktiviert',
-    text: 'Das sichtbare Signal zeigt an, dass Post angekommen ist.',
-  },
-  {
-    number: '04',
-    title: 'Status bleibt gespeichert',
-    text: 'Die Anzeige bleibt aktiv, bis der Briefkasten kontrolliert wird.',
-  },
-  {
-    number: '05',
-    title: 'Manueller Reset',
-    text: 'Nach der Entnahme wird MailSignal einfach zurückgesetzt.',
-  },
-];
-
-const technologyPoints = [
-  {
-    icon: RadioTower,
-    title: 'Keine Infrastruktur',
-    text: 'Kein Router, kein Benutzerkonto, keine Cloud und keine laufenden Serverkosten.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Datenschutzfreundlich',
-    text: 'Es werden keine persönlichen Daten übertragen oder zentral gespeichert.',
-  },
-  {
-    icon: Sun,
-    title: 'Immer einsatzbereit',
-    text: 'Solarbetrieb und ein energiearmes Konzept ermöglichen eine zuverlässige Nutzung.',
-  },
-];
-
 export default function Home() {
   return (
     <main id="top" className="overflow-hidden bg-black">
       <CinematicHero />
 
-     
-
       <ProductShowcase />
 
-      <section className="border-y border-white/10 bg-white/[0.018] py-28 sm:py-36">
-        <div className="section-shell">
-          <p className="eyebrow">So funktioniert es</p>
-
-          <h2 className="headline-md mt-5 max-w-5xl text-balance">
-            Vom Briefeinwurf bis zum sichtbaren Status.
-          </h2>
-
-          <div className="mt-16 grid gap-px overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 lg:grid-cols-5">
-            {steps.map(({ number, title, text }) => (
-              <article
-                key={number}
-                className="min-h-[310px] bg-[#090909] p-6 sm:p-8"
-              >
-                <span className="text-sm font-semibold text-[#ffc62a]">
-                  {number}
-                </span>
-
-                <div className="mt-24">
-                  <h3 className="font-semibold tracking-[-0.02em]">
-                    {title}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-6 text-white/45">
-                    {text}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="technology"
-        className="section-shell scroll-mt-24 py-28 sm:py-36"
-      >
-        <div className="grid gap-14 lg:grid-cols-2 lg:items-center">
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
-            <Image
-              src="/images/competition.png"
-              alt="MailSignal Produkt am Briefkasten"
-              width={1600}
-              height={1100}
-              className="aspect-[4/3] w-full object-cover"
-            />
-
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-
-            <div className="absolute bottom-5 left-5 rounded-full border border-white/10 bg-black/60 px-4 py-2 text-xs uppercase tracking-[0.18em] text-white/60 backdrop-blur-xl">
-              Offline by design
-            </div>
-          </div>
-
-          <div>
-            <p className="eyebrow">Technologie</p>
-
-            <h2 className="display-lg mt-5 text-balance">
-              Nicht smarter.
-              <span className="block text-white/40">
-                Einfach sinnvoller.
-              </span>
-            </h2>
-
-            <div className="mt-12">
-              {technologyPoints.map(({ icon: Icon, title, text }) => (
-                <div
-                  key={title}
-                  className="flex gap-5 border-t border-white/10 py-7"
-                >
-                  <Icon className="mt-1 h-6 w-6 shrink-0 text-[#ffc62a]" />
-
-                  <div>
-                    <h3 className="font-semibold tracking-[-0.02em]">
-                      {title}
-                    </h3>
-
-                    <p className="mt-2 max-w-xl text-sm leading-6 text-white/50">
-                      {text}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <TechnologyStory />
 
       <section className="py-28 sm:py-36">
         <div className="section-shell">

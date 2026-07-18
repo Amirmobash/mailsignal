@@ -37,40 +37,40 @@ export function ProductShowcase() {
   );
 
   const eyebrowOpacity = useTransform(
-    scrollYProgress,
-    [0.08, 0.2, 0.42],
-    [0, 1, 1],
-  );
+  scrollYProgress,
+  [0.18, 0.34, 0.56],
+  [0, 0.35, 1],
+);
 
-  const eyebrowY = useTransform(
-    scrollYProgress,
-    [0.08, 0.24],
-    reduceMotion ? [0, 0] : [18, 0],
-  );
+const eyebrowY = useTransform(
+  scrollYProgress,
+  [0.18, 0.5],
+  reduceMotion ? [0, 0] : [24, 0],
+);
 
-  const titleOpacity = useTransform(
-    scrollYProgress,
-    [0.14, 0.32, 0.62],
-    [0, 1, 1],
-  );
+const titleOpacity = useTransform(
+  scrollYProgress,
+  [0.24, 0.48, 0.72],
+  [0, 0.28, 1],
+);
 
-  const titleY = useTransform(
-    scrollYProgress,
-    [0.14, 0.34],
-    reduceMotion ? [0, 0] : [42, 0],
-  );
+const titleY = useTransform(
+  scrollYProgress,
+  [0.24, 0.64],
+  reduceMotion ? [0, 0] : [56, 0],
+);
 
-  const copyOpacity = useTransform(
-    scrollYProgress,
-    [0.28, 0.44, 0.7],
-    [0, 1, 1],
-  );
+const copyOpacity = useTransform(
+  scrollYProgress,
+  [0.42, 0.62, 0.82],
+  [0, 0.3, 1],
+);
 
-  const copyY = useTransform(
-    scrollYProgress,
-    [0.28, 0.46],
-    reduceMotion ? [0, 0] : [24, 0],
-  );
+const copyY = useTransform(
+  scrollYProgress,
+  [0.42, 0.76],
+  reduceMotion ? [0, 0] : [30, 0],
+);
 
   const ambientGlow = useTransform(
     scrollYProgress,
@@ -117,16 +117,16 @@ export function ProductShowcase() {
                 reduceMotion
                   ? undefined
                   : {
-                      opacity: [0.35, 1, 0.35],
-                      scale: [0.9, 1.18, 0.9],
+                      opacity: [0.45, 0.95, 0.45],
+                      scale: [0.94, 1.08, 0.94],
                     }
               }
               transition={{
-                duration: 2.4,
+                duration: 3.2,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="pointer-events-none absolute left-[49.7%] top-[57.6%] h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_12px_4px_rgba(255,198,42,0.95),0_0_34px_14px_rgba(255,198,42,0.42)]"
+              className="pointer-events-none absolute left-[47.8%] top-[54.8%] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_8px_2px_rgba(255,198,42,0.95),0_0_22px_8px_rgba(255,198,42,0.35)]"
             />
 
             <motion.div
@@ -139,11 +139,11 @@ export function ProductShowcase() {
                     }
               }
               transition={{
-                duration: 2.4,
+                duration: 3.2,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="pointer-events-none absolute left-[49.7%] top-[57.6%] h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/25 blur-3xl"
+              className="pointer-events-none absolute left-[47.8%] top-[54.8%] h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/18 blur-2xl"
             />
           </motion.div>
 

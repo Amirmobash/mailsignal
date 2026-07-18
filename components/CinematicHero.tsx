@@ -40,34 +40,34 @@ export function CinematicHero() {
   );
 
   const ledOpacity = useTransform(
-    scrollYProgress,
-    [0.12, 0.32, 0.52],
-    [0, 0.35, 1],
-  );
+  scrollYProgress,
+  [0.3, 0.52, 0.72],
+  [0, 0.25, 1],
+ );
 
   const glowOpacity = useTransform(
-    scrollYProgress,
-    [0.14, 0.38, 0.62],
-    [0, 0.2, 0.65],
-  );
+  scrollYProgress,
+  [0.34, 0.56, 0.78],
+  [0, 0.16, 0.58],
+ );
 
   const messageOpacity = useTransform(
-    scrollYProgress,
-    [0.34, 0.52, 0.72],
-    [0, 1, 1],
-  );
+  scrollYProgress,
+  [0.48, 0.66, 0.84],
+  [0, 1, 1],
+);
 
-  const messageY = useTransform(
-    scrollYProgress,
-    [0.34, 0.52],
-    [18, 0],
-  );
+const messageY = useTransform(
+  scrollYProgress,
+  [0.48, 0.66],
+  [20, 0],
+);
 
   return (
     <section
       ref={sectionRef}
       id="product"
-      className="relative h-[190vh] bg-[#030303] text-white"
+      className="relative h-[260vh] bg-[#030303] text-white"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <header className="absolute inset-x-0 top-0 z-30">
@@ -110,7 +110,7 @@ export function CinematicHero() {
 
         <motion.div
           style={{ opacity: glowOpacity }}
-          className="pointer-events-none absolute left-1/2 top-[60%] h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/30 blur-[150px]"
+          className="pointer-events-none absolute left-1/2 top-[63%] h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/20 blur-[160px]"
         />
 
         <div className="relative mx-auto flex h-full max-w-[1500px] flex-col items-center justify-center px-6 pt-24">
@@ -119,14 +119,14 @@ export function CinematicHero() {
               opacity: titleOpacity,
               y: titleY,
             }}
-            className="absolute top-[18%] z-20 text-center sm:top-[16%]"
+            className="absolute top-[13%] z-20 text-center sm:top-[12%]"
           >
             <p className="text-[clamp(3.3rem,8vw,8rem)] font-semibold leading-[0.9] tracking-[-0.075em]">
-              Post erkennen.
+               Post erkennen.
             </p>
 
-            <p className="mt-2 text-[clamp(3.3rem,8vw,8rem)] font-semibold leading-[0.9] tracking-[-0.075em] text-white/35">
-              Ohne App.
+            <p className="mt-3 text-[clamp(3rem,7.4vw,7.5rem)] font-semibold leading-[0.92] tracking-[-0.07em] text-white/32">
+               Ohne App. Ohne Umweg.
             </p>
           </motion.div>
 
@@ -135,7 +135,7 @@ export function CinematicHero() {
               scale: deviceScale,
               y: deviceY,
             }}
-            className="relative mt-36 w-[min(78vw,650px)] sm:mt-44"
+            className="relative mt-64 w-[min(78vw,620px)] sm:mt-72"
           >
             <Image
               src="/images/hero-device-off.png"
@@ -148,14 +148,15 @@ export function CinematicHero() {
             />
 
             <motion.div
-              style={{ opacity: ledOpacity }}
-              className="pointer-events-none absolute left-[64.1%] top-[66.1%] h-[2.1%] w-[2.1%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_10px_3px_rgba(255,198,42,0.95),0_0_35px_12px_rgba(255,198,42,0.45)]"
-            />
+               style={{ opacity: ledOpacity }}
+               className="pointer-events-none absolute left-[50%] top-[66.4%] h-[2.1%] w-[2.1%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_10px_3px_rgba(255,198,42,0.95),0_0_35px_12px_rgba(255,198,42,0.45)]"
+           />
 
             <motion.div
-              style={{ opacity: glowOpacity }}
-              className="pointer-events-none absolute left-[64.1%] top-[66.1%] h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/35 blur-3xl"
-            />
+              <motion.div
+               style={{ opacity: glowOpacity }}
+               className="pointer-events-none absolute left-[50%] top-[66.4%] h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/35 blur-3xl"
+          />
           </motion.div>
 
           <motion.div

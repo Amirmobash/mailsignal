@@ -8,7 +8,7 @@ import { ContactCTA } from '@/components/ContactCTA';
 import { KeyBenefits } from '@/components/KeyBenefits';
 import { HowItWorks } from '@/components/HowItWorks';
 import { UseCasesOrbit } from '@/components/UseCasesOrbit';
-
+import { MinimalStory } from '@/components/MinimalStory';
 
 export default function Home() {
   return (
@@ -22,6 +22,8 @@ export default function Home() {
       <HowItWorks />
 
       <UseCasesOrbit />
+
+      <MinimalStory />
 
       <TechnologyStory />
 

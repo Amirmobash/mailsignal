@@ -4,21 +4,21 @@ constexpr uint8_t SENSOR_PIN = 2;
 constexpr uint8_t RESET_PIN = 3;
 constexpr uint8_t LED_PIN = 9;
 
-constexpr uint16_t ENTPRELLZEIT_MS = 45;
-constexpr uint16_t RESETZEIT_MS = 1200;
+constexpr uint16_t ENTPRELLZEIT_MS = 40;
+constexpr uint16_t RESET_HALTEZEIT_MS = 1200;
 
-constexpr uint16_t EEPROM_ADRESSE = 0;
-constexpr uint8_t EEPROM_SIGNATUR = 0x6D;
+constexpr int EEPROM_ADRESSE = 0;
+constexpr uint8_t EEPROM_SIGNATUR = 0xB6;
 
-struct SpeicherDaten {
+struct Speicherzustand {
   uint8_t signatur;
-  uint8_t status;
+  uint8_t post;
   uint8_t pruefsumme;
 };
 
-class DigitalEingang {
+class DigitalerEingang {
 public:
-  DigitalEingang(uint8_t pin, uint16_t entprellzeit)
+  DigitalerEingang(uint8_t pin, uint16_t entprellzeit)
       : pin(pin),
         entprellzeit(entprellzeit),
         rohzustand(HIGH),
@@ -59,7 +59,7 @@ public:
   }
 
   bool wurdeAktiviert() const {
-    return letzterStabilerZustand == low &&
+    return letzterStabilerZustand == HIGH &&
            stabilerZustand == LOW;
   }
 
@@ -77,8 +77,8 @@ private:
   unsigned long wechselzeit;
 };
 
-DigitalEingang klappenSensor(SENSOR_PIN, ENTPRELLZEIT_MS);
-DigitalEingang resetTaste(RESET_PIN, ENTPRELLZEIT_MS);
+DigitalerEingang einwurfsensor(SENSOR_PIN, ENTPRELLZEIT_MS);
+DigitalerEingang rueckstelltaste(RESET_PIN, ENTPRELLZEIT_MS);
 
 bool postVorhanden = false;
 bool resetGestartet = false;
@@ -86,47 +86,57 @@ bool resetAusgefuehrt = false;
 
 unsigned long resetStartzeit = 0;
 
-uint8_t pruefsummeBerechnen(uint8_t status) {
-  return EEPROM_SIGNATUR ^ status ^ 0xA5;
+uint8_t pruefsummeErzeugen(uint8_t status) {
+  return EEPROM_SIGNATUR ^ status ^ 0x3D;
 }
 
 void ledSetzen() {
   digitalWrite(LED_PIN, postVorhanden ? HIGH : LOW);
 }
 
-void statusSpeichern() {
-  SpeicherDaten daten;
+void zustandSpeichern() {
+  Speicherzustand neuerZustand;
 
-  daten.signatur = EEPROM_SIGNATUR;
-  daten.status = postVorhanden ? 1 : 0;
-  daten.pruefsumme = pruefsummeBerechnen(daten.status);
+  neuerZustand.signatur = EEPROM_SIGNATUR;
+  neuerZustand.post = postVorhanden ? 1 : 0;
+  neuerZustand.pruefsumme =
+      pruefsummeErzeugen(neuerZustand.post);
 
-  SpeicherDaten gespeichert;
-  EEPROM.get(EEPROM_ADRESSE, gespeichert);
+  Speicherzustand gespeicherterZustand;
+  EEPROM.get(EEPROM_ADRESSE, gespeicherterZustand);
 
-  if (
-    gespeichert.signatur != daten.signatur ||
-    gespeichert.status != daten.status ||
-    gespeichert.pruefsumme != daten.pruefsumme
-  ) {
-    EEPROM.put(EEPROM_ADRESSE, daten);
+  bool identisch =
+      gespeicherterZustand.signatur ==
+          neuerZustand.signatur &&
+      gespeicherterZustand.post ==
+          neuerZustand.post &&
+      gespeicherterZustand.pruefsumme ==
+          neuerZustand.pruefsumme;
+
+  if (!identisch) {
+    EEPROM.put(EEPROM_ADRESSE, neuerZustand);
   }
 }
 
-void statusLaden() {
-  SpeicherDaten daten;
-  EEPROM.get(EEPROM_ADRESSE, daten);
+void zustandLaden() {
+  Speicherzustand gespeicherterZustand;
+  EEPROM.get(EEPROM_ADRESSE, gespeicherterZustand);
 
   bool gueltig =
-    daten.signatur == EEPROM_SIGNATUR &&
-    daten.status <= 1 &&
-    daten.pruefsumme == pruefsummeBerechnen(daten.status);
+      gespeicherterZustand.signatur ==
+          EEPROM_SIGNATUR &&
+      gespeicherterZustand.post <= 1 &&
+      gespeicherterZustand.pruefsumme ==
+          pruefsummeErzeugen(
+              gespeicherterZustand.post
+          );
 
   if (gueltig) {
-    postVorhanden = daten.status == 1;
+    postVorhanden =
+        gespeicherterZustand.post == 1;
   } else {
     postVorhanden = false;
-    statusSpeichern();
+    zustandSpeichern();
   }
 }
 
@@ -136,34 +146,34 @@ void postMelden() {
   }
 
   postVorhanden = true;
-  statusSpeichern();
+  zustandSpeichern();
   ledSetzen();
 }
 
-void postBestaetigen() {
+void postZuruecksetzen() {
   if (!postVorhanden) {
     return;
   }
 
   postVorhanden = false;
-  statusSpeichern();
+  zustandSpeichern();
   ledSetzen();
 }
 
 void sensorVerarbeiten() {
-  klappenSensor.aktualisieren();
+  einwurfsensor.aktualisieren();
 
-  if (klappenSensor.wurdeAktiviert()) {
+  if (einwurfsensor.wurdeAktiviert()) {
     postMelden();
   }
 }
 
 void resetVerarbeiten() {
-  resetTaste.aktualisieren();
+  rueckstelltaste.aktualisieren();
 
   unsigned long jetzt = millis();
 
-  if (resetTaste.wurdeAktiviert()) {
+  if (rueckstelltaste.wurdeAktiviert()) {
     resetGestartet = true;
     resetAusgefuehrt = false;
     resetStartzeit = jetzt;
@@ -172,14 +182,14 @@ void resetVerarbeiten() {
   if (
     resetGestartet &&
     !resetAusgefuehrt &&
-    resetTaste.aktiv() &&
-    jetzt - resetStartzeit >= RESETZEIT_MS
+    rueckstelltaste.aktiv() &&
+    jetzt - resetStartzeit >= RESET_HALTEZEIT_MS
   ) {
-    postBestaetigen();
+    postZuruecksetzen();
     resetAusgefuehrt = true;
   }
 
-  if (resetTaste.wurdeDeaktiviert()) {
+  if (rueckstelltaste.wurdeDeaktiviert()) {
     resetGestartet = false;
     resetAusgefuehrt = false;
   }
@@ -188,10 +198,10 @@ void resetVerarbeiten() {
 void setup() {
   pinMode(LED_PIN, OUTPUT);
 
-  klappenSensor.beginnen();
-  resetTaste.beginnen();
+  einwurfsensor.beginnen();
+  rueckstelltaste.beginnen();
 
-  statusLaden();
+  zustandLaden();
   ledSetzen();
 }
 

@@ -662,7 +662,7 @@ export function UseCasesOrbit() {
                       repeat: Infinity,
                       ease: 'easeInOut',
                     }}
-                    className="pointer-events-none absolute left-[47.1%] top-[63.8%] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_7px_3px_rgba(255,198,42,1),0_0_26px_11px_rgba(255,198,42,0.55)] sm:h-3 sm:w-3"
+                    className="pointer-events-none absolute left-[47.0%] top-[63.8%] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_7px_3px_rgba(255,198,42,1),0_0_26px_11px_rgba(255,198,42,0.55)] sm:h-3 sm:w-3"
                   />
 
                   <motion.div

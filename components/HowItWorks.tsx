@@ -64,7 +64,6 @@ export function HowItWorks() {
       id="how-it-works"
       className="relative overflow-hidden bg-[#f1e5ca] py-24 text-[#19130f] sm:py-32 lg:py-40"
     >
-      {/* Background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-[22%] h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-[#ffc62a]/10 blur-[190px]" />
 
@@ -72,7 +71,6 @@ export function HowItWorks() {
       </div>
 
       <div className="section-shell relative z-10">
-        {/* Section heading */}
         <motion.div
           initial={
             reduceMotion
@@ -114,11 +112,9 @@ export function HowItWorks() {
           </p>
         </motion.div>
 
-        {/* Main interactive box */}
         <div className="mx-auto mt-16 w-full max-w-[1240px] sm:mt-20">
           <div className="relative overflow-hidden rounded-[2.25rem] border border-black/10 bg-[#11110f] shadow-[0_35px_100px_rgba(55,35,5,0.18)]">
             <div className="relative min-h-[620px] sm:min-h-[690px] lg:min-h-[650px]">
-              {/* Visual content */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`visual-${active.number}`}
@@ -128,7 +124,7 @@ export function HowItWorks() {
                       : isDeviceStep
                         ? {
                             opacity: 0,
-                            scale: 0.88,
+                            scale: 0.9,
                           }
                         : {
                             opacity: 0,
@@ -144,77 +140,83 @@ export function HowItWorks() {
                       ? undefined
                       : {
                           opacity: 0,
-                          scale: isDeviceStep ? 0.94 : 0.99,
+                          scale: isDeviceStep ? 0.93 : 0.99,
                         }
                   }
                   transition={{
-                    duration: isDeviceStep ? 0.95 : 0.7,
+                    duration: isDeviceStep ? 1.15 : 0.7,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   className="absolute inset-0"
                 >
                   {isDeviceStep ? (
                     <>
-                      {/* Device background */}
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_64%_48%,rgba(255,198,42,0.11),transparent_28%),linear-gradient(135deg,#171611_0%,#0c0c0b_52%,#050505_100%)]" />
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_73%_46%,rgba(255,198,42,0.14),transparent_30%),linear-gradient(135deg,#171611_0%,#0c0c0b_52%,#050505_100%)]" />
 
                       <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:28px_28px]" />
 
-                      {/* 3D device */}
-                      <div className="absolute inset-0 flex items-center justify-center [perspective:1400px]">
+                      <div className="absolute inset-0 flex items-center justify-end [perspective:1900px]">
                         <motion.div
                           initial={
                             reduceMotion
                               ? false
                               : {
-                                  rotateY: -22,
-                                  rotateX: 4,
-                                  y: 24,
+                                  rotateY: -48,
+                                  rotateX: 10,
+                                  rotateZ: -2,
+                                  x: 95,
+                                  y: 30,
+                                  scale: 0.78,
                                 }
                           }
                           animate={{
-                            rotateY: 0,
-                            rotateX: 0,
+                            rotateY: -8,
+                            rotateX: 2,
+                            rotateZ: 0,
+                            x: 0,
                             y: 0,
+                            scale: 1,
                           }}
                           exit={
                             reduceMotion
                               ? undefined
                               : {
-                                  rotateY: 16,
-                                  rotateX: -3,
+                                  rotateY: 36,
+                                  rotateX: -8,
+                                  rotateZ: 2,
+                                  x: 90,
                                   y: -12,
+                                  scale: 0.86,
                                 }
                           }
                           whileHover={
                             reduceMotion
                               ? undefined
                               : {
-                                  rotateY: -5,
-                                  rotateX: 2,
-                                  scale: 1.015,
+                                  rotateY: -18,
+                                  rotateX: 6,
+                                  scale: 1.035,
                                 }
                           }
                           transition={{
-                            duration: 1,
+                            duration: 1.4,
                             ease: [0.22, 1, 0.36, 1],
                           }}
-                          className="relative mb-12 h-[68%] w-[72%] sm:h-[74%] sm:w-[68%] lg:h-[82%] lg:w-[64%] [transform-style:preserve-3d]"
+                          className="relative mb-10 mr-[1%] h-[84%] w-[86%] sm:h-[90%] sm:w-[78%] lg:h-[96%] lg:w-[66%] [transform-style:preserve-3d]"
                         >
                           <Image
                             src={active.image}
                             alt={active.alt}
                             fill
                             priority
-                            sizes="(max-width: 768px) 78vw, 760px"
+                            sizes="(max-width: 768px) 86vw, 820px"
                             className="select-none object-contain"
                           />
 
-                          <div className="pointer-events-none absolute bottom-[4%] left-[20%] right-[8%] h-12 rounded-full bg-black/45 blur-2xl" />
+                          <div className="pointer-events-none absolute bottom-[2%] left-[18%] right-[4%] h-14 rounded-full bg-black/50 blur-2xl" />
                         </motion.div>
                       </div>
 
-                      {/* Reset button indicator */}
                       <motion.div
                         initial={
                           reduceMotion
@@ -222,7 +224,7 @@ export function HowItWorks() {
                             : {
                                 opacity: 0,
                                 scale: 0.65,
-                                x: 10,
+                                x: 12,
                               }
                         }
                         animate={{
@@ -235,11 +237,11 @@ export function HowItWorks() {
                           scale: 0.8,
                         }}
                         transition={{
-                          delay: reduceMotion ? 0 : 0.72,
+                          delay: reduceMotion ? 0 : 0.85,
                           duration: 0.5,
                           ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="pointer-events-none absolute right-[16%] top-[48%] z-20 sm:right-[20%] lg:right-[22%]"
+                        className="pointer-events-none absolute right-[10%] top-[47%] z-20 sm:right-[14%] lg:right-[13%]"
                       >
                         <div className="relative">
                           <motion.div
@@ -247,16 +249,16 @@ export function HowItWorks() {
                               reduceMotion
                                 ? undefined
                                 : {
-                                    opacity: [0.55, 1, 0.55],
-                                    scale: [0.9, 1.15, 0.9],
+                                    opacity: [0.5, 1, 0.5],
+                                    scale: [0.88, 1.2, 0.88],
                                   }
                             }
                             transition={{
-                              duration: 2,
+                              duration: 1.8,
                               repeat: Infinity,
                               ease: 'easeInOut',
                             }}
-                            className="h-3 w-3 rounded-full bg-[#ffc62a] shadow-[0_0_10px_3px_rgba(255,198,42,0.9),0_0_30px_10px_rgba(255,198,42,0.35)]"
+                            className="h-3 w-3 rounded-full bg-[#ffc62a] shadow-[0_0_10px_3px_rgba(255,198,42,0.95),0_0_34px_12px_rgba(255,198,42,0.38)]"
                           />
 
                           <div className="absolute right-3 top-1/2 h-px w-14 -translate-y-1/2 bg-gradient-to-l from-[#ffc62a] to-transparent sm:w-20" />
@@ -267,10 +269,9 @@ export function HowItWorks() {
                         </div>
                       </motion.div>
 
-                      {/* Dark overlays for text readability */}
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/72 via-black/12 to-transparent" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/76 via-black/10 to-transparent" />
 
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/72 via-transparent to-black/10" />
                     </>
                   ) : (
                     <>
@@ -291,7 +292,6 @@ export function HowItWorks() {
                 </motion.div>
               </AnimatePresence>
 
-              {/* Text content */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`copy-${active.number}`}
@@ -320,9 +320,19 @@ export function HowItWorks() {
                     duration: 0.65,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="absolute inset-x-0 bottom-24 z-10 px-7 text-white sm:bottom-28 sm:px-10 lg:bottom-32 lg:px-14"
+                  className={`absolute bottom-24 left-0 z-10 px-7 text-white sm:bottom-28 sm:px-10 lg:bottom-32 lg:px-14 ${
+                    isDeviceStep
+                      ? 'w-full lg:w-[45%]'
+                      : 'w-full'
+                  }`}
                 >
-                  <div className="max-w-2xl">
+                  <div
+                    className={
+                      isDeviceStep
+                        ? 'max-w-lg'
+                        : 'max-w-2xl'
+                    }
+                  >
                     <div className="flex items-center gap-4">
                       <span className="text-xs font-semibold tracking-[0.22em] text-[#ffc62a]">
                         {active.number}
@@ -347,7 +357,6 @@ export function HowItWorks() {
               </AnimatePresence>
             </div>
 
-            {/* Tabs */}
             <div className="absolute inset-x-5 bottom-5 z-30 sm:inset-x-8 sm:bottom-7">
               <div className="relative grid grid-cols-3 overflow-hidden rounded-full border border-white/15 bg-black/50 p-1.5 backdrop-blur-xl">
                 <motion.div

@@ -59,7 +59,7 @@ public:
   }
 
   bool wurdeAktiviert() const {
-    return letzterStabilerZustand == HIGH &&
+    return letzterStabilerZustand == low &&
            stabilerZustand == LOW;
   }
 

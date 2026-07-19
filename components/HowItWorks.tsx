@@ -223,8 +223,8 @@ export function HowItWorks() {
                             ? false
                             : {
                                 opacity: 0,
-                                scale: 0.65,
-                                x: 12,
+                                scale: 0.7,
+                                x: 24,
                               }
                         }
                         animate={{
@@ -237,20 +237,24 @@ export function HowItWorks() {
                           scale: 0.8,
                         }}
                         transition={{
-                          delay: reduceMotion ? 0 : 0.85,
-                          duration: 0.5,
+                          delay: reduceMotion ? 0 : 0.9,
+                          duration: 0.55,
                           ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="pointer-events-none absolute right-[10%] top-[47%] z-20 sm:right-[14%] lg:right-[13%]"
+                        className="pointer-events-none absolute right-[2.5%] top-[42%] z-20 hidden sm:block lg:right-[3%]"
                       >
-                        <div className="relative">
+                        <div className="relative flex flex-col items-center">
+                          <span className="mb-3 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.2em] text-[#ffc62a]">
+                            Reset-Taste
+                          </span>
+
                           <motion.div
                             animate={
                               reduceMotion
                                 ? undefined
                                 : {
-                                    opacity: [0.5, 1, 0.5],
-                                    scale: [0.88, 1.2, 0.88],
+                                    opacity: [0.55, 1, 0.55],
+                                    scale: [0.9, 1.18, 0.9],
                                   }
                             }
                             transition={{
@@ -261,11 +265,7 @@ export function HowItWorks() {
                             className="h-3 w-3 rounded-full bg-[#ffc62a] shadow-[0_0_10px_3px_rgba(255,198,42,0.95),0_0_34px_12px_rgba(255,198,42,0.38)]"
                           />
 
-                          <div className="absolute right-3 top-1/2 h-px w-14 -translate-y-1/2 bg-gradient-to-l from-[#ffc62a] to-transparent sm:w-20" />
-
-                          <span className="absolute right-[4.75rem] top-1/2 hidden -translate-y-1/2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.2em] text-[#ffc62a] sm:block sm:right-[6rem]">
-                            Reset-Taste
-                          </span>
+                          <div className="absolute right-full top-[calc(50%+0.55rem)] h-px w-20 bg-gradient-to-l from-[#ffc62a] to-transparent lg:w-28" />
                         </div>
                       </motion.div>
 
@@ -358,9 +358,9 @@ export function HowItWorks() {
             </div>
 
             <div className="absolute inset-x-5 bottom-5 z-30 sm:inset-x-8 sm:bottom-7">
-              <div className="relative grid grid-cols-3 overflow-hidden rounded-full border border-white/15 bg-black/50 p-1.5 backdrop-blur-xl">
+              <div className="relative grid grid-cols-3 overflow-hidden rounded-full border border-white/15 bg-black/55 p-1.5 backdrop-blur-xl">
                 <motion.div
-                  className="absolute bottom-1.5 top-1.5 rounded-full border border-[#ffc62a]/30 bg-[#ffc62a]/14 shadow-[0_0_30px_rgba(255,198,42,0.1)]"
+                  className="absolute bottom-1.5 top-1.5 rounded-full border border-[#ffc62a]/35 bg-[#ffc62a]/12 shadow-[0_0_30px_rgba(255,198,42,0.12)]"
                   animate={{
                     left: `calc(${activeStep * 33.333333}% + 0.375rem)`,
                     width: 'calc(33.333333% - 0.75rem)',
@@ -370,6 +370,10 @@ export function HowItWorks() {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 />
+
+                <div className="pointer-events-none absolute bottom-3 left-1/3 top-3 w-px bg-white/10" />
+
+                <div className="pointer-events-none absolute bottom-3 left-2/3 top-3 w-px bg-white/10" />
 
                 {steps.map((step, index) => {
                   const isActive = index === activeStep;
@@ -383,14 +387,28 @@ export function HowItWorks() {
                       className={`relative z-10 flex min-h-14 items-center justify-center gap-2 rounded-full px-3 text-xs font-semibold transition duration-300 sm:min-h-16 sm:gap-3 sm:text-sm ${
                         isActive
                           ? 'text-[#ffc62a]'
-                          : 'text-white/48 hover:text-white'
+                          : 'text-white/75 hover:text-white'
                       }`}
                     >
-                      <span className="hidden text-[10px] tracking-[0.18em] opacity-55 sm:inline">
+                      <span
+                        className={`hidden text-[10px] tracking-[0.18em] sm:inline ${
+                          isActive
+                            ? 'text-[#ffc62a]'
+                            : 'text-white/45'
+                        }`}
+                      >
                         {step.number}
                       </span>
 
-                      <span>{step.tab}</span>
+                      <span
+                        className={
+                          isActive
+                            ? 'text-[#ffc62a]'
+                            : 'text-white/75'
+                        }
+                      >
+                        {step.tab}
+                      </span>
                     </button>
                   );
                 })}

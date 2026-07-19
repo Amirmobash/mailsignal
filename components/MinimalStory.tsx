@@ -535,7 +535,7 @@ export function MinimalStory() {
               opacity: momentsOpacity,
               scale: momentsScale,
             }}
-            className="pointer-events-none absolute inset-0"
+            className="pointer-events-none absolute inset-0 pt-40 lg:pt-48"
           >
             <div className="absolute inset-0 flex items-center justify-center text-center">
               <motion.div style={{ color: mainTextColor }}>

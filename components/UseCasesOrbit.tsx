@@ -40,7 +40,7 @@ const useCases: UseCase[] = [
       'Weniger Kontrollgänge im laufenden Betrieb.',
     icon: Warehouse,
     position:
-      'left-[1%] top-[19%] xl:left-[4%]',
+      'left-[1%] top-[19%] xl:left-[3.5%]',
     depth: 0.78,
     align: 'left',
   },
@@ -50,7 +50,7 @@ const useCases: UseCase[] = [
       'Posteingang erkennen, ohne ständig nachzusehen.',
     icon: BriefcaseBusiness,
     position:
-      'right-[1%] top-[19%] xl:right-[4%]',
+      'right-[1%] top-[19%] xl:right-[3.5%]',
     depth: 0.82,
     align: 'right',
   },
@@ -60,7 +60,7 @@ const useCases: UseCase[] = [
       'Keine unnötigen Wege zum Briefkasten.',
     icon: Home,
     position:
-      'left-[1%] bottom-[17%] xl:left-[4%]',
+      'left-[1%] bottom-[17%] xl:left-[3.5%]',
     depth: 0.94,
     align: 'left',
   },
@@ -70,7 +70,7 @@ const useCases: UseCase[] = [
       'Posteingänge an Gebäuden einfacher kontrollieren.',
     icon: Landmark,
     position:
-      'right-[1%] bottom-[17%] xl:right-[4%]',
+      'right-[1%] bottom-[17%] xl:right-[3.5%]',
     depth: 0.9,
     align: 'right',
   },
@@ -119,7 +119,7 @@ function OrbitItem({
     [-1, 1],
     reduceMotion
       ? [0, 0]
-      : [-22 * depth, 22 * depth],
+      : [-25 * depth, 25 * depth],
   );
 
   const y = useTransform(
@@ -127,7 +127,7 @@ function OrbitItem({
     [-1, 1],
     reduceMotion
       ? [0, 0]
-      : [-16 * depth, 16 * depth],
+      : [-18 * depth, 18 * depth],
   );
 
   const isActive = activeCase === label;
@@ -147,7 +147,10 @@ function OrbitItem({
   return (
     <motion.button
       type="button"
-      style={{ x, y }}
+      style={{
+        x,
+        y,
+      }}
       initial={
         reduceMotion
           ? false
@@ -178,26 +181,26 @@ function OrbitItem({
       >
         <motion.span
           animate={{
-            scale: isActive ? 1.12 : 1,
+            scale: isActive ? 1.13 : 1,
           }}
           transition={{
             duration: 0.3,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border backdrop-blur-md transition duration-300 ${
+          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border backdrop-blur-md transition duration-300 ${
             isActive
-              ? 'border-[#ffc62a] bg-[#ffc62a]/18 text-[#ffc62a] shadow-[0_0_38px_rgba(255,198,42,0.3)]'
-              : 'border-[#ffc62a]/55 bg-[#ffc62a]/[0.07] text-[#ffc62a]'
+              ? 'border-[#ffc62a] bg-[#ffc62a]/20 text-[#ffc62a] shadow-[0_0_40px_rgba(255,198,42,0.32)]'
+              : 'border-[#ffc62a]/70 bg-[#ffc62a]/[0.09] text-[#ffc62a] shadow-[0_0_22px_rgba(255,198,42,0.08)]'
           }`}
         >
-          <Icon className="h-[17px] w-[17px]" />
+          <Icon className="h-[18px] w-[18px]" />
         </motion.span>
 
         <span
           className={`text-sm font-semibold tracking-[-0.02em] transition duration-300 ${
             isActive
               ? 'text-[#ffc62a]'
-              : 'text-[#ffc62a]/85'
+              : 'text-[#ffc62a]/90'
           }`}
         >
           {label}
@@ -207,8 +210,8 @@ function OrbitItem({
       <p
         className={`mt-2.5 text-[12px] leading-5 transition duration-300 ${
           isActive
-            ? 'text-white/78'
-            : 'text-white/48'
+            ? 'text-white/82'
+            : 'text-white/52'
         }`}
       >
         {description}
@@ -227,19 +230,22 @@ export function UseCasesOrbit() {
   const [deviceEngaged, setDeviceEngaged] =
     useState(false);
 
+  const [deviceHovered, setDeviceHovered] =
+    useState(false);
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   const smoothMouseX = useSpring(mouseX, {
-    stiffness: 95,
-    damping: 21,
-    mass: 0.62,
+    stiffness: 110,
+    damping: 19,
+    mass: 0.58,
   });
 
   const smoothMouseY = useSpring(mouseY, {
-    stiffness: 95,
-    damping: 21,
-    mass: 0.62,
+    stiffness: 110,
+    damping: 19,
+    mass: 0.58,
   });
 
   const rotateY = useTransform(
@@ -248,8 +254,10 @@ export function UseCasesOrbit() {
     reduceMotion
       ? [0, 0]
       : deviceEngaged
-        ? [-18, 18]
-        : [-11, 11],
+        ? [-22, 22]
+        : deviceHovered
+          ? [-17, 17]
+          : [-11, 11],
   );
 
   const rotateX = useTransform(
@@ -258,8 +266,10 @@ export function UseCasesOrbit() {
     reduceMotion
       ? [0, 0]
       : deviceEngaged
-        ? [15, -15]
-        : [9, -9],
+        ? [18, -18]
+        : deviceHovered
+          ? [14, -14]
+          : [9, -9],
   );
 
   const deviceX = useTransform(
@@ -268,8 +278,10 @@ export function UseCasesOrbit() {
     reduceMotion
       ? [0, 0]
       : deviceEngaged
-        ? [-34, 34]
-        : [-22, 22],
+        ? [-42, 42]
+        : deviceHovered
+          ? [-32, 32]
+          : [-22, 22],
   );
 
   const deviceY = useTransform(
@@ -278,26 +290,24 @@ export function UseCasesOrbit() {
     reduceMotion
       ? [0, 0]
       : deviceEngaged
-        ? [-25, 25]
-        : [-16, 16],
+        ? [-31, 31]
+        : deviceHovered
+          ? [-24, 24]
+          : [-16, 16],
   );
 
   const glowX = useTransform(
     smoothMouseX,
     [-1, 1],
-    ['40%', '60%'],
+    ['38%', '62%'],
   );
 
   const glowY = useTransform(
     smoothMouseY,
     [-1, 1],
-    ['42%', '59%'],
+    ['40%', '61%'],
   );
 
-  /*
-   * انیمیشن ورود فقط هنگامی شروع می‌شود
-   * که ابتدای سکشن وارد Viewport شود.
-   */
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start 92%', 'start 18%'],
@@ -338,7 +348,7 @@ export function UseCasesOrbit() {
     [0.13, 0.48, 1],
     reduceMotion
       ? [1, 1, 1]
-      : [0.78, 1, 0.985],
+      : [0.75, 1, 0.99],
   );
 
   const orbitScale = useTransform(
@@ -379,6 +389,7 @@ export function UseCasesOrbit() {
     mouseX.set(0);
     mouseY.set(0);
     setActiveCase(null);
+    setDeviceHovered(false);
   }
 
   return (
@@ -401,12 +412,12 @@ export function UseCasesOrbit() {
               left: glowX,
               top: glowY,
             }}
-            className="pointer-events-none absolute h-[44rem] w-[44rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/11 blur-[190px]"
+            className="pointer-events-none absolute h-[48rem] w-[48rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/14 blur-[190px]"
           />
 
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_62%,rgba(255,198,42,0.06),transparent_36%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_60%,rgba(255,198,42,0.085),transparent_38%)]" />
 
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.012),transparent_25%,transparent_82%,rgba(0,0,0,0.4))]" />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.015),transparent_25%,transparent_82%,rgba(0,0,0,0.42))]" />
         </motion.div>
 
         <div className="section-shell relative z-10 h-full">
@@ -421,7 +432,7 @@ export function UseCasesOrbit() {
               Für jeden Alltag
             </p>
 
-            <div className="mx-auto mt-2.5 h-px w-12 bg-[#ffc62a]/70" />
+            <div className="mx-auto mt-2.5 h-px w-12 bg-[#ffc62a]/80" />
 
             <h2 className="mt-3.5 text-balance text-[2.25rem] font-semibold leading-[0.96] tracking-[-0.055em] sm:text-[3rem] lg:text-[3.6rem] xl:text-[4rem]">
               Für jeden Briefkasten.
@@ -431,7 +442,7 @@ export function UseCasesOrbit() {
               </span>
             </h2>
 
-            <p className="mx-auto mt-3.5 max-w-2xl text-xs leading-5 text-white/44 sm:text-sm sm:leading-6">
+            <p className="mx-auto mt-3.5 max-w-2xl text-xs leading-5 text-white/46 sm:text-sm sm:leading-6">
               Ob Haus, Büro oder Mehrfamilienhaus –
               MailSignal macht neue Post sofort sichtbar.
             </p>
@@ -445,14 +456,17 @@ export function UseCasesOrbit() {
             }}
             className="absolute inset-x-0 bottom-[1%] top-[25%] z-20 lg:top-[23%]"
           >
-            {/* مدار افقی اصلی */}
-            <div className="pointer-events-none absolute left-1/2 top-[50%] hidden h-[67%] w-[93%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-[#ffc62a]/22 lg:block" />
+            {/* مدار افقی اصلی؛ واضح‌تر و زردتر */}
+            <div className="pointer-events-none absolute left-1/2 top-[50%] hidden h-[68%] w-[94%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-[#ffc62a]/40 shadow-[0_0_35px_rgba(255,198,42,0.055)] lg:block" />
 
-            {/* مدار عمودی */}
-            <div className="pointer-events-none absolute left-1/2 top-[50%] hidden h-[91%] w-[55%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-[#ffc62a]/12 lg:block" />
+            {/* نور نرم روی مدار اصلی */}
+            <div className="pointer-events-none absolute left-1/2 top-[50%] hidden h-[68%] w-[94%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-[#ffc62a]/15 blur-[2px] lg:block" />
+
+            {/* مدار عمودی؛ واضح‌تر */}
+            <div className="pointer-events-none absolute left-1/2 top-[50%] hidden h-[92%] w-[56%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-[#ffc62a]/22 lg:block" />
 
             {/* مدار داخلی */}
-            <div className="pointer-events-none absolute left-1/2 top-[50%] hidden h-[47%] w-[76%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-dashed border-[#ffc62a]/10 lg:block" />
+            <div className="pointer-events-none absolute left-1/2 top-[50%] hidden h-[47%] w-[76%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-dashed border-[#ffc62a]/18 lg:block" />
 
             {/* نقطه چپ مدار */}
             <motion.div
@@ -460,16 +474,16 @@ export function UseCasesOrbit() {
                 reduceMotion
                   ? undefined
                   : {
-                      opacity: [0.35, 1, 0.35],
-                      scale: [0.8, 1.22, 0.8],
+                      opacity: [0.45, 1, 0.45],
+                      scale: [0.8, 1.35, 0.8],
                     }
               }
               transition={{
-                duration: 2.35,
+                duration: 2.25,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="pointer-events-none absolute left-[10.5%] top-[49%] hidden h-1.5 w-1.5 rounded-full bg-[#ffc62a] shadow-[0_0_16px_rgba(255,198,42,0.95)] lg:block"
+              className="pointer-events-none absolute left-[10.2%] top-[49%] hidden h-2 w-2 rounded-full bg-[#ffc62a] shadow-[0_0_8px_2px_rgba(255,198,42,0.95),0_0_24px_8px_rgba(255,198,42,0.25)] lg:block"
             />
 
             {/* نقطه راست مدار */}
@@ -478,25 +492,25 @@ export function UseCasesOrbit() {
                 reduceMotion
                   ? undefined
                   : {
-                      opacity: [1, 0.35, 1],
-                      scale: [1.22, 0.8, 1.22],
+                      opacity: [1, 0.45, 1],
+                      scale: [1.35, 0.8, 1.35],
                     }
               }
               transition={{
-                duration: 2.75,
+                duration: 2.65,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="pointer-events-none absolute right-[10.5%] top-[49%] hidden h-1.5 w-1.5 rounded-full bg-[#ffc62a] shadow-[0_0_16px_rgba(255,198,42,0.95)] lg:block"
+              className="pointer-events-none absolute right-[10.2%] top-[49%] hidden h-2 w-2 rounded-full bg-[#ffc62a] shadow-[0_0_8px_2px_rgba(255,198,42,0.95),0_0_24px_8px_rgba(255,198,42,0.25)] lg:block"
             />
 
             {/* دستگاه */}
-            <div className="absolute inset-0 z-20 flex items-center justify-center [perspective:2100px]">
+            <div className="absolute inset-0 z-20 flex items-center justify-center [perspective:1400px]">
               <motion.div
                 style={{
                   scale: deviceScale,
                 }}
-                className="relative h-[51vh] w-[51vh] min-h-[360px] min-w-[360px] max-h-[700px] max-w-[700px] sm:h-[57vh] sm:w-[57vh] lg:h-[64vh] lg:w-[64vh]"
+                className="relative h-[56vh] w-[56vh] min-h-[400px] min-w-[400px] max-h-[790px] max-w-[790px] sm:h-[62vh] sm:w-[62vh] lg:h-[72vh] lg:w-[72vh] xl:h-[75vh] xl:w-[75vh]"
               >
                 <motion.button
                   type="button"
@@ -506,6 +520,12 @@ export function UseCasesOrbit() {
                       : 'Stärkere 3D-Bewegung aktivieren'
                   }
                   aria-pressed={deviceEngaged}
+                  onMouseEnter={() =>
+                    setDeviceHovered(true)
+                  }
+                  onMouseLeave={() =>
+                    setDeviceHovered(false)
+                  }
                   onClick={() =>
                     setDeviceEngaged(
                       (current) => !current,
@@ -519,33 +539,39 @@ export function UseCasesOrbit() {
                   }}
                   animate={{
                     scale: deviceEngaged
-                      ? 1.065
-                      : 1,
+                      ? 1.15
+                      : deviceHovered
+                        ? 1.1
+                        : 1,
+                    z: deviceEngaged
+                      ? 190
+                      : deviceHovered
+                        ? 135
+                        : 0,
                     rotateZ: deviceEngaged
-                      ? 0.7
+                      ? 0.8
                       : 0,
                   }}
-                  whileHover={
-                    reduceMotion
-                      ? undefined
-                      : {
-                          scale: deviceEngaged
-                            ? 1.09
-                            : 1.05,
-                      }
-                  }
                   whileTap={
                     reduceMotion
                       ? undefined
                       : {
-                          scale: 0.98,
-                      }
+                          scale: 1.02,
+                          z: 80,
+                        }
                   }
                   transition={{
                     scale: {
                       type: 'spring',
-                      stiffness: 230,
+                      stiffness: 210,
+                      damping: 18,
+                      mass: 0.75,
+                    },
+                    z: {
+                      type: 'spring',
+                      stiffness: 180,
                       damping: 20,
+                      mass: 0.8,
                     },
                     rotateZ: {
                       duration: 0.45,
@@ -554,9 +580,51 @@ export function UseCasesOrbit() {
                   }}
                   className="relative h-full w-full cursor-pointer [transform-style:preserve-3d] focus:outline-none"
                 >
-                  <div className="pointer-events-none absolute inset-[10%] rounded-full bg-[#ffc62a]/11 blur-[90px]" />
+                  {/* نور پشت دستگاه هنگام جلو آمدن */}
+                  <motion.div
+                    animate={{
+                      opacity:
+                        deviceHovered || deviceEngaged
+                          ? 0.28
+                          : 0.12,
+                      scale:
+                        deviceHovered || deviceEngaged
+                          ? 1.18
+                          : 1,
+                    }}
+                    transition={{
+                      duration: 0.4,
+                    }}
+                    className="pointer-events-none absolute inset-[7%] rounded-full bg-[#ffc62a] blur-[105px]"
+                  />
 
-                  <div className="pointer-events-none absolute bottom-[5%] left-[16%] right-[12%] h-[12%] rounded-full bg-black/85 blur-2xl" />
+                  {/* سایه دستگاه */}
+                  <motion.div
+                    animate={{
+                      opacity:
+                        deviceHovered || deviceEngaged
+                          ? 0.9
+                          : 0.55,
+                      scaleX:
+                        deviceHovered || deviceEngaged
+                          ? 1.2
+                          : 1,
+                      scaleY:
+                        deviceHovered || deviceEngaged
+                          ? 0.7
+                          : 1,
+                      y:
+                        deviceHovered || deviceEngaged
+                          ? 24
+                          : 0,
+                    }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 180,
+                      damping: 22,
+                    }}
+                    className="pointer-events-none absolute bottom-[4%] left-[14%] right-[10%] h-[13%] rounded-full bg-black blur-2xl"
+                  />
 
                   <Image
                     src="/images/how-it-works-03-device.png"
@@ -564,13 +632,13 @@ export function UseCasesOrbit() {
                     fill
                     priority
                     draggable={false}
-                    sizes="(max-width: 640px) 360px, (max-width: 1024px) 560px, 700px"
-                    className="pointer-events-none select-none object-contain"
+                    sizes="(max-width: 640px) 400px, (max-width: 1024px) 620px, 790px"
+                    className="pointer-events-none select-none object-contain drop-shadow-[0_35px_55px_rgba(0,0,0,0.55)]"
                   />
 
                   {/*
-                    LED واقعی در عکس بالاتر از محل قبلی است.
-                    این نقطه اکنون روی LED کوچک جلوی دستگاه قرار گرفته.
+                    LED پایین‌تر منتقل شده است.
+                    نقطه باید روی دایره کوچک واقعی زیر پنل قرار بگیرد.
                   */}
                   <motion.span
                     animate={
@@ -578,23 +646,23 @@ export function UseCasesOrbit() {
                         ? undefined
                         : {
                             opacity: [
-                              0.3,
+                              0.38,
                               1,
-                              0.3,
+                              0.38,
                             ],
                             scale: [
-                              0.72,
-                              1.24,
-                              0.72,
+                              0.75,
+                              1.28,
+                              0.75,
                             ],
                           }
                     }
                     transition={{
-                      duration: 1.85,
+                      duration: 1.8,
                       repeat: Infinity,
                       ease: 'easeInOut',
                     }}
-                    className="pointer-events-none absolute left-[48.15%] top-[58.9%] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_7px_3px_rgba(255,198,42,1),0_0_25px_10px_rgba(255,198,42,0.52)] sm:h-3 sm:w-3"
+                    className="pointer-events-none absolute left-[48.1%] top-[63.8%] h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_7px_3px_rgba(255,198,42,1),0_0_26px_11px_rgba(255,198,42,0.55)] sm:h-3 sm:w-3"
                   />
 
                   <motion.div
@@ -607,7 +675,7 @@ export function UseCasesOrbit() {
                         ? 1
                         : 0.8,
                     }}
-                    className="pointer-events-none absolute bottom-[12%] left-1/2 -translate-x-1/2 rounded-full border border-[#ffc62a]/30 bg-black/45 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#ffc62a]/85 backdrop-blur-md"
+                    className="pointer-events-none absolute bottom-[10%] left-1/2 -translate-x-1/2 rounded-full border border-[#ffc62a]/35 bg-black/55 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#ffc62a] backdrop-blur-md"
                   >
                     3D aktiv
                   </motion.div>
@@ -615,7 +683,7 @@ export function UseCasesOrbit() {
               </motion.div>
             </div>
 
-            {/* موارد دسکتاپ */}
+            {/* کاربردهای دسکتاپ */}
             <div className="absolute inset-0 z-30 hidden lg:block">
               {useCases.map((item, index) => (
                 <OrbitItem
@@ -655,8 +723,8 @@ export function UseCasesOrbit() {
                       }
                       className={`relative flex min-h-11 items-center justify-center gap-2 rounded-full border px-3 text-[11px] font-semibold backdrop-blur-md transition ${
                         isActive
-                          ? 'border-[#ffc62a] bg-[#ffc62a]/16 text-[#ffc62a]'
-                          : 'border-[#ffc62a]/45 bg-[#ffc62a]/[0.06] text-[#ffc62a]/80'
+                          ? 'border-[#ffc62a] bg-[#ffc62a]/18 text-[#ffc62a]'
+                          : 'border-[#ffc62a]/55 bg-[#ffc62a]/[0.08] text-[#ffc62a]/85'
                       }`}
                     >
                       <Icon className="h-3.5 w-3.5" />
@@ -664,7 +732,7 @@ export function UseCasesOrbit() {
                       <span>{label}</span>
 
                       {isActive && (
-                        <span className="absolute bottom-full left-1/2 mb-2 w-[210px] -translate-x-1/2 rounded-2xl border border-[#ffc62a]/20 bg-black/95 p-3 text-center text-[11px] font-normal leading-5 text-white/70 shadow-2xl">
+                        <span className="absolute bottom-full left-1/2 mb-2 w-[210px] -translate-x-1/2 rounded-2xl border border-[#ffc62a]/25 bg-black/95 p-3 text-center text-[11px] font-normal leading-5 text-white/72 shadow-2xl">
                           {description}
                         </span>
                       )}

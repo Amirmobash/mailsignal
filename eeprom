@@ -2,7 +2,7 @@
 
 constexpr uint8_t SENSOR_PIN = 2;
 constexpr uint8_t RESET_PIN = 3;
-constexpr uint8_t LED_PIN = 9;
+constexpr uint8_t LED_PIN = 7;
 
 constexpr uint8_t EEPROM_ADRESSE = 0;
 constexpr uint8_t EEPROM_KENNUNG = 0xB6;

@@ -81,6 +81,7 @@ type CountPanelProps = {
 
 function CountPanel({ value }: CountPanelProps) {
   const reduceMotion = useReducedMotion();
+  const isZero = value === 0;
 
   return (
     <StoryPanel>
@@ -129,11 +130,17 @@ function CountPanel({ value }: CountPanelProps) {
         </motion.div>
 
         <p className="mt-8 text-sm leading-6 opacity-45 sm:text-base">
-          Mal nachgesehen.
+          {isZero ? (
+            'Kein unnötiger Weg mehr.'
+          ) : (
+            <>
+              Mal nachgesehen.
 
-          <span className="block">
-            Nichts angekommen.
-          </span>
+              <span className="block">
+                Nichts angekommen.
+              </span>
+            </>
+          )}
         </p>
       </div>
     </StoryPanel>
@@ -164,10 +171,6 @@ export function MinimalStory() {
     offset: ['start start', 'end end'],
   });
 
-  /*
-   * تغییر آرام پس‌زمینه:
-   * مشکی → قهوه‌ای تیره → بژ → کرم
-   */
   const backgroundColor = useTransform(
     scrollYProgress,
     [0, 0.28, 0.55, 0.78, 1],
@@ -180,9 +183,6 @@ export function MinimalStory() {
     ],
   );
 
-  /*
-   * رنگ متن با روشن‌شدن پس‌زمینه تغییر می‌کند.
-   */
   const textColor = useTransform(
     scrollYProgress,
     [0, 0.63, 0.82, 1],
@@ -255,7 +255,6 @@ export function MinimalStory() {
       }}
       className="relative overflow-hidden"
     >
-      {/* نور بسیار محو دنبال‌کننده موس */}
       <motion.div
         style={{
           left: glowX,
@@ -268,7 +267,6 @@ export function MinimalStory() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.025),transparent_46%)]" />
 
       <div className="section-shell relative z-10">
-        {/* مرحله اول: سؤال اصلی */}
         <StoryPanel className="min-h-screen">
           <div className="max-w-5xl text-center">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#ffc62a] sm:text-xs">
@@ -312,7 +310,6 @@ export function MinimalStory() {
           </div>
         </StoryPanel>
 
-        {/* مرحله دوم: ساعت‌های روز */}
         <StoryPanel className="min-h-[92vh]">
           <div className="w-full max-w-6xl">
             <div className="text-center">
@@ -359,16 +356,8 @@ export function MinimalStory() {
                           reduceMotion
                             ? undefined
                             : {
-                                opacity: [
-                                  0.35,
-                                  1,
-                                  0.35,
-                                ],
-                                scale: [
-                                  0.8,
-                                  1.18,
-                                  0.8,
-                                ],
+                                opacity: [0.35, 1, 0.35],
+                                scale: [0.8, 1.18, 0.8],
                                 boxShadow: [
                                   '0 0 0 rgba(255,198,42,0)',
                                   '0 0 24px rgba(255,198,42,0.8)',
@@ -377,8 +366,7 @@ export function MinimalStory() {
                               }
                         }
                         transition={{
-                          duration:
-                            2.1 + index * 0.2,
+                          duration: 2.1 + index * 0.2,
                           repeat: Infinity,
                           ease: 'easeInOut',
                         }}
@@ -400,18 +388,12 @@ export function MinimalStory() {
           </div>
         </StoryPanel>
 
-        {/* عددها */}
         <CountPanel value={4} />
-
         <CountPanel value={3} />
-
         <CountPanel value={2} />
-
         <CountPanel value={1} />
-
         <CountPanel value={0} />
 
-        {/* پیام نهایی */}
         <StoryPanel className="min-h-screen">
           <div className="max-w-5xl text-center">
             <motion.div

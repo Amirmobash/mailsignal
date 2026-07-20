@@ -27,7 +27,9 @@ const navigationItems = [
 ];
 
 export function CinematicHero() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef =
+    useRef<HTMLElement>(null);
+
   const reduceMotion = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
@@ -87,9 +89,9 @@ export function CinematicHero() {
     <section
       ref={sectionRef}
       id="top"
-      className="relative h-[135vh] bg-[#030303] text-white"
+      className="relative h-[135vh] bg-black text-white"
     >
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="sticky top-0 h-screen overflow-hidden bg-black">
         <header className="absolute inset-x-0 top-0 z-30">
           <div className="section-shell flex h-24 items-center justify-between">
             <a
@@ -104,15 +106,17 @@ export function CinematicHero() {
               aria-label="Hauptnavigation"
               className="hidden items-center gap-9 text-sm text-white/55 md:flex"
             >
-              {navigationItems.map(({ label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  className="transition-colors duration-300 hover:text-white"
-                >
-                  {label}
-                </a>
-              ))}
+              {navigationItems.map(
+                ({ label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    className="transition-colors duration-300 hover:text-white"
+                  >
+                    {label}
+                  </a>
+                ),
+              )}
             </nav>
 
             <a
@@ -124,11 +128,14 @@ export function CinematicHero() {
           </div>
         </header>
 
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_66%,rgba(255,255,255,0.035),transparent_32%)]" />
+        {/* Very subtle background light */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_67%,rgba(255,255,255,0.025),transparent_30%)]" />
 
         <motion.div
-          style={{ opacity: glowOpacity }}
-          className="pointer-events-none absolute left-1/2 top-[64%] h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/20 blur-[160px]"
+          style={{
+            opacity: glowOpacity,
+          }}
+          className="pointer-events-none absolute left-1/2 top-[65%] h-[22rem] w-[22rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/16 blur-[170px]"
         />
 
         <div className="relative mx-auto flex h-full max-w-[1500px] flex-col items-center justify-center px-6 pt-24">
@@ -155,24 +162,42 @@ export function CinematicHero() {
             }}
             className="relative mt-72 w-[min(80vw,610px)] sm:mt-80"
           >
-            <Image
-              src="/images/hero-device-off.png"
-              alt="MailSignal Gerät mit Solarpanel und LED-Anzeige"
-              width={1536}
-              height={1536}
-              priority
-              sizes="(max-width: 768px) 88vw, 610px"
-              className="h-auto w-full select-none object-contain"
+            {/* Soft edge fade prevents the image background
+                from appearing as a visible rectangle */}
+            <div
+              className="relative"
+              style={{
+                WebkitMaskImage:
+                  'radial-gradient(ellipse 64% 66% at 50% 55%, black 58%, rgba(0,0,0,0.92) 70%, transparent 100%)',
+                maskImage:
+                  'radial-gradient(ellipse 64% 66% at 50% 55%, black 58%, rgba(0,0,0,0.92) 70%, transparent 100%)',
+              }}
+            >
+              <Image
+                src="/images/hero-device-off.png"
+                alt="MailSignal Gerät mit Solarpanel und LED-Anzeige"
+                width={1536}
+                height={1536}
+                priority
+                sizes="(max-width: 768px) 88vw, 610px"
+                className="h-auto w-full select-none object-contain"
+              />
+            </div>
+
+            {/* LED point */}
+            <motion.div
+              style={{
+                opacity: ledOpacity,
+              }}
+              className="pointer-events-none absolute left-[50%] top-[74.2%] z-20 h-[2.2%] w-[2.2%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_10px_3px_rgba(255,198,42,0.95),0_0_34px_12px_rgba(255,198,42,0.42)]"
             />
 
+            {/* LED halo */}
             <motion.div
-              style={{ opacity: ledOpacity }}
-              className="pointer-events-none absolute left-[50%] top-[74.2%] h-[2.2%] w-[2.2%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_10px_3px_rgba(255,198,42,0.95),0_0_34px_12px_rgba(255,198,42,0.42)]"
-            />
-
-            <motion.div
-              style={{ opacity: glowOpacity }}
-              className="pointer-events-none absolute left-[50%] top-[74.2%] h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/30 blur-3xl"
+              style={{
+                opacity: glowOpacity,
+              }}
+              className="pointer-events-none absolute left-[50%] top-[74.2%] z-10 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/30 blur-3xl"
             />
           </motion.div>
 
@@ -189,7 +214,9 @@ export function CinematicHero() {
           </motion.div>
 
           <motion.div
-            style={{ opacity: titleOpacity }}
+            style={{
+              opacity: titleOpacity,
+            }}
             className="absolute bottom-7 text-center"
           >
             <p className="text-[10px] uppercase tracking-[0.32em] text-white/28">

@@ -45,12 +45,7 @@ const faqItems: FaqItem[] = [
   },
 ];
 
-/*
- * این ایمیل را با ایمیل واقعی خودت عوض کن.
- */
-const contactEmail = 'ladansediqi@gmail.com';
-
-export function FaqContact() {
+export function Faq() {
   const [openIndex, setOpenIndex] =
     useState<number | null>(0);
 
@@ -67,14 +62,14 @@ export function FaqContact() {
       id="faq"
       className="relative overflow-hidden bg-[#f1e5ca] text-[#19130f]"
     >
-      {/* نورهای ظریف پس‌زمینه */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-[16%] h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-[#ffc62a]/10 blur-[180px]" />
 
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/20 to-transparent" />
+
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/[0.025] to-transparent" />
       </div>
 
-      {/* FAQ */}
       <div className="section-shell relative z-10 py-24 sm:py-32 lg:py-40">
         <motion.header
           initial={
@@ -155,11 +150,11 @@ export function FaqContact() {
                     onClick={() => toggleItem(index)}
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${index}`}
-                    className="group flex w-full items-center justify-between gap-8 py-7 text-left sm:py-8"
+                    className="group flex w-full items-center justify-between gap-6 py-7 text-left sm:gap-8 sm:py-8"
                   >
-                    <div className="flex items-start gap-5 sm:gap-7">
+                    <div className="flex min-w-0 items-start gap-4 sm:gap-7">
                       <span
-                        className={`mt-1 text-[10px] font-semibold tracking-[0.2em] transition-colors duration-300 sm:text-xs ${
+                        className={`mt-1 shrink-0 text-[10px] font-semibold tracking-[0.2em] transition-colors duration-300 sm:text-xs ${
                           isOpen
                             ? 'text-[#a96f00]'
                             : 'text-black/28'
@@ -172,7 +167,7 @@ export function FaqContact() {
                       </span>
 
                       <h3
-                        className={`text-xl font-semibold tracking-[-0.035em] transition-colors duration-300 sm:text-2xl ${
+                        className={`text-lg font-semibold tracking-[-0.035em] transition-colors duration-300 sm:text-2xl ${
                           isOpen
                             ? 'text-[#19130f]'
                             : 'text-black/68 group-hover:text-black'
@@ -185,8 +180,8 @@ export function FaqContact() {
                     <span
                       className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition duration-300 ${
                         isOpen
-                          ? 'rotate-45 border-[#a96f00]/40 bg-[#ffc62a]/20'
-                          : 'border-black/14 bg-black/[0.025] group-hover:border-black/25'
+                          ? 'rotate-45 border-[#a96f00]/40 bg-[#ffc62a]/20 text-[#19130f]'
+                          : 'border-black/14 bg-black/[0.025] text-black/70 group-hover:border-black/25'
                       }`}
                     >
                       <span className="absolute h-px w-4 bg-current" />
@@ -230,7 +225,7 @@ export function FaqContact() {
                         }}
                         className="overflow-hidden"
                       >
-                        <div className="pb-8 pl-[2.45rem] pr-14 sm:pb-10 sm:pl-[3.25rem] sm:pr-20">
+                        <div className="pb-8 pl-[2.2rem] pr-12 sm:pb-10 sm:pl-[3.25rem] sm:pr-20">
                           <p className="max-w-2xl text-base leading-7 text-black/52 sm:text-lg sm:leading-8">
                             {answer}
                           </p>
@@ -243,118 +238,38 @@ export function FaqContact() {
             },
           )}
         </motion.div>
-      </div>
 
-      {/* Kontakt */}
-      <div
-        id="kontakt"
-        className="relative bg-[#050504] text-white"
-      >
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-1/2 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/10 blur-[190px]" />
+        <motion.div
+          initial={
+            reduceMotion
+              ? false
+              : {
+                  opacity: 0,
+                  y: 18,
+                }
+          }
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.8,
+          }}
+          transition={{
+            duration: 0.7,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="mx-auto mt-12 flex max-w-4xl items-center justify-center gap-4 text-center sm:mt-16"
+        >
+          <span className="h-px w-10 bg-black/12" />
 
-          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#f1e5ca]/10 to-transparent" />
-        </div>
+          <p className="text-xs text-black/35">
+            Weitere Kontaktinformationen finden Sie im Footer.
+          </p>
 
-        <div className="section-shell relative z-10 py-24 sm:py-32 lg:py-40">
-          <motion.div
-            initial={
-              reduceMotion
-                ? false
-                : {
-                    opacity: 0,
-                    y: 35,
-                  }
-            }
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-              amount: 0.5,
-            }}
-            transition={{
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="mx-auto max-w-5xl text-center"
-          >
-            <motion.div
-              animate={
-                reduceMotion
-                  ? undefined
-                  : {
-                      opacity: [0.4, 1, 0.4],
-                      scale: [0.75, 1.25, 0.75],
-                      boxShadow: [
-                        '0 0 0 rgba(255,198,42,0)',
-                        '0 0 18px rgba(255,198,42,0.9), 0 0 60px rgba(255,198,42,0.45)',
-                        '0 0 0 rgba(255,198,42,0)',
-                      ],
-                    }
-              }
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="mx-auto h-4 w-4 rounded-full bg-[#ffc62a]"
-            />
-
-            <p className="mt-7 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#ffc62a] sm:text-xs">
-              Kontakt
-            </p>
-
-            <h2 className="mt-6 text-balance text-5xl font-semibold leading-[0.95] tracking-[-0.06em] sm:text-7xl lg:text-[6rem]">
-              Fragen oder Feedback?
-
-              <span className="block text-white/28">
-                Schreiben Sie uns.
-              </span>
-            </h2>
-
-            <p className="mx-auto mt-7 max-w-2xl text-base leading-7 text-white/48 sm:text-lg sm:leading-8">
-              MailSignal befindet sich aktuell in der
-              Entwicklung. Fragen, Hinweise und Feedback zum
-              Konzept sind jederzeit willkommen.
-            </p>
-
-            <a
-              href={`mailto:${contactEmail}?subject=Anfrage zu MailSignal`}
-              className="group mx-auto mt-10 inline-flex min-h-14 items-center justify-center gap-4 rounded-full border border-[#ffc62a]/35 bg-[#ffc62a]/10 px-7 text-sm font-semibold text-[#ffc62a] transition duration-300 hover:border-[#ffc62a]/70 hover:bg-[#ffc62a]/16 sm:min-h-16 sm:px-9 sm:text-base"
-            >
-              <span>E-Mail schreiben</span>
-
-              <span className="transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </a>
-
-            <a
-              href={`mailto:${contactEmail}`}
-              className="mt-6 block text-sm text-white/42 transition duration-300 hover:text-white sm:text-base"
-            >
-              {contactEmail}
-            </a>
-          </motion.div>
-
-          <div className="mt-24 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 text-center sm:mt-32 sm:flex-row sm:text-left">
-            <div>
-              <p className="text-lg font-semibold tracking-[-0.035em]">
-                MailSignal
-              </p>
-
-              <p className="mt-1 text-sm text-white/35">
-                Sichtbar wissen, wann Post da ist.
-              </p>
-            </div>
-
-            <p className="text-xs text-white/28">
-              © 2026 MailSignal
-            </p>
-          </div>
-        </div>
+          <span className="h-px w-10 bg-black/12" />
+        </motion.div>
       </div>
     </section>
   );

@@ -398,7 +398,7 @@ export function UseCasesOrbit() {
       id="use-cases"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative h-[165vh] bg-[#050504] text-white"
+      className="relative h-[165vh] scroll-mt-24 bg-[#050504] text-white"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <motion.div

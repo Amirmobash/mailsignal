@@ -61,13 +61,13 @@ export function ProductShowcase() {
 
   const titleOpacity = useTransform(
     scrollYProgress,
-    [0.14, 0.34, 0.54],
-    [0, 0.42, 1],
+    [0.10, 0.26, 0.50],
+    [0, 1, 1],
   );
 
   const titleY = useTransform(
     scrollYProgress,
-    [0.14, 0.54],
+    [0.10, 0.34],
     reduceMotion ? [0, 0] : [54, 0],
   );
 

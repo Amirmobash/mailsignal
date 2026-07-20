@@ -73,13 +73,13 @@ export function ProductShowcase() {
 
   const copyOpacity = useTransform(
     scrollYProgress,
-    [0.34, 0.52, 0.7],
+    [0.28, 0.46, 0.68],
     [0, 0.48, 1],
   );
 
   const copyY = useTransform(
     scrollYProgress,
-    [0.34, 0.7],
+    [0.28, 0.64],
     reduceMotion ? [0, 0] : [28, 0],
   );
 

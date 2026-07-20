@@ -94,10 +94,10 @@ export function ProductShowcase() {
     <section
       ref={sectionRef}
       id="produkt"
-      className="relative h-[145vh] scroll-mt-24 bg-[#050504] text-white"
+      className="relative h-[145vh] scroll-mt-24 bg-black text-white"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#030303] via-[#040403] to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-black via-black to-transparent" />
 
         <motion.div
           style={{ opacity: ambientGlowOpacity }}
@@ -112,7 +112,7 @@ export function ProductShowcase() {
                 y: imageY,
                 opacity: imageOpacity,
               }}
-              className="relative h-[58vh] min-h-[480px] overflow-hidden rounded-[2.25rem] border border-white/10 bg-black lg:h-[76vh]"
+              className="relative h-[58vh] min-h-[480px] overflow-hidden bg-black lg:h-[76vh]"
             >
               <Image
                 src="/images/product-mailbox-dark.png"
@@ -122,8 +122,6 @@ export function ProductShowcase() {
                 sizes="(max-width: 1024px) 100vw, 54vw"
                 className="object-contain object-center"
               />
-
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_52%_52%,transparent_38%,rgba(0,0,0,0.2)_100%)]" />
 
               {/* Pulsing LED point */}
               <motion.div
@@ -140,7 +138,7 @@ export function ProductShowcase() {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="pointer-events-none absolute left-[63.8%] top-[52.9%] z-20 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_8px_3px_rgba(255,198,42,1),0_0_22px_9px_rgba(255,198,42,0.7),0_0_48px_18px_rgba(255,170,0,0.34)]"
+                className="pointer-events-none absolute left-[58.5%] top-[52.9%] z-20 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_8px_3px_rgba(255,198,42,1),0_0_22px_9px_rgba(255,198,42,0.7),0_0_48px_18px_rgba(255,170,0,0.34)]"
               />
 
               {/* Soft LED halo */}
@@ -158,7 +156,7 @@ export function ProductShowcase() {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="pointer-events-none absolute left-[63.8%] top-[52.9%] z-10 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/35 blur-2xl"
+                className="pointer-events-none absolute left-[58.5%] top-[52.9%] z-10 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/35 blur-2xl"
               />
             </motion.div>
 
@@ -194,8 +192,8 @@ export function ProductShowcase() {
                 }}
                 className="mt-8 max-w-xl text-lg leading-8 text-white/48"
               >
-                MailSignal zeigt direkt am Briefkasten, ob
-                neue Post angekommen ist. Ein Blick genügt.
+                MailSignal zeigt direkt am Briefkasten, ob neue Post angekommen
+                ist. Ein Blick genügt.
               </motion.p>
             </div>
           </div>

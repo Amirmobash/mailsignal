@@ -96,7 +96,8 @@ export function ProductShowcase() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[145vh] bg-[#050504] text-white"
+      id="produkt"
+      className="relative h-[145vh] scroll-mt-24 bg-[#050504] text-white"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#030303] via-[#040403] to-transparent" />

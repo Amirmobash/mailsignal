@@ -139,12 +139,12 @@ export function CinematicHero() {
             }}
             className="absolute top-[11%] z-20 text-center sm:top-[10%]"
           >
-            <h1 className="text-[clamp(3.2rem,7.6vw,7.5rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
-              Post erkennen.
+            <h1 className="text-[clamp(2.7rem,7vw,7rem)] font-semibold leading-[0.92] tracking-[-0.065em]">
+              Nie wieder umsonst
             </h1>
 
-            <p className="mt-3 text-[clamp(2.8rem,6.8vw,6.7rem)] font-semibold leading-[0.92] tracking-[-0.065em] text-white/32">
-              Ohne App. Ohne Umweg.
+            <p className="mt-3 text-[clamp(2.7rem,6.5vw,6.4rem)] font-semibold leading-[0.94] tracking-[-0.06em] text-white/32">
+              zum Briefkasten.
             </p>
           </motion.div>
 

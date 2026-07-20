@@ -62,7 +62,7 @@ export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="relative overflow-hidden bg-[#f1e5ca] py-24 text-[#19130f] sm:py-32 lg:py-40"
+       className="relative scroll-mt-24 overflow-hidden bg-[#f1e5ca] py-24 text-[#19130f] sm:py-32 lg:py-40"
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-[22%] h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-[#ffc62a]/10 blur-[190px]" />

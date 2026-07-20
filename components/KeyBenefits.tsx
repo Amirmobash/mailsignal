@@ -13,8 +13,8 @@ const benefits = [
   {
     number: '02',
     icon: Sun,
-    title: 'Solarbetrieben',
-    text: 'Energie aus Tageslicht. Kein externer Stromanschluss.',
+    title: 'Solarbetrieben & wetterfest',
+    text: 'Energie aus Tageslicht. Für draußen entwickelt und gegen Regen geschützt.',
   },
   {
     number: '03',
@@ -93,15 +93,14 @@ export function KeyBenefits() {
           </p>
 
           <h2 className="mt-5 text-balance text-5xl font-semibold tracking-[-0.06em] sm:text-7xl lg:text-[6.5rem] lg:leading-[0.92]">
-            Einfach.
+            Einfach gedacht.
             <span className="block text-white/28">
-              Unabhängig. Direkt.
+              Für draußen gemacht.
             </span>
           </h2>
 
           <p className="mt-7 max-w-2xl text-lg leading-8 text-white/46">
-            Alles, was MailSignal besonders macht – auf das Wesentliche
-            reduziert.
+            Alles, was MailSignal besonders macht – reduziert auf das Wesentliche.
           </p>
         </motion.div>
 

@@ -9,6 +9,7 @@ import { KeyBenefits } from '@/components/KeyBenefits';
 import { HowItWorks } from '@/components/HowItWorks';
 import { UseCasesOrbit } from '@/components/UseCasesOrbit';
 import { MinimalStory } from '@/components/MinimalStory';
+import { FaqContact } from '@/components/FaqContact';
 
 export default function Home() {
   return (
@@ -24,6 +25,8 @@ export default function Home() {
       <UseCasesOrbit />
 
       <MinimalStory />
+
+      <FaqContact />
 
       <TechnologyStory />
 

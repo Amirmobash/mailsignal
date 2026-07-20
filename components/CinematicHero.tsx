@@ -11,6 +11,21 @@ import { useRef } from 'react';
 
 import { Logo } from '@/components/Logo';
 
+const navigationItems = [
+  {
+    label: 'Produkt',
+    href: '#produkt',
+  },
+  {
+    label: 'So funktioniert es',
+    href: '#how-it-works',
+  },
+  {
+    label: 'Anwendungen',
+    href: '#use-cases',
+  },
+];
+
 export function CinematicHero() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
@@ -45,66 +60,64 @@ export function CinematicHero() {
   );
 
   const ledOpacity = useTransform(
-  scrollYProgress,
-  [0.12, 0.28, 0.48],
-  [0, 0.3, 1],
-);
+    scrollYProgress,
+    [0.12, 0.28, 0.48],
+    [0, 0.3, 1],
+  );
 
-const glowOpacity = useTransform(
-  scrollYProgress,
-  [0.16, 0.34, 0.54],
-  [0, 0.18, 0.56],
-);
+  const glowOpacity = useTransform(
+    scrollYProgress,
+    [0.16, 0.34, 0.54],
+    [0, 0.18, 0.56],
+  );
 
-const messageOpacity = useTransform(
-  scrollYProgress,
-  [0.32, 0.48, 0.68],
-  [0, 1, 1],
-);
+  const messageOpacity = useTransform(
+    scrollYProgress,
+    [0.32, 0.48, 0.68],
+    [0, 1, 1],
+  );
 
-const messageY = useTransform(
-  scrollYProgress,
-  [0.32, 0.48],
-  [18, 0],
-);
+  const messageY = useTransform(
+    scrollYProgress,
+    [0.32, 0.48],
+    [18, 0],
+  );
 
   return (
     <section
       ref={sectionRef}
-      id="product"
+      id="top"
       className="relative h-[135vh] bg-[#030303] text-white"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <header className="absolute inset-x-0 top-0 z-30">
           <div className="section-shell flex h-24 items-center justify-between">
-            <Logo />
+            <a
+              href="#top"
+              aria-label="Zurück zum Seitenanfang"
+              className="shrink-0"
+            >
+              <Logo />
+            </a>
 
-            <nav className="hidden items-center gap-9 text-sm text-white/55 md:flex">
-              <a
-                href="#product"
-                className="transition duration-300 hover:text-white"
-              >
-                Produkt
-              </a>
-
-              <a
-                href="#technology"
-                className="transition duration-300 hover:text-white"
-              >
-                Technologie
-              </a>
-
-              <a
-                href="#business"
-                className="transition duration-300 hover:text-white"
-              >
-                Business
-              </a>
+            <nav
+              aria-label="Hauptnavigation"
+              className="hidden items-center gap-9 text-sm text-white/55 md:flex"
+            >
+              {navigationItems.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="transition-colors duration-300 hover:text-white"
+                >
+                  {label}
+                </a>
+              ))}
             </nav>
 
             <a
-              href="#contact"
-              className="rounded-full border border-white/15 px-5 py-2.5 text-sm text-white/75 transition duration-300 hover:border-white/30 hover:text-white"
+              href="#kontakt"
+              className="rounded-full border border-white/15 px-5 py-2.5 text-sm text-white/75 transition duration-300 hover:border-white/30 hover:bg-white/[0.04] hover:text-white"
             >
               Kontakt
             </a>
@@ -126,9 +139,9 @@ const messageY = useTransform(
             }}
             className="absolute top-[11%] z-20 text-center sm:top-[10%]"
           >
-            <p className="text-[clamp(3.2rem,7.6vw,7.5rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
+            <h1 className="text-[clamp(3.2rem,7.6vw,7.5rem)] font-semibold leading-[0.9] tracking-[-0.07em]">
               Post erkennen.
-            </p>
+            </h1>
 
             <p className="mt-3 text-[clamp(2.8rem,6.8vw,6.7rem)] font-semibold leading-[0.92] tracking-[-0.065em] text-white/32">
               Ohne App. Ohne Umweg.
@@ -144,7 +157,7 @@ const messageY = useTransform(
           >
             <Image
               src="/images/hero-device-off.png"
-              alt="MailSignal Gerät"
+              alt="MailSignal Gerät mit Solarpanel und LED-Anzeige"
               width={1536}
               height={1536}
               priority

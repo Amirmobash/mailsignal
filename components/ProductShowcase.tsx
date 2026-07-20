@@ -138,7 +138,7 @@ export function ProductShowcase() {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="pointer-events-none absolute left-[56.8%] top-[51.6%] z-20 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_8px_3px_rgba(255,198,42,1),0_0_22px_9px_rgba(255,198,42,0.7),0_0_48px_18px_rgba(255,170,0,0.34)]"
+                className="pointer-events-none absolute left-[56.8%] top-[51.8%] z-20 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_8px_3px_rgba(255,198,42,1),0_0_22px_9px_rgba(255,198,42,0.7),0_0_48px_18px_rgba(255,170,0,0.34)]"
               />
 
               {/* Soft LED halo */}
@@ -156,7 +156,7 @@ export function ProductShowcase() {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="pointer-events-none absolute left-[56.8%] top-[51.6%] z-10 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/35 blur-2xl"
+                className="pointer-events-none absolute left-[56.8%] top-[51.8%] z-10 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/35 blur-2xl"
               />
             </motion.div>
 

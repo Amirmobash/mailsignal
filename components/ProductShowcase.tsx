@@ -115,17 +115,15 @@ export function ProductShowcase() {
               className="relative h-[58vh] min-h-[480px] overflow-hidden rounded-[2.25rem] border border-white/10 bg-black lg:h-[76vh]"
             >
               <Image
-                src="/images/product-mailbox-night-new.png"
-                alt="MailSignal an einem modernen Briefkasten bei Nacht"
+                src="/images/product-mailbox-dark.png"
+                alt="MailSignal an einem dunklen dreidimensionalen Briefkasten"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 54vw"
-                className="object-cover object-[55%_50%]"
+                className="object-contain object-center"
               />
 
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/5 via-transparent to-black/18" />
-
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/30 to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_52%_52%,transparent_38%,rgba(0,0,0,0.2)_100%)]" />
 
               {/* Pulsing LED point */}
               <motion.div
@@ -133,16 +131,16 @@ export function ProductShowcase() {
                   reduceMotion
                     ? undefined
                     : {
-                        opacity: [0.45, 1, 0.45],
-                        scale: [0.88, 1.18, 0.88],
+                        opacity: [0.35, 1, 0.35],
+                        scale: [0.82, 1.18, 0.82],
                       }
                 }
                 transition={{
-                  duration: 1.6,
+                  duration: 1.5,
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="pointer-events-none absolute left-[64.5%] top-[53.1%] z-20 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffe04a] shadow-[0_0_8px_3px_rgba(255,224,74,1),0_0_22px_9px_rgba(255,198,42,0.78),0_0_48px_19px_rgba(255,170,0,0.38)]"
+                className="pointer-events-none absolute left-[63.8%] top-[52.9%] z-20 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_8px_3px_rgba(255,198,42,1),0_0_22px_9px_rgba(255,198,42,0.7),0_0_48px_18px_rgba(255,170,0,0.34)]"
               />
 
               {/* Soft LED halo */}
@@ -151,16 +149,16 @@ export function ProductShowcase() {
                   reduceMotion
                     ? undefined
                     : {
-                        opacity: [0.12, 0.48, 0.12],
-                        scale: [0.78, 1.28, 0.78],
+                        opacity: [0.08, 0.4, 0.08],
+                        scale: [0.78, 1.3, 0.78],
                       }
                 }
                 transition={{
-                  duration: 1.6,
+                  duration: 1.5,
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="pointer-events-none absolute left-[64.5%] top-[53.1%] z-10 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/38 blur-2xl"
+                className="pointer-events-none absolute left-[63.8%] top-[52.9%] z-10 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/35 blur-2xl"
               />
             </motion.div>
 

@@ -48,7 +48,7 @@ const faqItems: FaqItem[] = [
 /*
  * این ایمیل را با ایمیل واقعی خودت عوض کن.
  */
-const contactEmail = 'DEINE-EMAIL@EXAMPLE.COM';
+const contactEmail = 'ladansediqi@gmail.com';
 
 export function FaqContact() {
   const [openIndex, setOpenIndex] =

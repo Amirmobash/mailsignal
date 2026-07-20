@@ -42,9 +42,6 @@ export function ProductShowcase() {
 
   /*
    * Text reveal
-   *
-   * At the beginning the complete text is invisible.
-   * It becomes visible gradually as the user scrolls.
    */
 
   const eyebrowOpacity = useTransform(
@@ -61,13 +58,13 @@ export function ProductShowcase() {
 
   const titleOpacity = useTransform(
     scrollYProgress,
-    [0.10, 0.26, 0.50],
+    [0.1, 0.26, 0.5],
     [0, 1, 1],
   );
 
   const titleY = useTransform(
     scrollYProgress,
-    [0.10, 0.34],
+    [0.1, 0.34],
     reduceMotion ? [0, 0] : [54, 0],
   );
 
@@ -118,11 +115,12 @@ export function ProductShowcase() {
               className="relative h-[58vh] min-h-[480px] overflow-hidden rounded-[2.25rem] border border-white/10 bg-black lg:h-[76vh]"
             >
               <Image
-                src="/images/product-mailbox-night.png"
+                src="/images/product-mailbox-night-new.png"
                 alt="MailSignal an einem modernen Briefkasten bei Nacht"
                 fill
+                priority
                 sizes="(max-width: 1024px) 100vw, 54vw"
-                className="object-cover"
+                className="object-cover object-[55%_50%]"
               />
 
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/5 via-transparent to-black/18" />
@@ -135,16 +133,16 @@ export function ProductShowcase() {
                   reduceMotion
                     ? undefined
                     : {
-                        opacity: [0.6, 1, 0.6],
-                        scale: [0.9, 1.22, 0.9],
+                        opacity: [0.45, 1, 0.45],
+                        scale: [0.88, 1.18, 0.88],
                       }
                 }
                 transition={{
-                  duration: 2,
+                  duration: 1.6,
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="pointer-events-none absolute left-[49%] top-[54.6%] z-20 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffe04a] shadow-[0_0_8px_3px_rgba(255,224,74,1),0_0_22px_9px_rgba(255,198,42,0.78),0_0_48px_19px_rgba(255,170,0,0.38)]"
+                className="pointer-events-none absolute left-[70.2%] top-[53.1%] z-20 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffe04a] shadow-[0_0_8px_3px_rgba(255,224,74,1),0_0_22px_9px_rgba(255,198,42,0.78),0_0_48px_19px_rgba(255,170,0,0.38)]"
               />
 
               {/* Soft LED halo */}
@@ -153,16 +151,16 @@ export function ProductShowcase() {
                   reduceMotion
                     ? undefined
                     : {
-                        opacity: [0.14, 0.52, 0.14],
-                        scale: [0.8, 1.3, 0.8],
+                        opacity: [0.12, 0.48, 0.12],
+                        scale: [0.78, 1.28, 0.78],
                       }
                 }
                 transition={{
-                  duration: 2,
+                  duration: 1.6,
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="pointer-events-none absolute left-[49%] top-[54.6%] z-10 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/38 blur-2xl"
+                className="pointer-events-none absolute left-[70.2%] top-[53.1%] z-10 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/38 blur-2xl"
               />
             </motion.div>
 
@@ -198,8 +196,8 @@ export function ProductShowcase() {
                 }}
                 className="mt-8 max-w-xl text-lg leading-8 text-white/48"
               >
-                MailSignal zeigt direkt am Briefkasten, ob neue Post angekommen
-                ist. Ein Blick genügt.
+                MailSignal zeigt direkt am Briefkasten, ob
+                neue Post angekommen ist. Ein Blick genügt.
               </motion.p>
             </div>
           </div>

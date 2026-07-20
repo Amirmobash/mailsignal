@@ -199,7 +199,7 @@ export function ProductShowcase() {
                 className="mt-8 max-w-xl text-lg leading-8 text-white/48"
               >
                 MailSignal zeigt direkt am Briefkasten, ob neue Post angekommen
-                ist. Ohne App, ohne WLAN und ohne unnötigen Kontrollgang.
+                ist. Ein Blick genügt.
               </motion.p>
             </div>
           </div>

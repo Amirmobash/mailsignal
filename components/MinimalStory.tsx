@@ -327,15 +327,15 @@ export function MinimalStory() {
             />
 
             <h2 className="mt-9 text-balance text-4xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-[5.5rem]">
-              Nur nachsehen,
+              Und genau dafür gibt es MailSignal.
 
               <span className="block">
-                wenn es wirklich nötig ist.
+                
               </span>
             </h2>
 
             <p className="mx-auto mt-7 max-w-xl text-base leading-7 opacity-50 sm:text-lg sm:leading-8">
-              Ein sichtbares Signal genügt.
+              Ein kleines Signal. Ein großer Unterschied.
             </p>
 
             <motion.div

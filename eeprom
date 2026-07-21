@@ -1,8 +1,8 @@
 #include <EEPROM.h>
 
 constexpr uint8_t SENSOR_PIN = 2;
-constexpr uint8_t RESET_PIN = 3;
-constexpr uint8_t LED_PIN = 9;
+constexpr uint8_t RESET_PIN = 1;
+constexpr uint8_t LED_PIN = 5;
 
 constexpr uint8_t EEPROM_ADRESSE = 0;
 constexpr uint8_t EEPROM_SIGNATUR = 0x6D;

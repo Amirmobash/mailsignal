@@ -66,8 +66,8 @@ const steps: Step[] = [
      * top بیشتر = پایین‌تر
      */
     signalLedPosition: {
-      left: '67.5%',
-      top: '84%',
+      left: '68.5%',
+      top: '87%',
     },
   },
   {
@@ -217,7 +217,7 @@ export function HowItWorks() {
                     }}
                     className={
                       active.imageFit === 'contain'
-                        ? 'select-none object-contain p-5 sm:p-8 lg:p-10'
+                        ? 'select-none object-contain object-[68%_50%] p-5 sm:p-8 lg:p-10'
                         : 'select-none object-cover'
                     }
                   />

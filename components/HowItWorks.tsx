@@ -66,7 +66,7 @@ const steps: Step[] = [
      * top بیشتر = پایین‌تر
      */
     signalLedPosition: {
-      left: '64%',
+      left: '62%',
       top: '90%',
     },
   },

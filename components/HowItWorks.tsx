@@ -8,7 +8,7 @@ import {
 } from 'framer-motion';
 import { useState } from 'react';
 
-type LedPosition = {
+type Position = {
   left: string;
   top: string;
 };
@@ -21,10 +21,15 @@ type Step = {
   text: string;
   image: string;
   alt: string;
-  type: 'photo' | 'device';
+
+  imageFit: 'cover' | 'contain';
   imagePosition?: string;
-  showLed?: boolean;
-  ledPosition?: LedPosition;
+
+  showSignalLed?: boolean;
+  signalLedPosition?: Position;
+
+  showResetIndicator?: boolean;
+  resetIndicatorPosition?: Position;
 };
 
 const steps: Step[] = [
@@ -36,7 +41,7 @@ const steps: Step[] = [
     text: 'Beim Einwurf aktiviert die Briefklappe den integrierten Mechanismus von MailSignal.',
     image: '/images/how-it-works-step-1.png',
     alt: 'Ein Brief wird in einen Briefkasten mit MailSignal eingeworfen',
-    type: 'photo',
+    imageFit: 'cover',
     imagePosition: '55% 47%',
   },
   {
@@ -46,20 +51,23 @@ const steps: Step[] = [
     title: 'Die LED zeigt neue Post.',
     text: 'Ein Blick genügt. Das Signal ist direkt am Briefkasten sichtbar – ohne App, WLAN oder Cloud.',
     image: '/images/how-it-works-step-2.png',
-    alt: 'MailSignal an einem Briefkasten mit sichtbarer LED-Anzeige',
-    type: 'photo',
+    alt: 'MailSignal mit sichtbarer LED-Anzeige',
+    imageFit: 'cover',
     imagePosition: '50% 50%',
-    showLed: true,
+
+    showSignalLed: true,
 
     /*
-     * موقعیت چراغ مرحله Signal
+     * چراغ مرحله Signal
      *
-     * left کمتر شود: چراغ به چپ می‌رود.
-     * top بیشتر شود: چراغ پایین‌تر می‌رود.
+     * left کمتر = چپ‌تر
+     * left بیشتر = راست‌تر
+     * top کمتر = بالاتر
+     * top بیشتر = پایین‌تر
      */
-    ledPosition: {
-      left: '63.2%',
-      top: '63.8%',
+    signalLedPosition: {
+      left: '55.5%',
+      top: '72%',
     },
   },
   {
@@ -70,7 +78,18 @@ const steps: Step[] = [
     text: 'Nach der Leerung wird MailSignal über die kleine Taste an der Geräteseite zurückgesetzt.',
     image: '/images/how-it-works-03-device.png',
     alt: 'MailSignal Gerät mit seitlicher Reset-Taste',
-    type: 'photo',
+    imageFit: 'contain',
+    imagePosition: '50% 50%',
+
+    showResetIndicator: true,
+
+    /*
+     * خط زرد کنار دکمه Reset
+     */
+    resetIndicatorPosition: {
+      left: '78.8%',
+      top: '55%',
+    },
   },
 ];
 
@@ -81,14 +100,13 @@ export function HowItWorks() {
   const reduceMotion = useReducedMotion();
 
   const active = steps[activeStep];
-  const isDeviceStep = active.type === 'device';
 
   return (
     <section
       id="how-it-works"
       className="relative scroll-mt-24 overflow-hidden bg-[#f1e5ca] py-24 text-[#19130f] sm:py-32 lg:py-40"
     >
-      {/* Section background */}
+      {/* Background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-[22%] h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-[#ffc62a]/10 blur-[190px]" />
 
@@ -96,7 +114,7 @@ export function HowItWorks() {
       </div>
 
       <div className="section-shell relative z-10">
-        {/* Section heading */}
+        {/* Section title */}
         <motion.div
           initial={
             reduceMotion
@@ -140,24 +158,22 @@ export function HowItWorks() {
 
         {/* Main card */}
         <div className="mx-auto mt-16 w-full max-w-[1240px] sm:mt-20">
-          <div className="relative overflow-hidden rounded-[2.25rem] border border-black/10 bg-[#11110f] shadow-[0_35px_100px_rgba(55,35,5,0.18)]">
-            {/* Visual area */}
-            <div className="relative min-h-[570px] overflow-hidden sm:min-h-[640px] lg:min-h-[650px]">
+          <div className="overflow-hidden rounded-[2.25rem] border border-black/10 bg-[#10100f] shadow-[0_35px_100px_rgba(55,35,5,0.18)]">
+            {/* Image area */}
+            <div className="relative h-[570px] overflow-hidden bg-[#10100f] sm:h-[640px] lg:h-[650px]">
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={`visual-${active.number}`}
+                  key={`image-${active.number}`}
                   initial={
                     reduceMotion
                       ? false
-                      : isDeviceStep
-                        ? {
-                            opacity: 0,
-                            scale: 0.9,
-                          }
-                        : {
-                            opacity: 0,
-                            scale: 1.025,
-                          }
+                      : {
+                          opacity: 0,
+                          scale:
+                            active.imageFit === 'contain'
+                              ? 0.94
+                              : 1.025,
+                        }
                   }
                   animate={{
                     opacity: 1,
@@ -168,121 +184,222 @@ export function HowItWorks() {
                       ? undefined
                       : {
                           opacity: 0,
-                          scale: isDeviceStep ? 0.93 : 0.99,
+                          scale:
+                            active.imageFit === 'contain'
+                              ? 0.96
+                              : 0.99,
                         }
                   }
                   transition={{
-                    duration: isDeviceStep ? 1.15 : 0.7,
+                    duration: 0.75,
                     ease: easing,
                   }}
                   className="absolute inset-0"
                 >
-                  {isDeviceStep ? (
+                  {/* Image background for Reset */}
+                  {active.imageFit === 'contain' && (
                     <>
-                      {/* Reset-step background */}
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_73%_46%,rgba(255,198,42,0.14),transparent_30%),linear-gradient(135deg,#171611_0%,#0c0c0b_52%,#050505_100%)]" />
+                      <div className="absolute inset-0 bg-[#10100f]" />
 
-                      <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:28px_28px]" />
+                      <div className="pointer-events-none absolute left-[72%] top-[48%] h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.035] blur-[130px]" />
+                    </>
+                  )}
 
-                      {/* Device */}
-                      <div className="absolute inset-0 flex items-center justify-end [perspective:1900px]">
+                  <Image
+                    src={active.image}
+                    alt={active.alt}
+                    fill
+                    priority
+                    sizes="(max-width: 1280px) 100vw, 1240px"
+                    style={{
+                      objectPosition:
+                        active.imagePosition ?? '50% 50%',
+                    }}
+                    className={
+                      active.imageFit === 'contain'
+                        ? 'select-none object-contain p-5 sm:p-8 lg:p-10'
+                        : 'select-none object-cover'
+                    }
+                  />
+
+                  {/* Light photo overlays */}
+                  {active.imageFit === 'cover' && (
+                    <>
+                      <div className="pointer-events-none absolute inset-0 bg-black/[0.03]" />
+
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
+
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/[0.04]" />
+                    </>
+                  )}
+
+                  {/* Reset image overlays */}
+                  {active.imageFit === 'contain' && (
+                    <>
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/70 via-black/12 to-transparent" />
+
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/[0.04]" />
+                    </>
+                  )}
+
+                  {/* Signal LED */}
+                  {active.showSignalLed &&
+                    active.signalLedPosition && (
+                      <>
+                        {/* Large glow */}
                         <motion.div
-                          initial={
+                          animate={
                             reduceMotion
-                              ? false
-                              : {
-                                  rotateY: -48,
-                                  rotateX: 10,
-                                  rotateZ: -2,
-                                  x: 95,
-                                  y: 30,
-                                  scale: 0.78,
+                              ? {
+                                  opacity: 0.25,
+                                  scale: 1,
                                 }
-                          }
-                          animate={{
-                            rotateY: -8,
-                            rotateX: 2,
-                            rotateZ: 0,
-                            x: 0,
-                            y: 0,
-                            scale: 1,
-                          }}
-                          exit={
-                            reduceMotion
-                              ? undefined
                               : {
-                                  rotateY: 36,
-                                  rotateX: -8,
-                                  rotateZ: 2,
-                                  x: 90,
-                                  y: -12,
-                                  scale: 0.86,
-                                }
-                          }
-                          whileHover={
-                            reduceMotion
-                              ? undefined
-                              : {
-                                  rotateY: -18,
-                                  rotateX: 6,
-                                  scale: 1.035,
+                                  opacity: [
+                                    0.05,
+                                    0.38,
+                                    0.05,
+                                  ],
+                                  scale: [
+                                    0.72,
+                                    1.32,
+                                    0.72,
+                                  ],
                                 }
                           }
                           transition={{
-                            duration: 1.4,
-                            ease: easing,
+                            duration: 1.6,
+                            repeat: reduceMotion
+                              ? 0
+                              : Infinity,
+                            ease: 'easeInOut',
                           }}
-                          className="relative mb-4 mr-[1%] h-[86%] w-[86%] sm:h-[92%] sm:w-[78%] lg:h-[96%] lg:w-[66%] [transform-style:preserve-3d]"
-                        >
-                          <Image
-                            src={active.image}
-                            alt={active.alt}
-                            fill
-                            priority
-                            sizes="(max-width: 768px) 86vw, 820px"
-                            className="select-none object-contain"
-                          />
+                          style={{
+                            left:
+                              active.signalLedPosition.left,
+                            top:
+                              active.signalLedPosition.top,
+                          }}
+                          className="pointer-events-none absolute z-20 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/32 blur-2xl"
+                        />
 
-                          <div className="pointer-events-none absolute bottom-[2%] left-[18%] right-[4%] h-14 rounded-full bg-black/50 blur-2xl" />
-                        </motion.div>
-                      </div>
+                        {/* Medium glow */}
+                        <motion.div
+                          animate={
+                            reduceMotion
+                              ? {
+                                  opacity: 0.65,
+                                  scale: 1,
+                                }
+                              : {
+                                  opacity: [
+                                    0.16,
+                                    0.8,
+                                    0.16,
+                                  ],
+                                  scale: [
+                                    0.72,
+                                    1.22,
+                                    0.72,
+                                  ],
+                                }
+                          }
+                          transition={{
+                            duration: 1.6,
+                            repeat: reduceMotion
+                              ? 0
+                              : Infinity,
+                            ease: 'easeInOut',
+                          }}
+                          style={{
+                            left:
+                              active.signalLedPosition.left,
+                            top:
+                              active.signalLedPosition.top,
+                          }}
+                          className="pointer-events-none absolute z-30 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/70 blur-md"
+                        />
 
-                      {/* Reset button indicator */}
+                        {/* LED point */}
+                        <motion.div
+                          animate={
+                            reduceMotion
+                              ? {
+                                  opacity: 1,
+                                  scale: 1,
+                                }
+                              : {
+                                  opacity: [
+                                    0.4,
+                                    1,
+                                    0.4,
+                                  ],
+                                  scale: [
+                                    0.78,
+                                    1.2,
+                                    0.78,
+                                  ],
+                                }
+                          }
+                          transition={{
+                            duration: 1.6,
+                            repeat: reduceMotion
+                              ? 0
+                              : Infinity,
+                            ease: 'easeInOut',
+                          }}
+                          style={{
+                            left:
+                              active.signalLedPosition.left,
+                            top:
+                              active.signalLedPosition.top,
+                          }}
+                          className="pointer-events-none absolute z-40 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffe45c] shadow-[0_0_7px_3px_rgba(255,228,92,1),0_0_18px_8px_rgba(255,198,42,0.8),0_0_40px_16px_rgba(255,166,0,0.38)]"
+                        />
+                      </>
+                    )}
+
+                  {/* Reset indicator */}
+                  {active.showResetIndicator &&
+                    active.resetIndicatorPosition && (
                       <motion.div
-                        initial={
-                          reduceMotion
-                            ? false
-                            : {
-                                opacity: 0,
-                                x: 24,
-                                scale: 0.9,
-                              }
-                        }
+                        initial={{
+                          opacity: 0,
+                          x: 20,
+                        }}
                         animate={{
                           opacity: 1,
                           x: 0,
-                          scale: 1,
                         }}
                         exit={{
                           opacity: 0,
-                          x: 16,
-                          scale: 0.9,
+                          x: 14,
                         }}
                         transition={{
-                          delay: reduceMotion ? 0 : 0.8,
-                          duration: 0.6,
+                          delay: reduceMotion ? 0 : 0.65,
+                          duration: 0.55,
                           ease: easing,
                         }}
-                        className="pointer-events-none absolute right-[5.1%] top-[49%] z-40 hidden -translate-y-1/2 sm:block lg:right-[4.2%]"
+                        style={{
+                          left:
+                            active.resetIndicatorPosition.left,
+                          top:
+                            active.resetIndicatorPosition.top,
+                        }}
+                        className="pointer-events-none absolute z-50 -translate-y-1/2"
                       >
                         <div className="relative flex items-center">
-                          {/* Thin yellow line toward the side button */}
+                          {/* Horizontal line */}
                           <motion.div
                             animate={
                               reduceMotion
                                 ? undefined
                                 : {
-                                    opacity: [0.4, 1, 0.4],
+                                    opacity: [
+                                      0.35,
+                                      1,
+                                      0.35,
+                                    ],
                                   }
                             }
                             transition={{
@@ -290,17 +407,25 @@ export function HowItWorks() {
                               repeat: Infinity,
                               ease: 'easeInOut',
                             }}
-                            className="h-px w-20 bg-gradient-to-r from-transparent via-[#ffc62a]/70 to-[#ffc62a] lg:w-28"
+                            className="h-px w-16 bg-gradient-to-r from-transparent via-[#ffc62a]/60 to-[#ffc62a] lg:w-24"
                           />
 
-                          {/* Yellow marker beside reset button */}
+                          {/* Vertical marker */}
                           <motion.div
                             animate={
                               reduceMotion
                                 ? undefined
                                 : {
-                                    opacity: [0.55, 1, 0.55],
-                                    scaleY: [0.75, 1.15, 0.75],
+                                    opacity: [
+                                      0.55,
+                                      1,
+                                      0.55,
+                                    ],
+                                    scaleY: [
+                                      0.78,
+                                      1.15,
+                                      0.78,
+                                    ],
                                   }
                             }
                             transition={{
@@ -308,7 +433,7 @@ export function HowItWorks() {
                               repeat: Infinity,
                               ease: 'easeInOut',
                             }}
-                            className="h-10 w-[2px] origin-center rounded-full bg-[#ffc62a] shadow-[0_0_7px_2px_rgba(255,198,42,0.85),0_0_18px_5px_rgba(255,198,42,0.26)]"
+                            className="h-10 w-[2px] origin-center rounded-full bg-[#ffc62a] shadow-[0_0_7px_2px_rgba(255,198,42,0.8),0_0_18px_5px_rgba(255,198,42,0.25)]"
                           />
 
                           <span className="absolute right-0 top-full mt-3 whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.2em] text-[#ffc62a]">
@@ -316,148 +441,14 @@ export function HowItWorks() {
                           </span>
                         </div>
                       </motion.div>
-
-                      {/* Readability overlays */}
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/76 via-black/10 to-transparent" />
-
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10" />
-                    </>
-                  ) : (
-                    <>
-                      {/* Step 1 and Step 2 photo */}
-                      <Image
-                        src={active.image}
-                        alt={active.alt}
-                        fill
-                        priority={activeStep === 0}
-                        sizes="(max-width: 1280px) 100vw, 1240px"
-                        style={{
-                          objectPosition:
-                            active.imagePosition ?? '50% 50%',
-                        }}
-                        className="object-cover"
-                      />
-
-                      <div className="pointer-events-none absolute inset-0 bg-black/[0.04]" />
-
-                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_68%_42%,rgba(255,198,42,0.06),transparent_36%)]" />
-
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/68 via-black/20 to-transparent" />
-
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/48 via-transparent to-black/5" />
-
-                      {/* Animated LED — Step 2 only */}
-                      {active.showLed && active.ledPosition && (
-                        <>
-                          {/* Large soft glow */}
-                          <motion.div
-                            initial={{
-                              opacity: 0,
-                              scale: 0.7,
-                            }}
-                            animate={
-                              reduceMotion
-                                ? {
-                                    opacity: 0.25,
-                                    scale: 1,
-                                  }
-                                : {
-                                    opacity: [0.06, 0.4, 0.06],
-                                    scale: [0.72, 1.35, 0.72],
-                                  }
-                            }
-                            exit={{
-                              opacity: 0,
-                              scale: 0.7,
-                            }}
-                            transition={{
-                              duration: 1.65,
-                              repeat: reduceMotion ? 0 : Infinity,
-                              ease: 'easeInOut',
-                            }}
-                            style={{
-                              left: active.ledPosition.left,
-                              top: active.ledPosition.top,
-                            }}
-                            className="pointer-events-none absolute z-20 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/30 blur-2xl"
-                          />
-
-                          {/* Medium halo */}
-                          <motion.div
-                            initial={{
-                              opacity: 0,
-                              scale: 0.7,
-                            }}
-                            animate={
-                              reduceMotion
-                                ? {
-                                    opacity: 0.7,
-                                    scale: 1,
-                                  }
-                                : {
-                                    opacity: [0.18, 0.85, 0.18],
-                                    scale: [0.7, 1.25, 0.7],
-                                  }
-                            }
-                            exit={{
-                              opacity: 0,
-                              scale: 0.7,
-                            }}
-                            transition={{
-                              duration: 1.65,
-                              repeat: reduceMotion ? 0 : Infinity,
-                              ease: 'easeInOut',
-                            }}
-                            style={{
-                              left: active.ledPosition.left,
-                              top: active.ledPosition.top,
-                            }}
-                            className="pointer-events-none absolute z-30 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/70 blur-md"
-                          />
-
-                          {/* Main LED */}
-                          <motion.div
-                            initial={{
-                              opacity: 0,
-                              scale: 0.65,
-                            }}
-                            animate={
-                              reduceMotion
-                                ? {
-                                    opacity: 1,
-                                    scale: 1,
-                                  }
-                                : {
-                                    opacity: [0.4, 1, 0.4],
-                                    scale: [0.78, 1.18, 0.78],
-                                  }
-                            }
-                            exit={{
-                              opacity: 0,
-                              scale: 0.65,
-                            }}
-                            transition={{
-                              duration: 1.65,
-                              repeat: reduceMotion ? 0 : Infinity,
-                              ease: 'easeInOut',
-                            }}
-                            style={{
-                              left: active.ledPosition.left,
-                              top: active.ledPosition.top,
-                            }}
-                            className="pointer-events-none absolute z-40 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffe45c] shadow-[0_0_7px_3px_rgba(255,228,92,1),0_0_18px_8px_rgba(255,198,42,0.8),0_0_40px_16px_rgba(255,166,0,0.38)]"
-                          />
-                        </>
-                      )}
-                    </>
-                  )}
+                    )}
                 </motion.div>
               </AnimatePresence>
 
-              {/* Text content */}
+              {/* Text */}
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={`copy-${active.number}`}
+                  key={`text-${active.number}`}
                   initial={
                     reduceMotion
                       ? false
@@ -479,21 +470,13 @@ export function HowItWorks() {
                         }
                   }
                   transition={{
-                    delay: reduceMotion ? 0 : 0.14,
-                    duration: 0.65,
+                    delay: reduceMotion ? 0 : 0.12,
+                    duration: 0.6,
                     ease: easing,
                   }}
-                  className={`absolute bottom-10 left-0 z-50 px-7 text-white sm:bottom-12 sm:px-10 lg:bottom-14 lg:px-14 ${
-                    isDeviceStep
-                      ? 'w-full lg:w-[45%]'
-                      : 'w-full'
-                  }`}
+                  className="absolute bottom-10 left-0 z-[60] w-full px-7 text-white sm:bottom-12 sm:px-10 lg:bottom-14 lg:w-[54%] lg:px-14"
                 >
-                  <div
-                    className={
-                      isDeviceStep ? 'max-w-lg' : 'max-w-2xl'
-                    }
-                  >
+                  <div className="max-w-2xl">
                     <div className="flex items-center gap-4">
                       <span className="text-xs font-semibold tracking-[0.22em] text-[#ffc62a]">
                         {active.number}
@@ -510,7 +493,7 @@ export function HowItWorks() {
                       {active.title}
                     </h3>
 
-                    <p className="mt-5 max-w-xl text-base leading-7 text-white/62 sm:text-lg sm:leading-8">
+                    <p className="mt-5 max-w-xl text-base leading-7 text-white/68 sm:text-lg sm:leading-8">
                       {active.text}
                     </p>
                   </div>
@@ -518,14 +501,15 @@ export function HowItWorks() {
               </AnimatePresence>
             </div>
 
-            {/* Step navigation below image */}
+            {/* Navigation */}
             <div className="relative z-30 border-t border-white/10 bg-[#0a0a09] px-4 py-4 sm:px-7 sm:py-5">
-              <div className="relative grid grid-cols-3 overflow-hidden rounded-full border border-white/15 bg-black/55 p-1.5 backdrop-blur-xl">
+              <div className="relative grid grid-cols-3 overflow-hidden rounded-full border border-white/15 bg-black/55 p-1.5">
                 <motion.div
-                  className="absolute bottom-1.5 top-1.5 rounded-full border border-[#ffc62a]/35 bg-[#ffc62a]/12 shadow-[0_0_30px_rgba(255,198,42,0.12)]"
+                  className="absolute bottom-1.5 top-1.5 rounded-full border border-[#ffc62a]/35 bg-[#ffc62a]/10 shadow-[0_0_30px_rgba(255,198,42,0.1)]"
                   animate={{
                     left: `calc(${activeStep * 33.333333}% + 0.375rem)`,
-                    width: 'calc(33.333333% - 0.75rem)',
+                    width:
+                      'calc(33.333333% - 0.75rem)',
                   }}
                   transition={{
                     duration: 0.45,
@@ -562,13 +546,7 @@ export function HowItWorks() {
                         {step.number}
                       </span>
 
-                      <span
-                        className={
-                          isActive
-                            ? 'text-[#ffc62a]'
-                            : 'text-white/75'
-                        }
-                      >
+                      <span>
                         {step.tab}
                       </span>
                     </button>

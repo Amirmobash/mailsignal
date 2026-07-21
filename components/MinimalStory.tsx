@@ -62,14 +62,18 @@ type CountPanelProps = {
 
 function CountPanel({ value }: CountPanelProps) {
   const reduceMotion = useReducedMotion();
+
   const isZero = value === 0;
+  const showCountLabel = value === 4;
 
   return (
     <StoryPanel className="min-h-[62vh]">
       <div className="text-center">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] opacity-45 sm:text-xs">
-          Unnötige Wege heute
-        </p>
+        {showCountLabel && (
+          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] opacity-45 sm:text-xs">
+            Unnötige Wege heute
+          </p>
+        )}
 
         <motion.div
           initial={
@@ -105,7 +109,9 @@ function CountPanel({ value }: CountPanelProps) {
                   ],
                 }
           }
-          className="mt-6 text-[10rem] font-semibold leading-[0.8] tracking-[-0.11em] sm:text-[15rem] lg:text-[20rem]"
+          className={`text-[10rem] font-semibold leading-[0.8] tracking-[-0.11em] sm:text-[15rem] lg:text-[20rem] ${
+            showCountLabel ? 'mt-6' : ''
+          }`}
         >
           {value}
         </motion.div>
@@ -248,27 +254,23 @@ export function MinimalStory() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.025),transparent_46%)]" />
 
       <div className="section-shell relative z-10">
-        {/* Question — shorter entry section */}
-        <StoryPanel className="min-h-[72vh] py-12 sm:py-14">
+        {/* Intro */}
+        <StoryPanel className="min-h-[62vh] py-10">
           <div className="max-w-5xl text-center">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#ffc62a] sm:text-xs">
               Ein ganz normaler Tag
             </p>
 
             <h2 className="mt-6 text-balance text-4xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-[5.5rem]">
-              Wie oft gehen Sie
-
-              <span className="block">
-                zum Briefkasten,
-              </span>
+              Vier Wege.
 
               <span className="block opacity-40">
-                ohne dass Post da ist?
+                Keiner davon nötig.
               </span>
             </h2>
 
             <p className="mx-auto mt-7 max-w-xl text-base leading-7 opacity-45 sm:text-lg sm:leading-8">
-              Ein kurzer Weg. Immer wieder.
+              Immer wieder nachsehen. Immer wieder nichts.
             </p>
 
             <motion.div
@@ -292,7 +294,7 @@ export function MinimalStory() {
           </div>
         </StoryPanel>
 
-        {/* Directly from the question to number 4 */}
+        {/* Counting sequence */}
         <CountPanel value={4} />
         <CountPanel value={3} />
         <CountPanel value={2} />

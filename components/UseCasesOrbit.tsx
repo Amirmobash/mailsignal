@@ -37,7 +37,7 @@ const useCases: UseCase[] = [
   {
     label: 'Werkstatt',
     description:
-      'Weniger Kontrollgänge im laufenden Betrieb.',
+      'Neue Post erkennen, ohne die Arbeit zu unterbrechen.',
     icon: Warehouse,
     position:
       'left-[1%] top-[19%] xl:left-[3.5%]',
@@ -47,7 +47,7 @@ const useCases: UseCase[] = [
   {
     label: 'Büro',
     description:
-      'Posteingang erkennen, ohne ständig nachzusehen.',
+      'Geschäftspost sofort erkennen.',
     icon: BriefcaseBusiness,
     position:
       'right-[1%] top-[19%] xl:right-[3.5%]',
@@ -57,7 +57,7 @@ const useCases: UseCase[] = [
   {
     label: 'Zuhause',
     description:
-      'Keine unnötigen Wege zum Briefkasten.',
+      'Weniger unnötige Wege.',
     icon: Home,
     position:
       'left-[1%] bottom-[17%] xl:left-[3.5%]',
@@ -67,7 +67,7 @@ const useCases: UseCase[] = [
   {
     label: 'Hausverwaltung',
     description:
-      'Posteingänge an Gebäuden einfacher kontrollieren.',
+      'Mehrere Briefkästen schneller kontrollieren.',
     icon: Landmark,
     position:
       'right-[1%] bottom-[17%] xl:right-[3.5%]',
@@ -77,7 +77,7 @@ const useCases: UseCase[] = [
   {
     label: 'Mehrfamilienhaus',
     description:
-      'Ein klares Signal direkt an der Briefkastenanlage.',
+      'Nur nachsehen, wenn es nötig ist.',
     icon: Building2,
     position:
       'bottom-[1%] left-1/2 -translate-x-1/2',
@@ -435,16 +435,16 @@ export function UseCasesOrbit() {
             <div className="mx-auto mt-2.5 h-px w-12 bg-[#ffc62a]/80" />
 
             <h2 className="mt-3.5 text-balance text-[2.25rem] font-semibold leading-[0.96] tracking-[-0.055em] sm:text-[3rem] lg:text-[3.6rem] xl:text-[4rem]">
-              Für jeden Briefkasten.
+              Ein Signal.
 
               <span className="block text-white/38">
-                Für alle, die nicht umsonst nachsehen wollen.
+                Für jede Situation.
               </span>
             </h2>
 
             <p className="mx-auto mt-3.5 max-w-2xl text-xs leading-5 text-white/46 sm:text-sm sm:leading-6">
-              Ob Haus, Büro oder Mehrfamilienhaus –
-              MailSignal macht neue Post sofort sichtbar.
+              Egal wo der Briefkasten hängt – der Ablauf bleibt derselbe
+             
             </p>
           </motion.header>
 

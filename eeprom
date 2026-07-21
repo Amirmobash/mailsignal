@@ -1,14 +1,14 @@
 #include <EEPROM.h>
 
 constexpr uint8_t SENSOR_PIN = 2;
-constexpr uint8_t RESET_PIN = 1;
-constexpr uint8_t LED_PIN = 5;
+constexpr uint8_t RESET_PIN = 3;
+constexpr uint8_t LED_PIN = 9;
+
+constexpr uint16_t ENTPRELLZEIT_MS = 40;
+constexpr uint16_t RESET_HALTEZEIT_MS = 900;
 
 constexpr uint8_t EEPROM_ADRESSE = 0;
-constexpr uint8_t EEPROM_SIGNATUR = 0x6D;
-
-constexpr unsigned long ENTPRELLZEIT_MS = 40;
-constexpr unsigned long RESETZEIT_MS = 80;
+constexpr uint8_t EEPROM_KENNUNG = 0x6D;
 
 struct Eingang {
   uint8_t pin;
@@ -16,6 +16,12 @@ struct Eingang {
   bool stabil;
   bool vorher;
   unsigned long wechselzeit;
+};
+
+struct Speicher {
+  uint8_t kennung;
+  uint8_t status;
+  uint8_t pruefung;
 };
 
 Eingang sensor;
@@ -26,6 +32,10 @@ bool resetGestartet = false;
 bool resetAusgefuehrt = false;
 
 unsigned long resetStartzeit = 0;
+
+uint8_t pruefungBerechnen(uint8_t status) {
+  return EEPROM_KENNUNG ^ status ^ 0xA5;
+}
 
 void eingangStarten(Eingang& eingang, uint8_t pin) {
   eingang.pin = pin;
@@ -71,34 +81,40 @@ bool istAktiv(const Eingang& eingang) {
   return eingang.stabil == LOW;
 }
 
-uint8_t pruefsumme(uint8_t status) {
-  return EEPROM_SIGNATUR ^ status ^ 0xA5;
-}
-
-void statusAnzeigen() {
+void ledAktualisieren() {
   digitalWrite(LED_PIN, postVorhanden ? HIGH : LOW);
 }
 
 void statusSpeichern() {
-  uint8_t status = postVorhanden ? 1 : 0;
+  Speicher daten;
 
-  EEPROM.update(EEPROM_ADRESSE, EEPROM_SIGNATUR);
-  EEPROM.update(EEPROM_ADRESSE + 1, status);
-  EEPROM.update(EEPROM_ADRESSE + 2, pruefsumme(status));
+  daten.kennung = EEPROM_KENNUNG;
+  daten.status = postVorhanden ? 1 : 0;
+  daten.pruefung = pruefungBerechnen(daten.status);
+
+  Speicher gespeichert;
+  EEPROM.get(EEPROM_ADRESSE, gespeichert);
+
+  if (
+    gespeichert.kennung != daten.kennung ||
+    gespeichert.status != daten.status ||
+    gespeichert.pruefung != daten.pruefung
+  ) {
+    EEPROM.put(EEPROM_ADRESSE, daten);
+  }
 }
 
 void statusLaden() {
-  uint8_t signatur = EEPROM.read(EEPROM_ADRESSE);
-  uint8_t status = EEPROM.read(EEPROM_ADRESSE + 1);
-  uint8_t kontrolle = EEPROM.read(EEPROM_ADRESSE + 2);
+  Speicher daten;
+  EEPROM.get(EEPROM_ADRESSE, daten);
 
   bool gueltig =
-    signatur == EEPROM_SIGNATUR &&
-    status <= 1 &&
-    kontrolle == pruefsumme(status);
+    daten.kennung == EEPROM_KENNUNG &&
+    daten.status <= 1 &&
+    daten.pruefung == pruefungBerechnen(daten.status);
 
   if (gueltig) {
-    postVorhanden = status == 1;
+    postVorhanden = daten.status == 1;
   } else {
     postVorhanden = false;
     statusSpeichern();
@@ -112,7 +128,7 @@ void postSetzen() {
 
   postVorhanden = true;
   statusSpeichern();
-  statusAnzeigen();
+  ledAktualisieren();
 }
 
 void postZuruecksetzen() {
@@ -122,10 +138,10 @@ void postZuruecksetzen() {
 
   postVorhanden = false;
   statusSpeichern();
-  statusAnzeigen();
+  ledAktualisieren();
 }
 
-void sensorBearbeiten() {
+void sensorVerarbeiten() {
   eingangAktualisieren(sensor);
 
   if (wurdeAktiviert(sensor)) {
@@ -133,7 +149,7 @@ void sensorBearbeiten() {
   }
 }
 
-void resetBearbeiten() {
+void resetVerarbeiten() {
   eingangAktualisieren(resetTaste);
 
   unsigned long jetzt = millis();
@@ -148,7 +164,7 @@ void resetBearbeiten() {
     resetGestartet &&
     !resetAusgefuehrt &&
     istAktiv(resetTaste) &&
-    jetzt - resetStartzeit >= RESETZEIT_MS
+    jetzt - resetStartzeit >= RESET_HALTEZEIT_MS
   ) {
     postZuruecksetzen();
     resetAusgefuehrt = true;
@@ -167,10 +183,10 @@ void setup() {
   eingangStarten(resetTaste, RESET_PIN);
 
   statusLaden();
-  statusAnzeigen();
+  ledAktualisieren();
 }
 
 void loop() {
-  sensorBearbeiten();
-  resetBearbeiten();
+  sensorVerarbeiten();
+  resetVerarbeiten();
 }

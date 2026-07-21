@@ -70,7 +70,7 @@ const steps: Step[] = [
     text: 'Nach der Leerung wird MailSignal über die kleine Taste an der Geräteseite zurückgesetzt.',
     image: '/images/how-it-works-03-device.png',
     alt: 'MailSignal Gerät mit seitlicher Reset-Taste',
-    type: 'device',
+    type: 'photo',
   },
 ];
 

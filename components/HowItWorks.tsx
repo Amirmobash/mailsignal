@@ -58,11 +58,9 @@ const steps: Step[] = [
     showSignalLed: true,
 
     /*
-     * چراغ مرحله Signal
+     * موقعیت چراغ مرحله Signal
      *
      * left کمتر = چپ‌تر
-     * left بیشتر = راست‌تر
-     * top کمتر = بالاتر
      * top بیشتر = پایین‌تر
      */
     signalLedPosition: {
@@ -84,11 +82,11 @@ const steps: Step[] = [
     showResetIndicator: true,
 
     /*
-     * خط زرد کنار دکمه Reset
+     * موقعیت نشانگر زرد Reset
      */
     resetIndicatorPosition: {
-      left: '75%',
-      top: '55%',
+      left: '74%',
+      top: '49%',
     },
   },
 ];
@@ -205,22 +203,54 @@ export function HowItWorks() {
                     </>
                   )}
 
-                  <Image
-                    src={active.image}
-                    alt={active.alt}
-                    fill
-                    priority
-                    sizes="(max-width: 1280px) 100vw, 1240px"
-                    style={{
-                      objectPosition:
-                        active.imagePosition ?? '70% 50%',
-                    }}
-                    className={
-                      active.imageFit === 'contain'
-                        ? 'select-none object-contain object-[68%_50%] p-5 sm:p-8 lg:p-10'
-                        : 'select-none object-cover'
-                    }
-                  />
+                  {/* Image */}
+                  {active.imageFit === 'contain' ? (
+                    <motion.div
+                      initial={
+                        reduceMotion
+                          ? false
+                          : {
+                              opacity: 0,
+                              x: 30,
+                            }
+                      }
+                      animate={{
+                        opacity: 1,
+                        x: active.number === '03' ? 165 : 0,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        x: active.number === '03' ? 120 : 0,
+                      }}
+                      transition={{
+                        duration: 0.8,
+                        ease: easing,
+                      }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={active.image}
+                        alt={active.alt}
+                        fill
+                        priority
+                        sizes="(max-width: 1280px) 100vw, 1240px"
+                        className="select-none object-contain p-5 sm:p-8 lg:p-10"
+                      />
+                    </motion.div>
+                  ) : (
+                    <Image
+                      src={active.image}
+                      alt={active.alt}
+                      fill
+                      priority={active.number === '01'}
+                      sizes="(max-width: 1280px) 100vw, 1240px"
+                      style={{
+                        objectPosition:
+                          active.imagePosition ?? '50% 50%',
+                      }}
+                      className="select-none object-cover"
+                    />
+                  )}
 
                   {/* Light photo overlays */}
                   {active.imageFit === 'cover' && (

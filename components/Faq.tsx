@@ -14,29 +14,29 @@ type FaqItem = {
 
 const faqItems: FaqItem[] = [
   {
-    question: 'Was ist MailSignal?',
+    question: 'Ist das Signal auch bei Tageslicht gut erkennbar?',
     answer:
-      'MailSignal ist ein nachrüstbares Signalgerät für Briefkästen. Es macht direkt am Briefkasten sichtbar, ob neue Post eingeworfen wurde.',
+      'Ja. Die helle LED ist auch bei Tageslicht gut sichtbar.',
   },
   {
-    question: 'Benötigt MailSignal eine App oder WLAN?',
+    question: 'Funktioniert MailSignal auch im Winter?',
     answer:
-      'Nein. MailSignal funktioniert unabhängig von App, WLAN und Cloud. Das Signal wird direkt am Briefkasten angezeigt.',
+      'Ja. MailSignal ist für den ganzjährigen Einsatz im Außenbereich entwickelt.',
   },
   {
     question: 'Wie wird MailSignal befestigt?',
     answer:
-      'Das aktuelle Konzept sieht eine einfache magnetische Befestigung am bestehenden Briefkasten vor. Die genaue Kompatibilität wird im weiteren Entwicklungsverlauf geprüft.',
+      'Mit einem starken Magneten – ganz ohne Werkzeug.',
   },
   {
-    question: 'Wie wird das Signal zurückgesetzt?',
+    question: 'Muss der Briefkasten angebohrt werden?',
     answer:
-      'Nach der Leerung des Briefkastens wird MailSignal über die kleine Taste an der Geräteseite manuell zurückgesetzt.',
+      'Nein. Die Montage erfolgt ganz ohne Bohren oder Schrauben.',
   },
   {
     question: 'Für welche Briefkästen ist MailSignal geeignet?',
     answer:
-      'MailSignal wird als nachrüstbare Lösung für unterschiedliche bestehende Briefkastentypen entwickelt. Die genaue Eignung kann je nach Form, Material und Einbausituation variieren.',
+      'Für die meisten gängigen Metallbriefkästen.',
   },
   {
     question: 'Kann MailSignal bereits gekauft werden?',
@@ -99,16 +99,15 @@ export function Faq() {
           </p>
 
           <h2 className="mt-6 text-balance text-5xl font-semibold leading-[0.95] tracking-[-0.06em] sm:text-7xl lg:text-[6rem]">
-            Noch Fragen?
+            Bevor Sie sich entscheiden.
 
             <span className="block text-black/28">
-              Hier sind die Antworten.
+              
             </span>
           </h2>
 
           <p className="mx-auto mt-7 max-w-2xl text-base leading-7 text-black/48 sm:text-lg sm:leading-8">
-            Die wichtigsten Informationen zum aktuellen
-            Entwicklungsstand von MailSignal.
+            Die häufigsten Fragen – kurz beantwortet.
           </p>
         </motion.header>
 

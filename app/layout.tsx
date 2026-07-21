@@ -13,17 +13,15 @@ export const metadata: Metadata = {
     title: 'MailSignal',
 
     description:
-      'Ein sichtbares Signal direkt am Briefkasten. Solarbetrieben, offline und werkzeuglos montiert.',
+      'Ein sichtbares Signal direkt am Briefkasten – solarbetrieben, offline und werkzeuglos montiert.',
 
     url: 'https://mailsignal.de',
     siteName: 'MailSignal',
 
     images: [
       {
-        url: '/images/hero.png?v=2',
-        width: 1600,
-        height: 1000,
-        alt: 'MailSignal am Briefkasten',
+        url: 'https://mailsignal.de/images/product-mailbox-dark.png',
+        alt: 'MailSignal an einem Briefkasten',
       },
     ],
 
@@ -33,12 +31,15 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
+
     title: 'MailSignal',
 
     description:
       'Ein sichtbares Signal direkt am Briefkasten – ohne App, WLAN oder Cloud.',
 
-    images: ['/images/hero.png?v=2'],
+    images: [
+      'https://mailsignal.de/images/product-mailbox-dark.png',
+    ],
   },
 
   icons: {

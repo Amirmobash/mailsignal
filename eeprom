@@ -8,7 +8,7 @@ constexpr uint8_t EEPROM_ADRESSE = 0;
 constexpr uint8_t EEPROM_SIGNATUR = 0x6D;
 
 constexpr unsigned long ENTPRELLZEIT_MS = 40;
-constexpr unsigned long RESETZEIT_MS = 800;
+constexpr unsigned long RESETZEIT_MS = 80;
 
 struct Eingang {
   uint8_t pin;

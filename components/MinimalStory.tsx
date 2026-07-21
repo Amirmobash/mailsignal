@@ -14,25 +14,6 @@ import {
   useRef,
 } from 'react';
 
-const moments = [
-  {
-    time: '08:20',
-    label: 'Keine Post.',
-  },
-  {
-    time: '11:45',
-    label: 'Keine Post.',
-  },
-  {
-    time: '15:10',
-    label: 'Keine Post.',
-  },
-  {
-    time: '18:30',
-    label: 'Keine Post.',
-  },
-];
-
 type StoryPanelProps = {
   children: ReactNode;
   className?: string;
@@ -51,8 +32,8 @@ function StoryPanel({
           ? false
           : {
               opacity: 0,
-              y: 42,
-              scale: 0.97,
+              y: 34,
+              scale: 0.98,
             }
       }
       whileInView={{
@@ -61,14 +42,14 @@ function StoryPanel({
         scale: 1,
       }}
       viewport={{
-        amount: 0.55,
+        amount: 0.42,
         once: false,
       }}
       transition={{
-        duration: 0.75,
+        duration: 0.7,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className={`relative flex min-h-[78vh] items-center justify-center px-6 py-20 ${className}`}
+      className={`relative flex min-h-[64vh] items-center justify-center px-6 py-14 sm:py-16 ${className}`}
     >
       {children}
     </motion.div>
@@ -84,7 +65,7 @@ function CountPanel({ value }: CountPanelProps) {
   const isZero = value === 0;
 
   return (
-    <StoryPanel>
+    <StoryPanel className="min-h-[62vh]">
       <div className="text-center">
         <p className="text-[10px] font-semibold uppercase tracking-[0.3em] opacity-45 sm:text-xs">
           Unnötige Wege heute
@@ -97,7 +78,7 @@ function CountPanel({ value }: CountPanelProps) {
               : {
                   opacity: 0,
                   scale: 0.72,
-                  y: 35,
+                  y: 30,
                 }
           }
           whileInView={{
@@ -106,11 +87,11 @@ function CountPanel({ value }: CountPanelProps) {
             y: 0,
           }}
           viewport={{
-            amount: 0.65,
+            amount: 0.5,
             once: false,
           }}
           transition={{
-            duration: 0.7,
+            duration: 0.65,
             ease: [0.22, 1, 0.36, 1],
           }}
           animate={
@@ -173,7 +154,7 @@ export function MinimalStory() {
 
   const backgroundColor = useTransform(
     scrollYProgress,
-    [0, 0.28, 0.55, 0.78, 1],
+    [0, 0.25, 0.52, 0.77, 1],
     [
       '#050504',
       '#17130d',
@@ -185,7 +166,7 @@ export function MinimalStory() {
 
   const textColor = useTransform(
     scrollYProgress,
-    [0, 0.63, 0.82, 1],
+    [0, 0.6, 0.81, 1],
     [
       '#ffffff',
       '#fff7e7',
@@ -208,7 +189,7 @@ export function MinimalStory() {
 
   const glowOpacity = useTransform(
     scrollYProgress,
-    [0, 0.55, 0.82, 1],
+    [0, 0.52, 0.81, 1],
     [0.11, 0.09, 0.055, 0.025],
   );
 
@@ -267,7 +248,8 @@ export function MinimalStory() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.025),transparent_46%)]" />
 
       <div className="section-shell relative z-10">
-        <StoryPanel className="min-h-screen">
+        {/* Question — shorter entry section */}
+        <StoryPanel className="min-h-[72vh] py-12 sm:py-14">
           <div className="max-w-5xl text-center">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#ffc62a] sm:text-xs">
               Ein ganz normaler Tag
@@ -303,98 +285,22 @@ export function MinimalStory() {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="mx-auto mt-14 text-[9px] font-semibold uppercase tracking-[0.25em] opacity-35"
+              className="mx-auto mt-10 text-[9px] font-semibold uppercase tracking-[0.25em] opacity-35"
             >
               Scroll
             </motion.div>
           </div>
         </StoryPanel>
 
-        <StoryPanel className="min-h-[92vh]">
-          <div className="w-full max-w-6xl">
-            <div className="text-center">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#ffc62a] sm:text-xs">
-                Ein Tag
-              </p>
-
-              <p className="mt-3 text-sm opacity-45 sm:text-base">
-                Vier kurze Kontrollen.
-              </p>
-            </div>
-
-            <div className="mt-16 grid grid-cols-2 gap-x-8 gap-y-16 sm:mt-20 lg:grid-cols-4 lg:gap-8">
-              {moments.map(
-                ({ time, label }, index) => (
-                  <motion.div
-                    key={time}
-                    initial={
-                      reduceMotion
-                        ? false
-                        : {
-                            opacity: 0,
-                            y: 30,
-                          }
-                    }
-                    whileInView={{
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    viewport={{
-                      amount: 0.6,
-                      once: false,
-                    }}
-                    transition={{
-                      delay: index * 0.1,
-                      duration: 0.65,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className="text-center"
-                  >
-                    <div className="flex items-center justify-center gap-3">
-                      <motion.span
-                        animate={
-                          reduceMotion
-                            ? undefined
-                            : {
-                                opacity: [0.35, 1, 0.35],
-                                scale: [0.8, 1.18, 0.8],
-                                boxShadow: [
-                                  '0 0 0 rgba(255,198,42,0)',
-                                  '0 0 24px rgba(255,198,42,0.8)',
-                                  '0 0 0 rgba(255,198,42,0)',
-                                ],
-                              }
-                        }
-                        transition={{
-                          duration: 2.1 + index * 0.2,
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                        }}
-                        className="h-2.5 w-2.5 rounded-full bg-[#ffc62a]"
-                      />
-
-                      <p className="text-3xl font-semibold tracking-[-0.05em] sm:text-4xl lg:text-5xl">
-                        {time}
-                      </p>
-                    </div>
-
-                    <p className="mt-3 text-sm opacity-45">
-                      {label}
-                    </p>
-                  </motion.div>
-                ),
-              )}
-            </div>
-          </div>
-        </StoryPanel>
-
+        {/* Directly from the question to number 4 */}
         <CountPanel value={4} />
         <CountPanel value={3} />
         <CountPanel value={2} />
         <CountPanel value={1} />
         <CountPanel value={0} />
 
-        <StoryPanel className="min-h-screen">
+        {/* Final message */}
+        <StoryPanel className="min-h-[82vh]">
           <div className="max-w-5xl text-center">
             <motion.div
               animate={

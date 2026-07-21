@@ -75,7 +75,7 @@ export function HowItWorks() {
       </div>
 
       <div className="section-shell relative z-10">
-        {/* Heading */}
+        {/* Header */}
         <motion.div
           initial={
             reduceMotion
@@ -112,16 +112,16 @@ export function HowItWorks() {
           </h2>
 
           <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-black/48">
-            Vom Briefeinwurf bis zum Reset – der gesamte
-            Ablauf bleibt einfach, sichtbar und vollständig
-            offline.
+            Vom Briefeinwurf bis zum Reset – der gesamte Ablauf bleibt einfach,
+            sichtbar und vollständig offline.
           </p>
         </motion.div>
 
-        {/* Interactive visual */}
+        {/* Main card */}
         <div className="mx-auto mt-16 w-full max-w-[1240px] sm:mt-20">
           <div className="relative overflow-hidden rounded-[2.25rem] border border-black/10 bg-[#11110f] shadow-[0_35px_100px_rgba(55,35,5,0.18)]">
-            <div className="relative min-h-[620px] sm:min-h-[690px] lg:min-h-[650px]">
+            {/* Image area */}
+            <div className="relative min-h-[570px] overflow-hidden sm:min-h-[640px] lg:min-h-[650px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`visual-${active.number}`}
@@ -147,27 +147,21 @@ export function HowItWorks() {
                       ? undefined
                       : {
                           opacity: 0,
-                          scale: isDeviceStep
-                            ? 0.93
-                            : 0.99,
+                          scale: isDeviceStep ? 0.93 : 0.99,
                         }
                   }
                   transition={{
-                    duration: isDeviceStep
-                      ? 1.15
-                      : 0.7,
+                    duration: isDeviceStep ? 1.15 : 0.7,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   className="absolute inset-0"
                 >
                   {isDeviceStep ? (
                     <>
-                      {/* Device background */}
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_73%_46%,rgba(255,198,42,0.14),transparent_30%),linear-gradient(135deg,#171611_0%,#0c0c0b_52%,#050505_100%)]" />
 
                       <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:28px_28px]" />
 
-                      {/* Device image */}
                       <div className="absolute inset-0 flex items-center justify-end [perspective:1900px]">
                         <motion.div
                           initial={
@@ -215,7 +209,7 @@ export function HowItWorks() {
                             duration: 1.4,
                             ease: [0.22, 1, 0.36, 1],
                           }}
-                          className="relative mb-10 mr-[1%] h-[84%] w-[86%] sm:h-[90%] sm:w-[78%] lg:h-[96%] lg:w-[66%] [transform-style:preserve-3d]"
+                          className="relative mb-4 mr-[1%] h-[86%] w-[86%] sm:h-[92%] sm:w-[78%] lg:h-[96%] lg:w-[66%] [transform-style:preserve-3d]"
                         >
                           <Image
                             src={active.image}
@@ -230,7 +224,6 @@ export function HowItWorks() {
                         </motion.div>
                       </div>
 
-                      {/* Reset indicator */}
                       <motion.div
                         initial={
                           reduceMotion
@@ -267,16 +260,8 @@ export function HowItWorks() {
                               reduceMotion
                                 ? undefined
                                 : {
-                                    opacity: [
-                                      0.55,
-                                      1,
-                                      0.55,
-                                    ],
-                                    scale: [
-                                      0.9,
-                                      1.18,
-                                      0.9,
-                                    ],
+                                    opacity: [0.55, 1, 0.55],
+                                    scale: [0.9, 1.18, 0.9],
                                   }
                             }
                             transition={{
@@ -291,14 +276,12 @@ export function HowItWorks() {
                         </div>
                       </motion.div>
 
-                      {/* Device overlays */}
                       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/76 via-black/10 to-transparent" />
 
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/72 via-transparent to-black/10" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10" />
                     </>
                   ) : (
                     <>
-                      {/* Step photo */}
                       <Image
                         src={active.image}
                         alt={active.alt}
@@ -306,29 +289,24 @@ export function HowItWorks() {
                         priority={activeStep === 0}
                         sizes="(max-width: 1280px) 100vw, 1240px"
                         style={{
-                          objectPosition:
-                            active.imagePosition ??
-                            '50% 50%',
+                          objectPosition: active.imagePosition ?? '50% 50%',
                         }}
                         className="object-cover"
                       />
 
-                      {/* Slightly darken photo */}
-                      <div className="pointer-events-none absolute inset-0 bg-black/16" />
+                      <div className="pointer-events-none absolute inset-0 bg-black/[0.04]" />
 
-                      {/* Warm product glow */}
-                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_68%_42%,rgba(255,198,42,0.08),transparent_36%)]" />
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_68%_42%,rgba(255,198,42,0.06),transparent_36%)]" />
 
-                      {/* Text readability */}
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/82 via-black/36 to-black/6" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/68 via-black/20 to-transparent" />
 
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/76 via-transparent to-black/12" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/48 via-transparent to-black/5" />
                     </>
                   )}
                 </motion.div>
               </AnimatePresence>
 
-              {/* Text content */}
+              {/* Text over image */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`copy-${active.number}`}
@@ -357,19 +335,11 @@ export function HowItWorks() {
                     duration: 0.65,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className={`absolute bottom-24 left-0 z-10 px-7 text-white sm:bottom-28 sm:px-10 lg:bottom-32 lg:px-14 ${
-                    isDeviceStep
-                      ? 'w-full lg:w-[45%]'
-                      : 'w-full'
+                  className={`absolute bottom-10 left-0 z-10 px-7 text-white sm:bottom-12 sm:px-10 lg:bottom-14 lg:px-14 ${
+                    isDeviceStep ? 'w-full lg:w-[45%]' : 'w-full'
                   }`}
                 >
-                  <div
-                    className={
-                      isDeviceStep
-                        ? 'max-w-lg'
-                        : 'max-w-2xl'
-                    }
-                  >
+                  <div className={isDeviceStep ? 'max-w-lg' : 'max-w-2xl'}>
                     <div className="flex items-center gap-4">
                       <span className="text-xs font-semibold tracking-[0.22em] text-[#ffc62a]">
                         {active.number}
@@ -394,15 +364,14 @@ export function HowItWorks() {
               </AnimatePresence>
             </div>
 
-            {/* Step navigation */}
-            <div className="absolute inset-x-5 bottom-5 z-30 sm:inset-x-8 sm:bottom-7">
+            {/* Navigation is now below the image */}
+            <div className="relative z-30 border-t border-white/10 bg-[#0a0a09] px-4 py-4 sm:px-7 sm:py-5">
               <div className="relative grid grid-cols-3 overflow-hidden rounded-full border border-white/15 bg-black/55 p-1.5 backdrop-blur-xl">
                 <motion.div
                   className="absolute bottom-1.5 top-1.5 rounded-full border border-[#ffc62a]/35 bg-[#ffc62a]/12 shadow-[0_0_30px_rgba(255,198,42,0.12)]"
                   animate={{
                     left: `calc(${activeStep * 33.333333}% + 0.375rem)`,
-                    width:
-                      'calc(33.333333% - 0.75rem)',
+                    width: 'calc(33.333333% - 0.75rem)',
                   }}
                   transition={{
                     duration: 0.45,
@@ -415,16 +384,13 @@ export function HowItWorks() {
                 <div className="pointer-events-none absolute bottom-3 left-2/3 top-3 w-px bg-white/10" />
 
                 {steps.map((step, index) => {
-                  const isActive =
-                    index === activeStep;
+                  const isActive = index === activeStep;
 
                   return (
                     <button
                       key={step.number}
                       type="button"
-                      onClick={() =>
-                        setActiveStep(index)
-                      }
+                      onClick={() => setActiveStep(index)}
                       aria-pressed={isActive}
                       className={`relative z-10 flex min-h-14 items-center justify-center gap-2 rounded-full px-3 text-xs font-semibold transition duration-300 sm:min-h-16 sm:gap-3 sm:text-sm ${
                         isActive
@@ -434,9 +400,7 @@ export function HowItWorks() {
                     >
                       <span
                         className={`hidden text-[10px] tracking-[0.18em] sm:inline ${
-                          isActive
-                            ? 'text-[#ffc62a]'
-                            : 'text-white/45'
+                          isActive ? 'text-[#ffc62a]' : 'text-white/45'
                         }`}
                       >
                         {step.number}
@@ -444,9 +408,7 @@ export function HowItWorks() {
 
                       <span
                         className={
-                          isActive
-                            ? 'text-[#ffc62a]'
-                            : 'text-white/75'
+                          isActive ? 'text-[#ffc62a]' : 'text-white/75'
                         }
                       >
                         {step.tab}

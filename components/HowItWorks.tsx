@@ -6,7 +6,7 @@ import {
   motion,
   useReducedMotion,
 } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Position = {
   left: string;
@@ -96,6 +96,19 @@ const easing = [0.22, 1, 0.36, 1] as const;
 export function HowItWorks() {
   const [activeStep, setActiveStep] = useState(0);
   const reduceMotion = useReducedMotion();
+
+  /*
+   * Preload all How It Works images
+   *
+   * این بخش باعث می‌شود عکس Reset پیش از کلیک کاربر
+   * در پس‌زمینه دانلود و آماده نمایش شود.
+   */
+  useEffect(() => {
+    steps.forEach((step) => {
+      const image = new window.Image();
+      image.src = step.image;
+    });
+  }, []);
 
   const active = steps[activeStep];
 

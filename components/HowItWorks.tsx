@@ -67,7 +67,7 @@ const steps: Step[] = [
      */
     signalLedPosition: {
       left: '66.1%',
-      top: '90.5%',
+      top: '90.3%',
     },
   },
   {
@@ -87,7 +87,7 @@ const steps: Step[] = [
      * خط زرد کنار دکمه Reset
      */
     resetIndicatorPosition: {
-      left: '78.8%',
+      left: '75%',
       top: '55%',
     },
   },

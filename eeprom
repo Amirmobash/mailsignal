@@ -4,39 +4,34 @@ constexpr uint8_t SENSOR_PIN = 2;
 constexpr uint8_t RESET_PIN = 3;
 constexpr uint8_t LED_PIN = 9;
 
-constexpr uint16_t ENTPRELLZEIT_MS = 40;
-constexpr uint16_t RESETZEIT_MS = 1200;
+constexpr uint8_t EEPROM_ADRESSE = 0;
+constexpr uint8_t STATUS_AKTIV = 0x5A;
+constexpr uint8_t STATUS_INAKTIV = 0xA5;
 
-constexpr uint16_t EEPROM_ADRESSE = 0;
-constexpr uint8_t EEPROM_KENNUNG = 0x6D;
-
-struct Speicher {
-  uint8_t kennung;
-  uint8_t status;
-  uint8_t pruefsumme;
-};
+constexpr unsigned long SENSOR_ENTPRELLZEIT = 40;
+constexpr unsigned long RESET_ENTPRELLZEIT = 40;
+constexpr unsigned long RESET_HALTEZEIT = 1000;
 
 class Eingang {
 public:
-  Eingang(uint8_t pin, uint16_t entprellzeit)
+  Eingang(uint8_t pin, unsigned long entprellzeit)
       : pin(pin),
         entprellzeit(entprellzeit),
         rohzustand(HIGH),
-        zustand(HIGH),
-        letzterZustand(HIGH),
+        stabilerZustand(HIGH),
+        letzterStabilerZustand(HIGH),
         wechselzeit(0) {}
 
-  void starten() {
+  void beginnen() {
     pinMode(pin, INPUT_PULLUP);
-
     rohzustand = digitalRead(pin);
-    zustand = rohzustand;
-    letzterZustand = zustand;
+    stabilerZustand = rohzustand;
+    letzterStabilerZustand = stabilerZustand;
     wechselzeit = millis();
   }
 
   void aktualisieren() {
-    letzterZustand = zustand;
+    letzterStabilerZustand = stabilerZustand;
 
     bool neuerRohzustand = digitalRead(pin);
     unsigned long jetzt = millis();
@@ -47,36 +42,38 @@ public:
     }
 
     if (
-      zustand != rohzustand &&
+      rohzustand != stabilerZustand &&
       jetzt - wechselzeit >= entprellzeit
     ) {
-      zustand = rohzustand;
+      stabilerZustand = rohzustand;
     }
   }
 
   bool aktiv() const {
-    return zustand == LOW;
+    return stabilerZustand == LOW;
   }
 
-  bool aktiviert() const {
-    return letzterZustand == HIGH && zustand == LOW;
+  bool wurdeAktiviert() const {
+    return letzterStabilerZustand == HIGH &&
+           stabilerZustand == LOW;
   }
 
-  bool deaktiviert() const {
-    return letzterZustand == LOW && zustand == HIGH;
+  bool wurdeFreigegeben() const {
+    return letzterStabilerZustand == LOW &&
+           stabilerZustand == HIGH;
   }
 
 private:
   uint8_t pin;
-  uint16_t entprellzeit;
+  unsigned long entprellzeit;
   bool rohzustand;
-  bool zustand;
-  bool letzterZustand;
+  bool stabilerZustand;
+  bool letzterStabilerZustand;
   unsigned long wechselzeit;
 };
 
-Eingang sensor(SENSOR_PIN, ENTPRELLZEIT_MS);
-Eingang resetTaste(RESET_PIN, ENTPRELLZEIT_MS);
+Eingang sensor(SENSOR_PIN, SENSOR_ENTPRELLZEIT);
+Eingang resetTaste(RESET_PIN, RESET_ENTPRELLZEIT);
 
 bool postVorhanden = false;
 bool resetGestartet = false;
@@ -84,51 +81,33 @@ bool resetAusgefuehrt = false;
 
 unsigned long resetStartzeit = 0;
 
-uint8_t pruefsummeErzeugen(uint8_t status) {
-  return EEPROM_KENNUNG ^ status ^ 0xB4;
-}
-
 void ausgangAktualisieren() {
   digitalWrite(LED_PIN, postVorhanden ? HIGH : LOW);
 }
 
 void statusSpeichern() {
-  Speicher neu;
+  uint8_t wert = postVorhanden ? STATUS_AKTIV : STATUS_INAKTIV;
 
-  neu.kennung = EEPROM_KENNUNG;
-  neu.status = postVorhanden ? 1 : 0;
-  neu.pruefsumme = pruefsummeErzeugen(neu.status);
-
-  Speicher alt;
-  EEPROM.get(EEPROM_ADRESSE, alt);
-
-  if (
-    alt.kennung != neu.kennung ||
-    alt.status != neu.status ||
-    alt.pruefsumme != neu.pruefsumme
-  ) {
-    EEPROM.put(EEPROM_ADRESSE, neu);
+  if (EEPROM.read(EEPROM_ADRESSE) != wert) {
+    EEPROM.update(EEPROM_ADRESSE, wert);
   }
 }
 
 void statusLaden() {
-  Speicher daten;
-  EEPROM.get(EEPROM_ADRESSE, daten);
+  uint8_t wert = EEPROM.read(EEPROM_ADRESSE);
 
-  bool gueltig =
-    daten.kennung == EEPROM_KENNUNG &&
-    daten.status <= 1 &&
-    daten.pruefsumme == pruefsummeErzeugen(daten.status);
-
-  if (gueltig) {
-    postVorhanden = daten.status == 1;
+  if (wert == STATUS_AKTIV) {
+    postVorhanden = true;
   } else {
     postVorhanden = false;
-    statusSpeichern();
+
+    if (wert != STATUS_INAKTIV) {
+      statusSpeichern();
+    }
   }
 }
 
-void postSetzen() {
+void postAktivieren() {
   if (postVorhanden) {
     return;
   }
@@ -148,36 +127,35 @@ void postZuruecksetzen() {
   ausgangAktualisieren();
 }
 
-void sensorBearbeiten() {
+void sensorVerarbeiten() {
   sensor.aktualisieren();
 
-  if (sensor.aktiviert()) {
-    postSetzen();
+  if (sensor.wurdeAktiviert()) {
+    postAktivieren();
   }
 }
 
-void resetBearbeiten() {
+void resetVerarbeiten() {
   resetTaste.aktualisieren();
-
   unsigned long jetzt = millis();
 
-  if (resetTaste.aktiviert()) {
+  if (resetTaste.wurdeAktiviert()) {
     resetGestartet = true;
     resetAusgefuehrt = false;
     resetStartzeit = jetzt;
   }
 
   if (
-    resetTaste.aktiv() &&
     resetGestartet &&
     !resetAusgefuehrt &&
-    jetzt - resetStartzeit >= RESETZEIT_MS
+    resetTaste.aktiv() &&
+    jetzt - resetStartzeit >= RESET_HALTEZEIT
   ) {
     postZuruecksetzen();
     resetAusgefuehrt = true;
   }
 
-  if (resetTaste.deaktiviert()) {
+  if (resetTaste.wurdeFreigegeben()) {
     resetGestartet = false;
     resetAusgefuehrt = false;
   }
@@ -186,14 +164,14 @@ void resetBearbeiten() {
 void setup() {
   pinMode(LED_PIN, OUTPUT);
 
-  sensor.starten();
-  resetTaste.starten();
+  sensor.beginnen();
+  resetTaste.beginnen();
 
   statusLaden();
   ausgangAktualisieren();
 }
 
 void loop() {
-  sensorBearbeiten();
-  resetBearbeiten();
+  sensorVerarbeiten();
+  resetVerarbeiten();
 }

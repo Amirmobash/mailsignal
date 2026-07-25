@@ -1,59 +1,69 @@
 #include <EEPROM.h>
 
 constexpr uint8_t SENSOR_PIN = 2;
-constexpr uint8_t RESET_PIN = 3;
+constexpr uint8_t TASTER_PIN = 3;
 constexpr uint8_t LED_PIN = 9;
 
-constexpr unsigned long ENTPRELL_MS = 40;
-constexpr unsigned long RESET_HALTE_MS = 1000;
+constexpr uint16_t ENTPRELLZEIT_MS = 50;
+constexpr uint16_t RESETZEIT_MS = 1200;
 
 constexpr uint8_t EEPROM_ADRESSE = 0;
-constexpr uint8_t EEPROM_SCHLUESSEL = 0x6D;
+constexpr uint8_t EEPROM_KENNUNG = 0xB6;
 
 struct Eingang {
   uint8_t pin;
   bool roh;
   bool stabil;
   bool vorher;
-  unsigned long wechselZeit;
+  unsigned long wechselzeit;
 };
 
-Eingang sensor;
-Eingang resetTaste;
+struct Speicher {
+  uint8_t kennung;
+  uint8_t status;
+  uint8_t pruefsumme;
+};
+
+Eingang briefSensor;
+Eingang resetTaster;
 
 bool postVorhanden = false;
 bool resetGestartet = false;
 bool resetAusgefuehrt = false;
 
-unsigned long resetStartZeit = 0;
+unsigned long resetStartzeit = 0;
 
-void eingangStarten(Eingang& eingang, uint8_t pin) {
+uint8_t pruefsummeBerechnen(uint8_t status) {
+  return EEPROM_KENNUNG ^ status ^ 0x6D;
+}
+
+void eingangInitialisieren(Eingang& eingang, uint8_t pin) {
   eingang.pin = pin;
 
-  pinMode(pin, INPUT_PULLUP);
+  pinMode(eingang.pin, INPUT_PULLUP);
 
-  bool zustand = digitalRead(pin);
+  bool zustand = digitalRead(eingang.pin);
 
   eingang.roh = zustand;
   eingang.stabil = zustand;
   eingang.vorher = zustand;
-  eingang.wechselZeit = millis();
+  eingang.wechselzeit = millis();
 }
 
 void eingangAktualisieren(Eingang& eingang) {
+  bool aktuellerZustand = digitalRead(eingang.pin);
   unsigned long jetzt = millis();
-  bool neuerRohzustand = digitalRead(eingang.pin);
 
   eingang.vorher = eingang.stabil;
 
-  if (neuerRohzustand != eingang.roh) {
-    eingang.roh = neuerRohzustand;
-    eingang.wechselZeit = jetzt;
+  if (aktuellerZustand != eingang.roh) {
+    eingang.roh = aktuellerZustand;
+    eingang.wechselzeit = jetzt;
   }
 
   if (
-    eingang.stabil != eingang.roh &&
-    jetzt - eingang.wechselZeit >= ENTPRELL_MS
+    eingang.roh != eingang.stabil &&
+    jetzt - eingang.wechselzeit >= ENTPRELLZEIT_MS
   ) {
     eingang.stabil = eingang.roh;
   }
@@ -67,45 +77,61 @@ bool wurdeFreigegeben(const Eingang& eingang) {
   return eingang.vorher == LOW && eingang.stabil == HIGH;
 }
 
-void ledAktualisieren() {
+bool istAktiv(const Eingang& eingang) {
+  return eingang.stabil == LOW;
+}
+
+void anzeigeAktualisieren() {
   digitalWrite(LED_PIN, postVorhanden ? HIGH : LOW);
 }
 
 void statusSpeichern() {
-  uint8_t wert = postVorhanden ? 1 : 0;
-  uint8_t pruefwert = EEPROM_SCHLUESSEL ^ wert;
+  Speicher neueDaten = {
+    EEPROM_KENNUNG,
+    postVorhanden ? static_cast<uint8_t>(1) : static_cast<uint8_t>(0),
+    0
+  };
 
-  EEPROM.update(EEPROM_ADRESSE, EEPROM_SCHLUESSEL);
-  EEPROM.update(EEPROM_ADRESSE + 1, wert);
-  EEPROM.update(EEPROM_ADRESSE + 2, pruefwert);
+  neueDaten.pruefsumme = pruefsummeBerechnen(neueDaten.status);
+
+  Speicher alteDaten;
+  EEPROM.get(EEPROM_ADRESSE, alteDaten);
+
+  bool unveraendert =
+    alteDaten.kennung == neueDaten.kennung &&
+    alteDaten.status == neueDaten.status &&
+    alteDaten.pruefsumme == neueDaten.pruefsumme;
+
+  if (!unveraendert) {
+    EEPROM.put(EEPROM_ADRESSE, neueDaten);
+  }
 }
 
 void statusLaden() {
-  uint8_t schluessel = EEPROM.read(EEPROM_ADRESSE);
-  uint8_t wert = EEPROM.read(EEPROM_ADRESSE + 1);
-  uint8_t pruefwert = EEPROM.read(EEPROM_ADRESSE + 2);
+  Speicher daten;
+  EEPROM.get(EEPROM_ADRESSE, daten);
 
   bool gueltig =
-    schluessel == EEPROM_SCHLUESSEL &&
-    wert <= 1 &&
-    pruefwert == (EEPROM_SCHLUESSEL ^ wert);
+    daten.kennung == EEPROM_KENNUNG &&
+    daten.status <= 1 &&
+    daten.pruefsumme == pruefsummeBerechnen(daten.status);
 
   if (gueltig) {
-    postVorhanden = wert == 1;
+    postVorhanden = daten.status == 1;
   } else {
     postVorhanden = false;
     statusSpeichern();
   }
 }
 
-void postSetzen() {
+void postMelden() {
   if (postVorhanden) {
     return;
   }
 
   postVorhanden = true;
+  anzeigeAktualisieren();
   statusSpeichern();
-  ledAktualisieren();
 }
 
 void postZuruecksetzen() {
@@ -114,40 +140,40 @@ void postZuruecksetzen() {
   }
 
   postVorhanden = false;
+  anzeigeAktualisieren();
   statusSpeichern();
-  ledAktualisieren();
 }
 
-void sensorVerarbeiten() {
-  eingangAktualisieren(sensor);
+void sensorBearbeiten() {
+  eingangAktualisieren(briefSensor);
 
-  if (wurdeAktiviert(sensor)) {
-    postSetzen();
+  if (wurdeAktiviert(briefSensor)) {
+    postMelden();
   }
 }
 
-void resetVerarbeiten() {
-  eingangAktualisieren(resetTaste);
+void tasterBearbeiten() {
+  eingangAktualisieren(resetTaster);
 
   unsigned long jetzt = millis();
 
-  if (wurdeAktiviert(resetTaste)) {
+  if (wurdeAktiviert(resetTaster)) {
     resetGestartet = true;
     resetAusgefuehrt = false;
-    resetStartZeit = jetzt;
+    resetStartzeit = jetzt;
   }
 
   if (
     resetGestartet &&
     !resetAusgefuehrt &&
-    resetTaste.stabil == LOW &&
-    jetzt - resetStartZeit >= RESET_HALTE_MS
+    istAktiv(resetTaster) &&
+    jetzt - resetStartzeit >= RESETZEIT_MS
   ) {
     postZuruecksetzen();
     resetAusgefuehrt = true;
   }
 
-  if (wurdeFreigegeben(resetTaste)) {
+  if (wurdeFreigegeben(resetTaster)) {
     resetGestartet = false;
     resetAusgefuehrt = false;
   }
@@ -155,15 +181,16 @@ void resetVerarbeiten() {
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, LOW);
 
-  eingangStarten(sensor, SENSOR_PIN);
-  eingangStarten(resetTaste, RESET_PIN);
+  eingangInitialisieren(briefSensor, SENSOR_PIN);
+  eingangInitialisieren(resetTaster, TASTER_PIN);
 
   statusLaden();
-  ledAktualisieren();
+  anzeigeAktualisieren();
 }
 
 void loop() {
-  sensorVerarbeiten();
-  resetVerarbeiten();
+  sensorBearbeiten();
+  tasterBearbeiten();
 }

@@ -61,11 +61,11 @@ export default function ImpressumPage() {
 
             <div className="mt-9 space-y-4">
               <a
-                href="mailto:ladansediqi@gmail.com"
+                href="mailto:mailsignal71@gmail.com"
                 className="flex items-center gap-3 text-sm text-black/58 transition hover:text-black"
               >
                 <Mail className="h-4 w-4 text-[#a96f00]" />
-                ladansediqi@gmail.com
+                mailsignal71@gmail.com
               </a>
 
               <a

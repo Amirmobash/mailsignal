@@ -79,7 +79,7 @@ export function ContactCTA() {
               className="lg:pb-2"
             >
               <a
-                href="mailto:ladansediqi@gmail.com"
+                href="mailto:mailsignal71@gmail.com"
                 className="group inline-flex min-h-16 items-center gap-4 rounded-full bg-[#ffc62a] px-7 font-semibold text-black transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(255,198,42,0.22)]"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white">

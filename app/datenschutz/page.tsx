@@ -55,10 +55,10 @@ export default function DatenschutzPage() {
             </div>
 
             <a
-              href="mailto:ladansediqi@gmail.com"
+              href="mailto:mailsignal71@gmail.com"
               className="mt-6 block text-sm text-black/58 transition hover:text-black"
             >
-              ladansediqi@gmail.com
+              mailsignal71@gmail.com
             </a>
 
             <p className="mt-10 text-xs leading-5 text-black/35">

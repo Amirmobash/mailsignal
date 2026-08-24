@@ -135,13 +135,13 @@ export function SiteFooter() {
 
             <div className="mt-6 space-y-4">
               <a
-                href="mailto:ladansediqi@gmail.com?subject=Anfrage zu MailSignal"
+                href="mailto:mailsignal71@gmail.com?subject=Anfrage zu MailSignal"
                 className="group flex items-start gap-3 text-sm text-white/55 transition duration-300 hover:text-white"
               >
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[#ffc62a]/80" />
 
                 <span className="break-all">
-                  ladansediqi@gmail.com
+                  mailsignal71@gmail.com
                 </span>
               </a>
 

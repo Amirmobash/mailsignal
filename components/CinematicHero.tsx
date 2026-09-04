@@ -28,19 +28,19 @@ export function CinematicHero() {
   const titleY = useTransform(
     scrollYProgress,
     [0, 0.5],
-    [0, reduceMotion ? 0 : -55],
+    [0, reduceMotion ? 0 : -45],
   );
 
   const deviceScale = useTransform(
     scrollYProgress,
     [0, 0.72],
-    [1, reduceMotion ? 1 : 0.9],
+    [1, reduceMotion ? 1 : 0.94],
   );
 
   const deviceY = useTransform(
     scrollYProgress,
     [0, 0.72],
-    [0, reduceMotion ? 0 : -20],
+    [0, reduceMotion ? 0 : -10],
   );
 
   const ledOpacity = useTransform(
@@ -64,59 +64,59 @@ export function CinematicHero() {
   const messageY = useTransform(
     scrollYProgress,
     [0.32, 0.48],
-    [18, 0],
+    [12, 0],
   );
 
   return (
     <section
       ref={sectionRef}
       id="cinematic"
-      className="relative h-[135vh] bg-[#ffffff] text-[#171717]"
+      className="relative h-[135vh] bg-white text-[#171717]"
     >
-      <div className="sticky top-0 h-screen overflow-hidden bg-[#ffffff]">
-        {/* Very soft orange atmosphere */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_68%,rgba(249,115,22,0.035),transparent_34%)]" />
+      <div className="sticky top-0 h-screen overflow-hidden bg-white">
+        {/* Soft orange atmosphere */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_58%,rgba(249,115,22,0.035),transparent_36%)]" />
 
         <motion.div
           style={{
             opacity: glowOpacity,
           }}
-          className="pointer-events-none absolute left-1/2 top-[66%] h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316]/[0.07] blur-[160px]"
+          className="pointer-events-none absolute left-1/2 top-[62%] h-[22rem] w-[22rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316]/[0.06] blur-[160px]"
         />
 
-        <div className="relative mx-auto flex h-full max-w-[1500px] flex-col items-center justify-center px-6">
-          {/* Title */}
-          <motion.div
-            style={{
-              opacity: titleOpacity,
-              y: titleY,
-            }}
-            className="absolute top-[10%] z-20 text-center"
-          >
-            <h2 className="text-[clamp(2.7rem,7vw,7rem)] font-semibold leading-[0.92] tracking-[-0.065em] text-[#171717]">
-              Nie wieder umsonst
-            </h2>
+        {/* Title */}
+        <motion.div
+          style={{
+            opacity: titleOpacity,
+            y: titleY,
+          }}
+          className="absolute left-1/2 top-[8%] z-20 w-full -translate-x-1/2 px-6 text-center"
+        >
+          <h2 className="text-[clamp(2.6rem,6.4vw,6.5rem)] font-semibold leading-[0.92] tracking-[-0.065em] text-[#171717]">
+            Nie wieder umsonst
+          </h2>
 
-            <p className="mt-3 text-[clamp(2.7rem,6.5vw,6.4rem)] font-semibold leading-[0.94] tracking-[-0.06em] text-[#F97316]">
-              zum Briefkasten.
-            </p>
-          </motion.div>
+          <p className="mt-2 text-[clamp(2.6rem,6vw,6rem)] font-semibold leading-[0.94] tracking-[-0.06em] text-[#F97316]">
+            zum Briefkasten.
+          </p>
+        </motion.div>
 
-          {/* Device */}
-          <motion.div
-            style={{
-              scale: deviceScale,
-              y: deviceY,
-            }}
-            className="relative mt-72 w-[min(82vw,610px)] sm:mt-80"
-          >
+        {/* Device + message */}
+        <motion.div
+          style={{
+            scale: deviceScale,
+            y: deviceY,
+          }}
+          className="absolute left-1/2 top-[36%] z-10 w-[min(78vw,48vh,560px)] -translate-x-1/2"
+        >
+          <div className="relative">
             <Image
               src="/images/hero-device-off.png"
               alt="MailSignal Gerät mit Solarpanel und LED-Anzeige"
               width={1536}
               height={1536}
               priority
-              sizes="(max-width: 768px) 88vw, 610px"
+              sizes="(max-width: 768px) 78vw, 560px"
               className="h-auto w-full select-none object-contain"
             />
 
@@ -133,37 +133,37 @@ export function CinematicHero() {
               style={{
                 opacity: glowOpacity,
               }}
-              className="pointer-events-none absolute left-[50%] top-[74.5%] z-10 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316]/25 blur-3xl"
+              className="pointer-events-none absolute left-[50%] top-[74.5%] z-10 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316]/25 blur-3xl"
             />
-          </motion.div>
+          </div>
 
-          {/* Message */}
+          {/* Message directly below device */}
           <motion.div
             style={{
               opacity: messageOpacity,
               y: messageY,
             }}
-            className="absolute bottom-[7%] text-center"
+            className="absolute left-1/2 top-[calc(100%+10px)] w-max -translate-x-1/2 text-center"
           >
             <p className="text-sm font-semibold tracking-[0.04em] text-[#F97316] sm:text-base">
               Neue Post ist angekommen.
             </p>
           </motion.div>
+        </motion.div>
 
-          {/* Scroll */}
-          <motion.div
-            style={{
-              opacity: titleOpacity,
-            }}
-            className="absolute bottom-7 text-center"
-          >
-            <p className="text-[10px] uppercase tracking-[0.32em] text-black/28">
-              Scroll
-            </p>
+        {/* Scroll indicator */}
+        <motion.div
+          style={{
+            opacity: titleOpacity,
+          }}
+          className="absolute bottom-5 left-1/2 -translate-x-1/2 text-center"
+        >
+          <p className="text-[9px] uppercase tracking-[0.32em] text-black/25">
+            Scroll
+          </p>
 
-            <div className="mx-auto mt-3 h-8 w-px bg-gradient-to-b from-black/25 to-transparent" />
-          </motion.div>
-        </div>
+          <div className="mx-auto mt-2 h-6 w-px bg-gradient-to-b from-black/25 to-transparent" />
+        </motion.div>
       </div>
     </section>
   );

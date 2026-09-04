@@ -67,15 +67,13 @@ export function KeyBenefits() {
       id="benefits"
       className="relative overflow-hidden bg-white py-16 text-[#171717] sm:py-20 lg:py-24"
     >
-      {/* Background */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[8%] top-[18%] h-[26rem] w-[26rem] rounded-full bg-[#F97316]/[0.035] blur-[170px]" />
+        <div className="absolute left-[8%] top-[18%] h-[26rem] w-[26rem] rounded-full bg-[#F97316]/[0.025] blur-[170px]" />
 
-        <div className="absolute bottom-[4%] right-[6%] h-[24rem] w-[24rem] rounded-full bg-[#F97316]/[0.025] blur-[180px]" />
+        <div className="absolute bottom-[4%] right-[6%] h-[24rem] w-[24rem] rounded-full bg-[#F97316]/[0.02] blur-[180px]" />
       </div>
 
       <div className="section-shell relative z-10">
-        {/* Heading */}
         <motion.div
           initial={
             reduceMotion
@@ -106,17 +104,16 @@ export function KeyBenefits() {
           <h2 className="mt-5 text-balance text-5xl font-semibold tracking-[-0.06em] text-[#171717] sm:text-7xl lg:text-[6.5rem] lg:leading-[0.92]">
             Einfach gedacht.
 
-            <span className="block text-black/25">
+            <span className="block text-[#F97316]">
               Für draußen gemacht.
             </span>
           </h2>
 
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-black/48">
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-black/55">
             Die wichtigsten Vorteile auf einen Blick.
           </p>
         </motion.div>
 
-        {/* Cards */}
         <div className="mt-12 grid gap-5 sm:mt-14 lg:grid-cols-2">
           {benefits.map(
             (
@@ -149,28 +146,25 @@ export function KeyBenefits() {
                   overflow-hidden
                   rounded-[1.8rem]
                   border
-                  border-[#F7C7A8]
-                  bg-[#FFF1E8]
+                  border-[#F3A56F]
+                  bg-[#FFD8BF]
                   p-7
-                  shadow-[0_18px_50px_rgba(106,56,20,0.08)]
+                  shadow-[0_18px_45px_rgba(249,115,22,0.10)]
                   transition
                   duration-500
                   hover:-translate-y-1
-                  hover:border-[#F97316]/55
-                  hover:bg-[#FFEBDD]
-                  hover:shadow-[0_24px_65px_rgba(249,115,22,0.14)]
+                  hover:border-[#F97316]
+                  hover:bg-[#FFCBA8]
+                  hover:shadow-[0_24px_60px_rgba(249,115,22,0.18)]
                   sm:p-8
                 "
               >
-                {/* Soft glow */}
-                <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#F97316]/[0.08] blur-3xl transition duration-700 group-hover:bg-[#F97316]/[0.14]" />
+                <div className="pointer-events-none absolute -right-14 -top-14 h-44 w-44 rounded-full bg-white/25 blur-3xl" />
 
-                {/* Bottom accent */}
-                <div className="pointer-events-none absolute bottom-0 left-0 h-[2px] w-full bg-gradient-to-r from-transparent via-[#F97316]/35 to-transparent" />
+                <div className="pointer-events-none absolute bottom-0 left-0 h-[2px] w-full bg-gradient-to-r from-transparent via-[#F97316]/50 to-transparent" />
 
-                {/* Top row */}
                 <div className="relative flex items-start justify-between">
-                  <span className="text-[11px] font-semibold tracking-[0.24em] text-black/35">
+                  <span className="text-[11px] font-semibold tracking-[0.24em] text-black/38">
                     {number}
                   </span>
 
@@ -183,27 +177,25 @@ export function KeyBenefits() {
                       justify-center
                       rounded-full
                       border
-                      border-[#F97316]/30
-                      bg-white/70
-                      shadow-[0_8px_24px_rgba(249,115,22,0.08)]
+                      border-[#F97316]/35
+                      bg-white/75
+                      shadow-[0_8px_24px_rgba(249,115,22,0.10)]
                       transition
                       duration-500
-                      group-hover:border-[#F97316]/60
+                      group-hover:border-[#F97316]
                       group-hover:bg-white
-                      group-hover:shadow-[0_10px_30px_rgba(249,115,22,0.16)]
                     "
                   >
                     <Icon className="h-5 w-5 text-[#F97316] transition duration-500 group-hover:scale-110" />
                   </div>
                 </div>
 
-                {/* Text */}
                 <div className="relative mt-9">
                   <h3 className="max-w-md text-2xl font-semibold tracking-[-0.04em] text-[#171717] sm:text-[1.9rem]">
                     {title}
                   </h3>
 
-                  <p className="mt-3 max-w-lg text-[0.96rem] leading-6 text-black/60">
+                  <p className="mt-3 max-w-lg text-[0.96rem] leading-6 text-black/65">
                     {text}
                   </p>
                 </div>

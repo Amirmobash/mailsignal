@@ -1,4 +1,4 @@
-
+import { VideoHero } from '@/components/VideoHero';
 import { CinematicHero } from '@/components/CinematicHero';
 import { ProductShowcase } from '@/components/ProductShowcase';
 import { VisualStory } from '@/components/VisualStory';
@@ -12,6 +12,8 @@ import { SiteFooter } from '@/components/SiteFooter';
 export default function Home() {
   return (
     <main id="top" className="overflow-hidden bg-black">
+      <VideoHero />
+
       <CinematicHero />
 
       <ProductShowcase />
@@ -27,7 +29,6 @@ export default function Home() {
       <Faq />
 
       <SiteFooter />
-
     </main>
   );
 }

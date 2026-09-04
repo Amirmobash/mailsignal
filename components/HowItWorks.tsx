@@ -57,12 +57,6 @@ const steps: Step[] = [
 
     showSignalLed: true,
 
-    /*
-     * موقعیت چراغ مرحله Signal
-     *
-     * left کمتر = چپ‌تر
-     * top بیشتر = پایین‌تر
-     */
     signalLedPosition: {
       left: '66.1%',
       top: '91%',
@@ -81,9 +75,6 @@ const steps: Step[] = [
 
     showResetIndicator: true,
 
-    /*
-     * موقعیت نشانگر زرد Reset
-     */
     resetIndicatorPosition: {
       left: '74%',
       top: '49%',
@@ -97,12 +88,6 @@ export function HowItWorks() {
   const [activeStep, setActiveStep] = useState(0);
   const reduceMotion = useReducedMotion();
 
-  /*
-   * Preload all How It Works images
-   *
-   * این بخش باعث می‌شود عکس Reset پیش از کلیک کاربر
-   * در پس‌زمینه دانلود و آماده نمایش شود.
-   */
   useEffect(() => {
     steps.forEach((step) => {
       const image = new window.Image();
@@ -115,17 +100,17 @@ export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="relative scroll-mt-24 overflow-hidden bg-[#f1e5ca] py-24 text-[#19130f] sm:py-32 lg:py-40"
+      className="relative scroll-mt-24 overflow-hidden bg-white py-16 text-[#171717] sm:py-20 lg:py-24"
     >
-      {/* Background */}
+      {/* Background atmosphere */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-[22%] h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-[#ffc62a]/10 blur-[190px]" />
+        <div className="absolute left-1/2 top-[18%] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-[#F97316]/[0.045] blur-[190px]" />
 
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/[0.08] to-transparent" />
+        <div className="absolute -right-32 bottom-[8%] h-[28rem] w-[28rem] rounded-full bg-[#FFB37C]/[0.08] blur-[180px]" />
       </div>
 
       <div className="section-shell relative z-10">
-        {/* Section title */}
+        {/* Heading */}
         <motion.div
           initial={
             reduceMotion
@@ -149,29 +134,29 @@ export function HowItWorks() {
           }}
           className="mx-auto max-w-4xl text-center"
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#a96f00]">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#F97316]">
             So funktioniert es
           </p>
 
-          <h2 className="mt-6 text-balance text-5xl font-semibold tracking-[-0.06em] sm:text-7xl lg:text-[6.5rem] lg:leading-[0.92]">
+          <h2 className="mt-5 text-balance text-5xl font-semibold tracking-[-0.06em] text-[#171717] sm:text-7xl lg:text-[6.5rem] lg:leading-[0.92]">
             Drei Schritte.
 
-            <span className="block text-black/28">
+            <span className="block text-[#F97316]">
               Ein klares Signal.
             </span>
           </h2>
 
-          <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-black/48">
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-black/55">
             Vom Briefeinwurf bis zum Reset – der gesamte Ablauf bleibt einfach,
             sichtbar und vollständig offline.
           </p>
         </motion.div>
 
-        {/* Main card */}
-        <div className="mx-auto mt-16 w-full max-w-[1240px] sm:mt-20">
-          <div className="overflow-hidden rounded-[2.25rem] border border-black/10 bg-[#10100f] shadow-[0_35px_100px_rgba(55,35,5,0.18)]">
+        {/* Main interactive card */}
+        <div className="mx-auto mt-12 w-full max-w-[1240px] sm:mt-14">
+          <div className="overflow-hidden rounded-[2.25rem] border border-[#F97316]/25 bg-[#171717] shadow-[0_28px_80px_rgba(249,115,22,0.14)]">
             {/* Image area */}
-            <div className="relative h-[570px] overflow-hidden bg-[#10100f] sm:h-[640px] lg:h-[650px]">
+            <div className="relative h-[540px] overflow-hidden bg-[#171717] sm:h-[610px] lg:h-[630px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`image-${active.number}`}
@@ -207,12 +192,12 @@ export function HowItWorks() {
                   }}
                   className="absolute inset-0"
                 >
-                  {/* Image background for Reset */}
+                  {/* Reset background */}
                   {active.imageFit === 'contain' && (
                     <>
-                      <div className="absolute inset-0 bg-[#10100f]" />
+                      <div className="absolute inset-0 bg-[#171717]" />
 
-                      <div className="pointer-events-none absolute left-[72%] top-[48%] h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.035] blur-[130px]" />
+                      <div className="pointer-events-none absolute left-[72%] top-[48%] h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316]/[0.07] blur-[140px]" />
                     </>
                   )}
 
@@ -265,27 +250,27 @@ export function HowItWorks() {
                     />
                   )}
 
-                  {/* Light photo overlays */}
+                  {/* Photo overlays */}
                   {active.imageFit === 'cover' && (
                     <>
-                      <div className="pointer-events-none absolute inset-0 bg-black/[0.03]" />
+                      <div className="pointer-events-none absolute inset-0 bg-black/[0.02]" />
 
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/75 via-black/20 to-transparent" />
 
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/[0.04]" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/[0.03]" />
                     </>
                   )}
 
-                  {/* Reset image overlays */}
+                  {/* Reset overlays */}
                   {active.imageFit === 'contain' && (
                     <>
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/70 via-black/12 to-transparent" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/75 via-black/10 to-transparent" />
 
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/[0.04]" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
                     </>
                   )}
 
-                  {/* Signal LED */}
+                  {/* SIGNAL LED */}
                   {active.showSignalLed &&
                     active.signalLedPosition && (
                       <>
@@ -300,7 +285,7 @@ export function HowItWorks() {
                               : {
                                   opacity: [
                                     0.05,
-                                    0.38,
+                                    0.42,
                                     0.05,
                                   ],
                                   scale: [
@@ -323,7 +308,7 @@ export function HowItWorks() {
                             top:
                               active.signalLedPosition.top,
                           }}
-                          className="pointer-events-none absolute z-20 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/32 blur-2xl"
+                          className="pointer-events-none absolute z-20 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316]/35 blur-2xl"
                         />
 
                         {/* Medium glow */}
@@ -336,9 +321,9 @@ export function HowItWorks() {
                                 }
                               : {
                                   opacity: [
-                                    0.16,
-                                    0.8,
-                                    0.16,
+                                    0.18,
+                                    0.85,
+                                    0.18,
                                   ],
                                   scale: [
                                     0.72,
@@ -360,7 +345,7 @@ export function HowItWorks() {
                             top:
                               active.signalLedPosition.top,
                           }}
-                          className="pointer-events-none absolute z-30 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/70 blur-md"
+                          className="pointer-events-none absolute z-30 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316]/80 blur-md"
                         />
 
                         {/* LED point */}
@@ -373,9 +358,9 @@ export function HowItWorks() {
                                 }
                               : {
                                   opacity: [
-                                    0.4,
+                                    0.45,
                                     1,
-                                    0.4,
+                                    0.45,
                                   ],
                                   scale: [
                                     0.78,
@@ -397,12 +382,12 @@ export function HowItWorks() {
                             top:
                               active.signalLedPosition.top,
                           }}
-                          className="pointer-events-none absolute z-40 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffe45c] shadow-[0_0_7px_3px_rgba(255,228,92,1),0_0_18px_8px_rgba(255,198,42,0.8),0_0_40px_16px_rgba(255,166,0,0.38)]"
+                          className="pointer-events-none absolute z-40 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF8A2A] shadow-[0_0_7px_3px_rgba(255,138,42,1),0_0_18px_8px_rgba(249,115,22,0.85),0_0_40px_16px_rgba(249,115,22,0.42)]"
                         />
                       </>
                     )}
 
-                  {/* Reset indicator */}
+                  {/* RESET INDICATOR */}
                   {active.showResetIndicator &&
                     active.resetIndicatorPosition && (
                       <motion.div
@@ -432,7 +417,6 @@ export function HowItWorks() {
                         className="pointer-events-none absolute z-50 -translate-y-1/2"
                       >
                         <div className="relative flex items-center">
-                          {/* Horizontal line */}
                           <motion.div
                             animate={
                               reduceMotion
@@ -450,10 +434,9 @@ export function HowItWorks() {
                               repeat: Infinity,
                               ease: 'easeInOut',
                             }}
-                            className="h-px w-16 bg-gradient-to-r from-transparent via-[#ffc62a]/60 to-[#ffc62a] lg:w-24"
+                            className="h-px w-16 bg-gradient-to-r from-transparent via-[#F97316]/70 to-[#F97316] lg:w-24"
                           />
 
-                          {/* Vertical marker */}
                           <motion.div
                             animate={
                               reduceMotion
@@ -476,10 +459,10 @@ export function HowItWorks() {
                               repeat: Infinity,
                               ease: 'easeInOut',
                             }}
-                            className="h-10 w-[2px] origin-center rounded-full bg-[#ffc62a] shadow-[0_0_7px_2px_rgba(255,198,42,0.8),0_0_18px_5px_rgba(255,198,42,0.25)]"
+                            className="h-10 w-[2px] origin-center rounded-full bg-[#F97316] shadow-[0_0_7px_2px_rgba(249,115,22,0.85),0_0_18px_5px_rgba(249,115,22,0.3)]"
                           />
 
-                          <span className="absolute right-0 top-full mt-3 whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.2em] text-[#ffc62a]">
+                          <span className="absolute right-0 top-full mt-3 whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.2em] text-[#F97316]">
                             Reset-Taste
                           </span>
                         </div>
@@ -521,22 +504,22 @@ export function HowItWorks() {
                 >
                   <div className="max-w-2xl">
                     <div className="flex items-center gap-4">
-                      <span className="text-xs font-semibold tracking-[0.22em] text-[#ffc62a]">
+                      <span className="text-xs font-semibold tracking-[0.22em] text-[#F97316]">
                         {active.number}
                       </span>
 
-                      <div className="h-px w-10 bg-white/20" />
+                      <div className="h-px w-10 bg-white/25" />
 
-                      <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
+                      <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/55">
                         {active.eyebrow}
                       </span>
                     </div>
 
-                    <h3 className="mt-5 text-balance text-4xl font-semibold tracking-[-0.05em] sm:text-5xl lg:text-6xl">
+                    <h3 className="mt-5 text-balance text-4xl font-semibold tracking-[-0.05em] text-white sm:text-5xl lg:text-6xl">
                       {active.title}
                     </h3>
 
-                    <p className="mt-5 max-w-xl text-base leading-7 text-white/68 sm:text-lg sm:leading-8">
+                    <p className="mt-5 max-w-xl text-base leading-7 text-white/70 sm:text-lg sm:leading-8">
                       {active.text}
                     </p>
                   </div>
@@ -545,10 +528,11 @@ export function HowItWorks() {
             </div>
 
             {/* Navigation */}
-            <div className="relative z-30 border-t border-white/10 bg-[#0a0a09] px-4 py-4 sm:px-7 sm:py-5">
-              <div className="relative grid grid-cols-3 overflow-hidden rounded-full border border-white/15 bg-black/55 p-1.5">
+            <div className="relative z-30 border-t border-white/10 bg-[#111111] px-4 py-4 sm:px-7 sm:py-5">
+              <div className="relative grid grid-cols-3 overflow-hidden rounded-full border border-white/15 bg-black/35 p-1.5">
+                {/* Active orange pill */}
                 <motion.div
-                  className="absolute bottom-1.5 top-1.5 rounded-full border border-[#ffc62a]/35 bg-[#ffc62a]/10 shadow-[0_0_30px_rgba(255,198,42,0.1)]"
+                  className="absolute bottom-1.5 top-1.5 rounded-full border border-[#F97316]/60 bg-[#F97316]/20 shadow-[0_0_34px_rgba(249,115,22,0.18)]"
                   animate={{
                     left: `calc(${activeStep * 33.333333}% + 0.375rem)`,
                     width:
@@ -571,27 +555,27 @@ export function HowItWorks() {
                     <button
                       key={step.number}
                       type="button"
-                      onClick={() => setActiveStep(index)}
+                      onClick={() =>
+                        setActiveStep(index)
+                      }
                       aria-pressed={isActive}
                       className={`relative z-10 flex min-h-14 items-center justify-center gap-2 rounded-full px-3 text-xs font-semibold transition duration-300 sm:min-h-16 sm:gap-3 sm:text-sm ${
                         isActive
-                          ? 'text-[#ffc62a]'
-                          : 'text-white/75 hover:text-white'
+                          ? 'text-[#FF8A2A]'
+                          : 'text-white/70 hover:text-white'
                       }`}
                     >
                       <span
                         className={`hidden text-[10px] tracking-[0.18em] sm:inline ${
                           isActive
-                            ? 'text-[#ffc62a]'
-                            : 'text-white/45'
+                            ? 'text-[#F97316]'
+                            : 'text-white/40'
                         }`}
                       >
                         {step.number}
                       </span>
 
-                      <span>
-                        {step.tab}
-                      </span>
+                      <span>{step.tab}</span>
                     </button>
                   );
                 })}

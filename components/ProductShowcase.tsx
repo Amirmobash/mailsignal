@@ -151,7 +151,7 @@ export function ProductShowcase() {
                     repeat: Infinity,
                     ease: 'easeInOut',
                   }}
-                  className="pointer-events-none absolute left-[54%] top-[47.6%] z-20 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316] shadow-[0_0_8px_3px_rgba(249,115,22,1),0_0_22px_9px_rgba(249,115,22,0.65),0_0_48px_18px_rgba(249,115,22,0.28)]"
+                  className="pointer-events-none absolute left-[54.2%] top-[47.6%] z-20 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316] shadow-[0_0_8px_3px_rgba(249,115,22,1),0_0_22px_9px_rgba(249,115,22,0.65),0_0_48px_18px_rgba(249,115,22,0.28)]"
                 />
 
                 {/* Soft LED halo */}

@@ -125,7 +125,7 @@ export function CinematicHero() {
               style={{
                 opacity: ledOpacity,
               }}
-              className="pointer-events-none absolute left-[50%] top-[74.2%] z-20 h-[2.2%] w-[2.2%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316] shadow-[0_0_10px_3px_rgba(249,115,22,0.95),0_0_34px_12px_rgba(249,115,22,0.42)]"
+              className="pointer-events-none absolute left-[50%] top-[74.5%] z-20 h-[2.2%] w-[2.2%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316] shadow-[0_0_10px_3px_rgba(249,115,22,0.95),0_0_34px_12px_rgba(249,115,22,0.42)]"
             />
 
             {/* LED halo */}
@@ -133,7 +133,7 @@ export function CinematicHero() {
               style={{
                 opacity: glowOpacity,
               }}
-              className="pointer-events-none absolute left-[50%] top-[74.2%] z-10 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316]/25 blur-3xl"
+              className="pointer-events-none absolute left-[50%] top-[74.5%] z-10 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316]/25 blur-3xl"
             />
           </motion.div>
 

@@ -27,8 +27,7 @@ const navigationItems = [
 ];
 
 export function CinematicHero() {
-  const sectionRef =
-    useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const reduceMotion = useReducedMotion();
 
@@ -88,57 +87,58 @@ export function CinematicHero() {
   return (
     <section
       ref={sectionRef}
-      id="top"
-      className="relative h-[135vh] bg-black text-white"
+      id="cinematic"
+      className="relative h-[135vh] bg-white text-[#171717]"
     >
-      <div className="sticky top-0 h-screen overflow-hidden bg-black">
+      <div className="sticky top-0 h-screen overflow-hidden bg-white">
+        {/* Header */}
         <header className="absolute inset-x-0 top-0 z-30">
           <div className="section-shell flex h-24 items-center justify-between">
-            <a
-              href="#top"
-              aria-label="Zurück zum Seitenanfang"
-              className="shrink-0"
-            >
+            <div className="shrink-0">
               <Logo />
-            </a>
+            </div>
 
             <nav
               aria-label="Hauptnavigation"
-              className="hidden items-center gap-9 text-sm text-white/55 md:flex"
+              className="hidden items-center gap-9 text-sm text-black/45 md:flex"
             >
-              {navigationItems.map(
-                ({ label, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    className="transition-colors duration-300 hover:text-white"
-                  >
-                    {label}
-                  </a>
-                ),
-              )}
+              {navigationItems.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="transition-colors duration-300 hover:text-black"
+                >
+                  {label}
+                </a>
+              ))}
             </nav>
 
             <a
               href="#kontakt"
-              className="rounded-full border border-white/15 px-5 py-2.5 text-sm text-white/75 transition duration-300 hover:border-white/30 hover:bg-white/[0.04] hover:text-white"
+              className="rounded-full border border-[#F97316]/35 px-5 py-2.5 text-sm font-medium text-black/65 transition duration-300 hover:border-[#F97316] hover:bg-[#FFF5ED] hover:text-black"
             >
               Kontakt
             </a>
           </div>
         </header>
 
-        {/* Very subtle background light */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_67%,rgba(255,255,255,0.025),transparent_30%)]" />
+        {/* Soft white / orange background */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_67%,rgba(249,115,22,0.045),transparent_32%)]" />
 
+        <div className="pointer-events-none absolute left-[10%] top-[20%] h-[30rem] w-[30rem] rounded-full bg-[#F97316]/[0.025] blur-[150px]" />
+
+        <div className="pointer-events-none absolute right-[5%] bottom-[5%] h-[34rem] w-[34rem] rounded-full bg-[#F97316]/[0.035] blur-[170px]" />
+
+        {/* Main orange glow behind device */}
         <motion.div
           style={{
             opacity: glowOpacity,
           }}
-          className="pointer-events-none absolute left-1/2 top-[65%] h-[22rem] w-[22rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/16 blur-[170px]"
+          className="pointer-events-none absolute left-1/2 top-[65%] h-[22rem] w-[22rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316]/14 blur-[170px]"
         />
 
         <div className="relative mx-auto flex h-full max-w-[1500px] flex-col items-center justify-center px-6 pt-24">
+          {/* Title */}
           <motion.div
             style={{
               opacity: titleOpacity,
@@ -146,15 +146,16 @@ export function CinematicHero() {
             }}
             className="absolute top-[11%] z-20 text-center sm:top-[10%]"
           >
-            <h1 className="text-[clamp(2.7rem,7vw,7rem)] font-semibold leading-[0.92] tracking-[-0.065em]">
+            <h1 className="text-[clamp(2.7rem,7vw,7rem)] font-semibold leading-[0.92] tracking-[-0.065em] text-[#171717]">
               Nie wieder umsonst
             </h1>
 
-            <p className="mt-3 text-[clamp(2.7rem,6.5vw,6.4rem)] font-semibold leading-[0.94] tracking-[-0.06em] text-white/32">
+            <p className="mt-3 text-[clamp(2.7rem,6.5vw,6.4rem)] font-semibold leading-[0.94] tracking-[-0.06em] text-[#F97316]">
               zum Briefkasten.
             </p>
           </motion.div>
 
+          {/* Device */}
           <motion.div
             style={{
               scale: deviceScale,
@@ -162,8 +163,6 @@ export function CinematicHero() {
             }}
             className="relative mt-72 w-[min(80vw,610px)] sm:mt-80"
           >
-            {/* Soft edge fade prevents the image background
-                from appearing as a visible rectangle */}
             <div
               className="relative"
               style={{
@@ -189,7 +188,7 @@ export function CinematicHero() {
               style={{
                 opacity: ledOpacity,
               }}
-              className="pointer-events-none absolute left-[50%] top-[74.2%] z-20 h-[2.2%] w-[2.2%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] shadow-[0_0_10px_3px_rgba(255,198,42,0.95),0_0_34px_12px_rgba(255,198,42,0.42)]"
+              className="pointer-events-none absolute left-[50%] top-[74.2%] z-20 h-[2.2%] w-[2.2%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316] shadow-[0_0_10px_3px_rgba(249,115,22,0.95),0_0_34px_12px_rgba(249,115,22,0.42)]"
             />
 
             {/* LED halo */}
@@ -197,10 +196,11 @@ export function CinematicHero() {
               style={{
                 opacity: glowOpacity,
               }}
-              className="pointer-events-none absolute left-[50%] top-[74.2%] z-10 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a]/30 blur-3xl"
+              className="pointer-events-none absolute left-[50%] top-[74.2%] z-10 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316]/30 blur-3xl"
             />
           </motion.div>
 
+          {/* Signal message */}
           <motion.div
             style={{
               opacity: messageOpacity,
@@ -208,22 +208,23 @@ export function CinematicHero() {
             }}
             className="absolute bottom-[7%] text-center"
           >
-            <p className="text-sm font-medium tracking-[0.04em] text-[#ffc62a] sm:text-base">
+            <p className="text-sm font-semibold tracking-[0.04em] text-[#F97316] sm:text-base">
               Neue Post ist angekommen.
             </p>
           </motion.div>
 
+          {/* Scroll */}
           <motion.div
             style={{
               opacity: titleOpacity,
             }}
             className="absolute bottom-7 text-center"
           >
-            <p className="text-[10px] uppercase tracking-[0.32em] text-white/28">
+            <p className="text-[10px] uppercase tracking-[0.32em] text-black/28">
               Scroll
             </p>
 
-            <div className="mx-auto mt-3 h-8 w-px bg-gradient-to-b from-white/35 to-transparent" />
+            <div className="mx-auto mt-3 h-8 w-px bg-gradient-to-b from-black/30 to-transparent" />
           </motion.div>
         </div>
       </div>

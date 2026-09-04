@@ -71,7 +71,7 @@ export function CinematicHero() {
     <section
       ref={sectionRef}
       id="cinematic"
-      className="relative h-[135vh] bg-[#ffffff] text-[#171717]"
+      className="relative h-[115vh] bg-[#ffffff] text-[#171717]"
     >
       <div className="sticky top-0 h-screen overflow-hidden bg-[#ffffff]">
         {/* Very soft orange atmosphere */}

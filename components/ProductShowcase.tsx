@@ -96,7 +96,7 @@ export function ProductShowcase() {
     <section
       ref={sectionRef}
       id="produkt"
-      className="relative -mt-[24vh] h-[115vh] scroll-mt-24 bg-white text-[#171717]"
+      className="relative -mt-[32vh] h-[115vh] scroll-mt-24 bg-white text-[#171717]"
     >
       <div className="sticky top-0 h-screen overflow-hidden bg-white">
         {/* Smooth transition from previous white section */}

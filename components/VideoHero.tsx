@@ -26,9 +26,7 @@ export function VideoHero() {
       id="video-hero"
       className="relative h-screen min-h-[720px] overflow-hidden bg-black text-white"
     >
-      {/* =========================================================
-          FULLSCREEN HERO VIDEO
-          ========================================================= */}
+      {/* Fullscreen video */}
       <video
         autoPlay
         muted
@@ -43,61 +41,54 @@ export function VideoHero() {
         />
       </video>
 
-      {/* =========================================================
-          CINEMATIC OVERLAYS
-          ویدیو را خراب نمی‌کند؛ فقط متن را خواناتر می‌کند
-          ========================================================= */}
-
-      {/* subtle overall cinematic treatment */}
+      {/* Cinematic overlays */}
       <div className="pointer-events-none absolute inset-0 bg-black/[0.08]" />
 
-      {/* dark gradient for text area */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.62)_0%,rgba(0,0,0,0.36)_30%,rgba(0,0,0,0.08)_58%,transparent_78%)]" />
 
-      {/* top gradient for navigation */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-black/50 via-black/20 to-transparent" />
 
-      {/* bottom cinematic fade */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
 
-      {/* =========================================================
-          HEADER
-          ========================================================= */}
+      {/* Header */}
       <header className="absolute inset-x-0 top-0 z-40">
-        <div className="section-shell flex h-24 items-center justify-between">
-          <div className="shrink-0 text-white">
-            <Logo />
+        <div className="section-shell">
+          <div className="flex h-24 items-center justify-between">
+            <div className="shrink-0 text-white">
+              <Logo />
+            </div>
+
+            <nav
+              aria-label="Hauptnavigation"
+              className="hidden items-center gap-9 text-sm font-medium text-white/70 md:flex"
+            >
+              {navigationItems.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="transition-colors duration-300 hover:text-white"
+                >
+                  {label}
+                </a>
+              ))}
+            </nav>
+
+            <a
+              href="#kontakt"
+              className="rounded-full border border-white/25 bg-white/10 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:border-white/45 hover:bg-white/20"
+            >
+              Kontakt
+            </a>
           </div>
 
-          <nav
-            aria-label="Hauptnavigation"
-            className="hidden items-center gap-9 text-sm font-medium text-white/70 md:flex"
-          >
-            {navigationItems.map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                className="transition-colors duration-300 hover:text-white"
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
-
-          <a
-            href="#kontakt"
-            className="rounded-full border border-white/25 bg-white/10 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:border-white/45 hover:bg-white/20"
-          >
-            Kontakt
-          </a>
+          {/* Thin premium divider */}
+          <div className="h-px w-full bg-white/15" />
         </div>
       </header>
 
-      {/* =========================================================
-          HERO CONTENT
-          ========================================================= */}
+      {/* Hero content */}
       <div className="section-shell relative z-20 flex h-full items-end pb-24 sm:pb-28 lg:items-center lg:pb-0">
-        <div className="max-w-3xl lg:-translate-y-2">
+        <div className="max-w-2xl lg:translate-y-8">
           <motion.p
             initial={
               reduceMotion
@@ -139,7 +130,7 @@ export function VideoHero() {
               delay: reduceMotion ? 0 : 0.25,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="max-w-[9ch] text-[clamp(4rem,7.4vw,8.8rem)] font-semibold leading-[0.88] tracking-[-0.07em] text-white"
+            className="max-w-[10ch] text-[clamp(3.2rem,5.4vw,6.5rem)] font-semibold leading-[0.9] tracking-[-0.065em] text-white"
           >
             Post da.
             <span className="block text-[#F97316]">
@@ -212,9 +203,7 @@ export function VideoHero() {
         </div>
       </div>
 
-      {/* =========================================================
-          BOTTOM META
-          ========================================================= */}
+      {/* Bottom meta */}
       <motion.div
         initial={
           reduceMotion
@@ -241,9 +230,7 @@ export function VideoHero() {
         </p>
       </motion.div>
 
-      {/* =========================================================
-          SCROLL INDICATOR
-          ========================================================= */}
+      {/* Scroll indicator */}
       <motion.a
         href="#cinematic"
         initial={

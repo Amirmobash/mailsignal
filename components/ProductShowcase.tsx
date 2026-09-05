@@ -96,7 +96,7 @@ export function ProductShowcase() {
     <section
       ref={sectionRef}
       id="produkt"
-      className="relative h-[115vh] scroll-mt-24 bg-white text-[#171717]"
+      className="relative -mt-[18vh] h-[115vh] scroll-mt-24 bg-white text-[#171717]"
     >
       <div className="sticky top-0 h-screen overflow-hidden bg-white">
         {/* Smooth transition from previous white section */}
@@ -121,11 +121,6 @@ export function ProductShowcase() {
               }}
               className="relative flex h-[58vh] min-h-[480px] items-center justify-center lg:h-[76vh]"
             >
-              {/*
-               * Inner wrapper matches the image itself.
-               * This makes the LED overlay stay attached
-               * to the device instead of the outer column.
-               */}
               <div className="relative aspect-[1234/1280] h-full max-h-[76vh] max-w-full">
                 <Image
                   src={productMailboxLight}

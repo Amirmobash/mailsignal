@@ -59,7 +59,7 @@ const steps: Step[] = [
 
     signalLedPosition: {
       left: '66.1%',
-      top: '90%',
+      top: '92%',
     },
   },
   {

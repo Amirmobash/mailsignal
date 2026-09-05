@@ -49,7 +49,7 @@ function StoryPanel({
         duration: 0.7,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className={`relative flex min-h-[64vh] items-center justify-center px-6 py-14 sm:py-16 ${className}`}
+      className={`relative flex min-h-[58vh] items-center justify-center px-6 py-10 sm:py-12 ${className}`}
     >
       {children}
     </motion.div>
@@ -67,10 +67,10 @@ function CountPanel({ value }: CountPanelProps) {
   const showCountLabel = value === 4;
 
   return (
-    <StoryPanel className="min-h-[62vh]">
+    <StoryPanel className="min-h-[56vh]">
       <div className="text-center">
         {showCountLabel && (
-          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] opacity-45 sm:text-xs">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] opacity-55 sm:text-xs">
             Unnötige Wege heute
           </p>
         )}
@@ -103,9 +103,9 @@ function CountPanel({ value }: CountPanelProps) {
               ? undefined
               : {
                   textShadow: [
-                    '0 0 0 rgba(255,198,42,0)',
-                    '0 0 55px rgba(255,198,42,0.18)',
-                    '0 0 0 rgba(255,198,42,0)',
+                    '0 0 0 rgba(249,115,22,0)',
+                    '0 0 55px rgba(249,115,22,0.22)',
+                    '0 0 0 rgba(249,115,22,0)',
                   ],
                 }
           }
@@ -116,7 +116,7 @@ function CountPanel({ value }: CountPanelProps) {
           {value}
         </motion.div>
 
-        <p className="mt-8 text-sm leading-6 opacity-45 sm:text-base">
+        <p className="mt-8 text-sm leading-6 opacity-55 sm:text-base">
           {isZero ? (
             'Kein unnötiger Weg mehr.'
           ) : (
@@ -158,26 +158,45 @@ export function MinimalStory() {
     offset: ['start start', 'end end'],
   });
 
+  /*
+   * Background transition
+   *
+   * Dark Pumpkin
+   *      ↓
+   * Warm orange
+   *      ↓
+   * Peach
+   *      ↓
+   * Very light peach
+   *      ↓
+   * White
+   */
   const backgroundColor = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.52, 0.77, 1],
+    [0, 0.24, 0.5, 0.76, 1],
     [
-      '#050504',
-      '#17130d',
-      '#403726',
-      '#998b6d',
-      '#f1e5ca',
+      '#2A1208',
+      '#7C2D12',
+      '#EA580C',
+      '#FFE1CC',
+      '#FFFFFF',
     ],
   );
 
+  /*
+   * Text automatically changes
+   * from white to dark as the
+   * background becomes brighter.
+   */
   const textColor = useTransform(
     scrollYProgress,
-    [0, 0.6, 0.81, 1],
+    [0, 0.52, 0.7, 0.84, 1],
     [
-      '#ffffff',
-      '#fff7e7',
-      '#4a3d2e',
-      '#19130f',
+      '#FFFFFF',
+      '#FFF7ED',
+      '#FFF7ED',
+      '#4A2414',
+      '#171717',
     ],
   );
 
@@ -195,8 +214,8 @@ export function MinimalStory() {
 
   const glowOpacity = useTransform(
     scrollYProgress,
-    [0, 0.52, 0.81, 1],
-    [0.11, 0.09, 0.055, 0.025],
+    [0, 0.4, 0.72, 1],
+    [0.18, 0.13, 0.07, 0.025],
   );
 
   function handleMouseMove(
@@ -242,34 +261,36 @@ export function MinimalStory() {
       }}
       className="relative overflow-hidden"
     >
+      {/* Moving Pumpkin glow */}
       <motion.div
         style={{
           left: glowX,
           top: glowY,
           opacity: glowOpacity,
         }}
-        className="pointer-events-none fixed z-0 h-[42rem] w-[42rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ffc62a] blur-[200px]"
+        className="pointer-events-none fixed z-0 h-[42rem] w-[42rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F97316] blur-[200px]"
       />
 
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.025),transparent_46%)]" />
+      {/* Very subtle atmosphere */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.07),transparent_48%)]" />
 
       <div className="section-shell relative z-10">
-        {/* Intro */}
-        <StoryPanel className="min-h-[62vh] py-10">
+        {/* INTRO */}
+        <StoryPanel className="min-h-[58vh] py-10">
           <div className="max-w-5xl text-center">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#ffc62a] sm:text-xs">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#FF8A2A] sm:text-xs">
               Ein ganz normaler Tag
             </p>
 
             <h2 className="mt-6 text-balance text-4xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-[5.5rem]">
               Vier Wege.
 
-              <span className="block opacity-40">
+              <span className="block opacity-45">
                 Keiner davon nötig.
               </span>
             </h2>
 
-            <p className="mx-auto mt-7 max-w-xl text-base leading-7 opacity-45 sm:text-lg sm:leading-8">
+            <p className="mx-auto mt-7 max-w-xl text-base leading-7 opacity-55 sm:text-lg sm:leading-8">
               Immer wieder nachsehen. Immer wieder nichts.
             </p>
 
@@ -279,7 +300,7 @@ export function MinimalStory() {
                   ? undefined
                   : {
                       y: [0, 7, 0],
-                      opacity: [0.25, 0.65, 0.25],
+                      opacity: [0.3, 0.75, 0.3],
                     }
               }
               transition={{
@@ -287,34 +308,35 @@ export function MinimalStory() {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="mx-auto mt-10 text-[9px] font-semibold uppercase tracking-[0.25em] opacity-35"
+              className="mx-auto mt-10 text-[9px] font-semibold uppercase tracking-[0.25em] opacity-45"
             >
               Scroll
             </motion.div>
           </div>
         </StoryPanel>
 
-        {/* Counting sequence */}
+        {/* COUNTING */}
         <CountPanel value={4} />
         <CountPanel value={3} />
         <CountPanel value={2} />
         <CountPanel value={1} />
         <CountPanel value={0} />
 
-        {/* Final message */}
-        <StoryPanel className="min-h-[82vh]">
+        {/* FINAL */}
+        <StoryPanel className="min-h-[70vh]">
           <div className="max-w-5xl text-center">
+            {/* MailSignal LED */}
             <motion.div
               animate={
                 reduceMotion
                   ? undefined
                   : {
-                      opacity: [0.38, 1, 0.38],
+                      opacity: [0.4, 1, 0.4],
                       scale: [0.72, 1.35, 0.72],
                       boxShadow: [
-                        '0 0 0 rgba(255,198,42,0)',
-                        '0 0 18px rgba(255,198,42,0.95), 0 0 70px rgba(255,198,42,0.65)',
-                        '0 0 0 rgba(255,198,42,0)',
+                        '0 0 0 rgba(249,115,22,0)',
+                        '0 0 18px rgba(249,115,22,0.95), 0 0 70px rgba(249,115,22,0.55)',
+                        '0 0 0 rgba(249,115,22,0)',
                       ],
                     }
               }
@@ -323,18 +345,14 @@ export function MinimalStory() {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="mx-auto h-5 w-5 rounded-full bg-[#ffc62a]"
+              className="mx-auto h-5 w-5 rounded-full bg-[#F97316]"
             />
 
             <h2 className="mt-9 text-balance text-4xl font-semibold leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-[5.5rem]">
               Und genau dafür gibt es MailSignal.
-
-              <span className="block">
-                
-              </span>
             </h2>
 
-            <p className="mx-auto mt-7 max-w-xl text-base leading-7 opacity-50 sm:text-lg sm:leading-8">
+            <p className="mx-auto mt-7 max-w-xl text-base leading-7 opacity-60 sm:text-lg sm:leading-8">
               Ein kleines Signal. Ein großer Unterschied.
             </p>
 
@@ -352,9 +370,9 @@ export function MinimalStory() {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="mx-auto mt-14 flex flex-col items-center gap-2"
+              className="mx-auto mt-12 flex flex-col items-center gap-2"
             >
-              <span className="text-[9px] font-semibold uppercase tracking-[0.25em] opacity-45">
+              <span className="text-[9px] font-semibold uppercase tracking-[0.25em] opacity-50">
                 Fragen & Antworten
               </span>
 

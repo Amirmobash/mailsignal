@@ -1,20 +1,19 @@
 #include <EEPROM.h>
 
 constexpr uint8_t SENSOR_PIN = 2;
-constexpr uint8_t RESET_PIN  = 3;
-constexpr uint8_t LED_PIN    = 9;
+constexpr uint8_t RESET_PIN = 3;
+constexpr uint8_t LED_PIN = 9;
 
-constexpr uint16_t ENTPRELLZEIT_MS = 40;
-constexpr uint16_t RESETZEIT_MS    = 1200;
+constexpr unsigned long ENTPRELLZEIT_MS = 40;
+constexpr unsigned long RESETZEIT_MS = 1200;
 
 constexpr int EEPROM_ADRESSE = 0;
 constexpr uint8_t STATUS_AUS = 0x3C;
-constexpr uint8_t STATUS_AN  = 0xC3;
-
+constexpr uint8_t STATUS_AN = 0xC3;
 
 class Eingang {
 public:
-  Eingang(uint8_t pin, uint16_t entprellzeit)
+  Eingang(uint8_t pin, unsigned long entprellzeit)
       : pin_(pin), entprellzeit_(entprellzeit) {}
 
   void starten() {
@@ -29,11 +28,11 @@ public:
   void aktualisieren() {
     vorherigerZustand_ = zustand_;
 
-    const bool neuerZustand = digitalRead(pin_);
+    const bool gelesen = digitalRead(pin_);
     const unsigned long jetzt = millis();
 
-    if (neuerZustand != rohzustand_) {
-      rohzustand_ = neuerZustand;
+    if (gelesen != rohzustand_) {
+      rohzustand_ = gelesen;
       letzteAenderung_ = jetzt;
     }
 
@@ -56,8 +55,8 @@ public:
   }
 
 private:
-  uint8_t pin_;
-  uint16_t entprellzeit_;
+  const uint8_t pin_;
+  const unsigned long entprellzeit_;
 
   bool rohzustand_ = HIGH;
   bool zustand_ = HIGH;
@@ -65,7 +64,6 @@ private:
 
   unsigned long letzteAenderung_ = 0;
 };
-
 
 Eingang klappensensor(SENSOR_PIN, ENTPRELLZEIT_MS);
 Eingang resetTaste(RESET_PIN, ENTPRELLZEIT_MS);
@@ -75,29 +73,29 @@ bool resetLaeuft = false;
 
 unsigned long resetStartzeit = 0;
 
-
 void ledAktualisieren() {
   digitalWrite(LED_PIN, postVorhanden ? HIGH : LOW);
 }
 
 void statusSpeichern() {
-  const uint8_t wert = postVorhanden ? STATUS_AN : STATUS_AUS;
-  EEPROM.update(EEPROM_ADRESSE, wert);
+  EEPROM.update(
+      EEPROM_ADRESSE,
+      postVorhanden ? STATUS_AN : STATUS_AUS
+  );
 }
 
 void statusLaden() {
-  const uint8_t wert = EEPROM.read(EEPROM_ADRESSE);
+  const uint8_t gespeicherterStatus = EEPROM.read(EEPROM_ADRESSE);
 
-  if (wert == STATUS_AN) {
+  if (gespeicherterStatus == STATUS_AN) {
     postVorhanden = true;
-    return;
-  }
+  } else {
+    postVorhanden = false;
 
-  postVorhanden = false;
-
-  // Einen uninitialisierten EEPROM auf einen gültigen Zustand setzen.
-  if (wert != STATUS_AUS) {
-    statusSpeichern();
+    // Ungültigen bzw. uninitialisierten EEPROM-Inhalt korrigieren.
+    if (gespeicherterStatus != STATUS_AUS) {
+      statusSpeichern();
+    }
   }
 }
 
@@ -111,7 +109,7 @@ void postStatusSetzen(bool vorhanden) {
   ledAktualisieren();
 }
 
-void sensorVerarbeiten() {
+void klappensensorPruefen() {
   klappensensor.aktualisieren();
 
   if (klappensensor.wurdeAktiviert()) {
@@ -119,8 +117,9 @@ void sensorVerarbeiten() {
   }
 }
 
-void resetVerarbeiten() {
+void resetTastePruefen() {
   resetTaste.aktualisieren();
+
   const unsigned long jetzt = millis();
 
   if (resetTaste.wurdeAktiviert()) {
@@ -151,6 +150,6 @@ void setup() {
 }
 
 void loop() {
-  sensorVerarbeiten();
-  resetVerarbeiten();
+  klappensensorPruefen();
+  resetTastePruefen();
 }

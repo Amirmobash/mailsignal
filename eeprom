@@ -1,161 +1,142 @@
 #include <EEPROM.h>
 
 constexpr uint8_t SENSOR_PIN = 2;
-constexpr uint8_t RESET_PIN = 3;
-constexpr uint8_t LED_PIN = 9;
+constexpr uint8_t RESET_PIN  = 3;
+constexpr uint8_t LED_PIN    = 9;
 
 constexpr uint16_t ENTPRELLZEIT_MS = 40;
-constexpr uint16_t RESETZEIT_MS = 1200;
+constexpr uint16_t RESETZEIT_MS    = 1200;
 
 constexpr int EEPROM_ADRESSE = 0;
 constexpr uint8_t STATUS_AUS = 0x3C;
-constexpr uint8_t STATUS_AN = 0xC3;
+constexpr uint8_t STATUS_AN  = 0xC3;
+
 
 class Eingang {
 public:
   Eingang(uint8_t pin, uint16_t entprellzeit)
-      : pin(pin),
-        entprellzeit(entprellzeit),
-        rohzustand(HIGH),
-        zustand(HIGH),
-        vorherigerZustand(HIGH),
-        wechselzeit(0) {}
+      : pin_(pin), entprellzeit_(entprellzeit) {}
 
   void starten() {
-    pinMode(pin, INPUT_PULLUP);
-    rohzustand = digitalRead(pin);
-    zustand = rohzustand;
-    vorherigerZustand = zustand;
-    wechselzeit = millis();
+    pinMode(pin_, INPUT_PULLUP);
+
+    rohzustand_ = digitalRead(pin_);
+    zustand_ = rohzustand_;
+    vorherigerZustand_ = zustand_;
+    letzteAenderung_ = millis();
   }
 
   void aktualisieren() {
-    vorherigerZustand = zustand;
+    vorherigerZustand_ = zustand_;
 
-    bool neuerRohzustand = digitalRead(pin);
-    unsigned long jetzt = millis();
+    const bool neuerZustand = digitalRead(pin_);
+    const unsigned long jetzt = millis();
 
-    if (neuerRohzustand != rohzustand) {
-      rohzustand = neuerRohzustand;
-      wechselzeit = jetzt;
+    if (neuerZustand != rohzustand_) {
+      rohzustand_ = neuerZustand;
+      letzteAenderung_ = jetzt;
     }
 
-    if (
-      zustand != rohzustand &&
-      jetzt - wechselzeit >= entprellzeit
-    ) {
-      zustand = rohzustand;
+    if (zustand_ != rohzustand_ &&
+        jetzt - letzteAenderung_ >= entprellzeit_) {
+      zustand_ = rohzustand_;
     }
   }
 
-  bool aktiv() const {
-    return zustand == LOW;
+  bool istAktiv() const {
+    return zustand_ == LOW;
   }
 
-  bool aktiviert() const {
-    return vorherigerZustand == HIGH && zustand == LOW;
+  bool wurdeAktiviert() const {
+    return vorherigerZustand_ == HIGH && zustand_ == LOW;
   }
 
-  bool deaktiviert() const {
-    return vorherigerZustand == LOW && zustand == HIGH;
+  bool wurdeLosgelassen() const {
+    return vorherigerZustand_ == LOW && zustand_ == HIGH;
   }
 
 private:
-  uint8_t pin;
-  uint16_t entprellzeit;
-  bool rohzustand;
-  bool zustand;
-  bool vorherigerZustand;
-  unsigned long wechselzeit;
+  uint8_t pin_;
+  uint16_t entprellzeit_;
+
+  bool rohzustand_ = HIGH;
+  bool zustand_ = HIGH;
+  bool vorherigerZustand_ = HIGH;
+
+  unsigned long letzteAenderung_ = 0;
 };
+
 
 Eingang klappensensor(SENSOR_PIN, ENTPRELLZEIT_MS);
 Eingang resetTaste(RESET_PIN, ENTPRELLZEIT_MS);
 
 bool postVorhanden = false;
-bool resetGestartet = false;
-bool resetAusgefuehrt = false;
+bool resetLaeuft = false;
 
 unsigned long resetStartzeit = 0;
 
-void ausgangAktualisieren() {
+
+void ledAktualisieren() {
   digitalWrite(LED_PIN, postVorhanden ? HIGH : LOW);
 }
 
 void statusSpeichern() {
-  uint8_t neuerWert = postVorhanden ? STATUS_AN : STATUS_AUS;
-
-  if (EEPROM.read(EEPROM_ADRESSE) != neuerWert) {
-    EEPROM.update(EEPROM_ADRESSE, neuerWert);
-  }
+  const uint8_t wert = postVorhanden ? STATUS_AN : STATUS_AUS;
+  EEPROM.update(EEPROM_ADRESSE, wert);
 }
 
 void statusLaden() {
-  uint8_t gespeicherterWert = EEPROM.read(EEPROM_ADRESSE);
+  const uint8_t wert = EEPROM.read(EEPROM_ADRESSE);
 
-  if (gespeicherterWert == STATUS_AN) {
+  if (wert == STATUS_AN) {
     postVorhanden = true;
-  } else {
-    postVorhanden = false;
-
-    if (gespeicherterWert != STATUS_AUS) {
-      statusSpeichern();
-    }
-  }
-}
-
-void postMelden() {
-  if (postVorhanden) {
-    return;
-  }
-
-  postVorhanden = true;
-  statusSpeichern();
-  ausgangAktualisieren();
-}
-
-void postZuruecksetzen() {
-  if (!postVorhanden) {
     return;
   }
 
   postVorhanden = false;
+
+  // Einen uninitialisierten EEPROM auf einen gültigen Zustand setzen.
+  if (wert != STATUS_AUS) {
+    statusSpeichern();
+  }
+}
+
+void postStatusSetzen(bool vorhanden) {
+  if (postVorhanden == vorhanden) {
+    return;
+  }
+
+  postVorhanden = vorhanden;
   statusSpeichern();
-  ausgangAktualisieren();
+  ledAktualisieren();
 }
 
 void sensorVerarbeiten() {
   klappensensor.aktualisieren();
 
-  if (klappensensor.aktiviert()) {
-    postMelden();
+  if (klappensensor.wurdeAktiviert()) {
+    postStatusSetzen(true);
   }
 }
 
 void resetVerarbeiten() {
   resetTaste.aktualisieren();
+  const unsigned long jetzt = millis();
 
-  unsigned long jetzt = millis();
-
-  if (resetTaste.aktiviert()) {
-    resetGestartet = true;
-    resetAusgefuehrt = false;
+  if (resetTaste.wurdeAktiviert()) {
     resetStartzeit = jetzt;
+    resetLaeuft = true;
   }
 
-  if (
-    resetTaste.aktiv() &&
-    resetGestartet &&
-    !resetAusgefuehrt &&
-    jetzt - resetStartzeit >= RESETZEIT_MS
-  ) {
-    postZuruecksetzen();
-    resetAusgefuehrt = true;
+  if (resetLaeuft &&
+      resetTaste.istAktiv() &&
+      jetzt - resetStartzeit >= RESETZEIT_MS) {
+    postStatusSetzen(false);
+    resetLaeuft = false;
   }
 
-  if (resetTaste.deaktiviert()) {
-    resetGestartet = false;
-    resetAusgefuehrt = false;
+  if (resetTaste.wurdeLosgelassen()) {
+    resetLaeuft = false;
   }
 }
 
@@ -166,7 +147,7 @@ void setup() {
   resetTaste.starten();
 
   statusLaden();
-  ausgangAktualisieren();
+  ledAktualisieren();
 }
 
 void loop() {
